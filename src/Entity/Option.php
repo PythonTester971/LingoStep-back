@@ -23,6 +23,9 @@ class Option
     #[ORM\Column]
     private ?bool $isCorrect = null;
 
+    #[ORM\ManyToOne(inversedBy: 'options')]
+    private ?Question $question = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -60,6 +63,18 @@ class Option
     public function setIsCorrect(bool $isCorrect): static
     {
         $this->isCorrect = $isCorrect;
+
+        return $this;
+    }
+
+    public function getQuestion(): ?Question
+    {
+        return $this->question;
+    }
+
+    public function setQuestion(?Question $question): static
+    {
+        $this->question = $question;
 
         return $this;
     }
