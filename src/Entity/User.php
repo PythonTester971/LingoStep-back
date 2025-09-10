@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -47,6 +49,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToOne(inversedBy: 'users')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Language $language = null;
+
+    /**
+     * @var Collection<int, LanguageCourse>
+     */
+    #[ORM\ManyToMany(targetEntity: LanguageCourse::class, mappedBy: 'users')]
+    private Collection $languageCourses;
+
+    public function __construct()
+    {
+        $this->languageCourses = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -185,6 +198,33 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setLanguage(?Language $language): static
     {
         $this->language = $language;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, LanguageCourse>
+     */
+    public function getLanguageCourses(): Collection
+    {
+        return $this->languageCourses;
+    }
+
+    public function addLanguageCourse(LanguageCourse $languageCourse): static
+    {
+        if (!$this->languageCourses->contains($languageCourse)) {
+            $this->languageCourses->add($languageCourse);
+            $languageCourse->addUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLanguageCourse(LanguageCourse $languageCourse): static
+    {
+        if ($this->languageCourses->removeElement($languageCourse)) {
+            $languageCourse->removeUser($this);
+        }
 
         return $this;
     }
