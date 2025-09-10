@@ -45,9 +45,16 @@ class LanguageCourse
     #[ORM\JoinColumn(nullable: false)]
     private ?Language $Language = null;
 
+    /**
+     * @var Collection<int, Mission>
+     */
+    #[ORM\OneToMany(targetEntity: Mission::class, mappedBy: 'languageCourse', orphanRemoval: true)]
+    private Collection $missions;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
+        $this->missions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -159,6 +166,36 @@ class LanguageCourse
     public function setLanguage(Language $Language): static
     {
         $this->Language = $Language;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Mission>
+     */
+    public function getMissions(): Collection
+    {
+        return $this->missions;
+    }
+
+    public function addMission(Mission $mission): static
+    {
+        if (!$this->missions->contains($mission)) {
+            $this->missions->add($mission);
+            $mission->setLanguageCourse($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMission(Mission $mission): static
+    {
+        if ($this->missions->removeElement($mission)) {
+            // set the owning side to null (unless already changed)
+            if ($mission->getLanguageCourse() === $this) {
+                $mission->setLanguageCourse(null);
+            }
+        }
 
         return $this;
     }

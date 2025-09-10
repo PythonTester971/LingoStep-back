@@ -32,6 +32,10 @@ class Mission
     #[ORM\Column]
     private ?\DateTimeImmutable $updatedAt = null;
 
+    #[ORM\ManyToOne(inversedBy: 'missions')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?LanguageCourse $languageCourse = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -105,6 +109,18 @@ class Mission
     public function setUpdatedAt(\DateTimeImmutable $updatedAt): static
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getLanguageCourse(): ?LanguageCourse
+    {
+        return $this->languageCourse;
+    }
+
+    public function setLanguageCourse(?LanguageCourse $languageCourse): static
+    {
+        $this->languageCourse = $languageCourse;
 
         return $this;
     }
