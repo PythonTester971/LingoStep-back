@@ -1,13 +1,19 @@
-// 1. Définir tes couleurs AVANT l'import de Bootstrap
-$primary: #6a1b9a; // violet personnalisé
-$secondary: #00897b;
-$body-bg: #f8f9fa;
+// Import Bootstrap from node_modules
+@import "../../node_modules/bootstrap/scss/bootstrap";
 
-// 2. Importer Bootstrap
-@import "bootstrap/scss/bootstrap";
-
-// 3. Ajouter tes styles persos
+// Custom styles
 .my-custom-btn {
   background-color: $primary;
-  border-radius: 12px;
+  border-radius: $border-radius-lg;
+  padding: 0.5rem 1rem;
+}
+
+// Additional global styles
+body {
+  min-height: 100vh;
+}
+
+.container {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
 }
