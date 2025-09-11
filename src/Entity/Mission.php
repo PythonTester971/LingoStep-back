@@ -44,9 +44,16 @@ class Mission
     #[ORM\OneToMany(targetEntity: Question::class, mappedBy: 'mission')]
     private Collection $questions;
 
+    /**
+     * @var Collection<int, AnsweredQuestion>
+     */
+    #[ORM\OneToMany(targetEntity: AnsweredQuestion::class, mappedBy: 'mission')]
+    private Collection $answeredQuestions;
+
     public function __construct()
     {
         $this->questions = new ArrayCollection();
+        $this->answeredQuestions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -162,6 +169,36 @@ class Mission
             // set the owning side to null (unless already changed)
             if ($question->getMission() === $this) {
                 $question->setMission(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, AnsweredQuestion>
+     */
+    public function getAnsweredQuestions(): Collection
+    {
+        return $this->answeredQuestions;
+    }
+
+    public function addAnsweredQuestion(AnsweredQuestion $answeredQuestion): static
+    {
+        if (!$this->answeredQuestions->contains($answeredQuestion)) {
+            $this->answeredQuestions->add($answeredQuestion);
+            $answeredQuestion->setMission($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAnsweredQuestion(AnsweredQuestion $answeredQuestion): static
+    {
+        if ($this->answeredQuestions->removeElement($answeredQuestion)) {
+            // set the owning side to null (unless already changed)
+            if ($answeredQuestion->getMission() === $this) {
+                $answeredQuestion->setMission(null);
             }
         }
 

@@ -32,6 +32,9 @@ class Question
     #[ORM\OneToMany(targetEntity: Option::class, mappedBy: 'question')]
     private Collection $options;
 
+    #[ORM\OneToOne(mappedBy: 'question', cascade: ['persist', 'remove'])]
+    private ?AnsweredQuestion $answeredQuestion = null;
+
     public function __construct()
     {
         $this->options = new ArrayCollection();
@@ -104,6 +107,28 @@ class Question
                 $option->setQuestion(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getAnsweredQuestion(): ?AnsweredQuestion
+    {
+        return $this->answeredQuestion;
+    }
+
+    public function setAnsweredQuestion(?AnsweredQuestion $answeredQuestion): static
+    {
+        // unset the owning side of the relation if necessary
+        if ($answeredQuestion === null && $this->answeredQuestion !== null) {
+            $this->answeredQuestion->setQuestion(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($answeredQuestion !== null && $answeredQuestion->getQuestion() !== $this) {
+            $answeredQuestion->setQuestion($this);
+        }
+
+        $this->answeredQuestion = $answeredQuestion;
 
         return $this;
     }

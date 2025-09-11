@@ -58,9 +58,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToMany(targetEntity: LanguageCourse::class, mappedBy: 'users')]
     private Collection $languageCourses;
 
+    /**
+     * @var Collection<int, AnsweredQuestion>
+     */
+    #[ORM\OneToMany(targetEntity: AnsweredQuestion::class, mappedBy: 'user')]
+    private Collection $answeredQuestions;
+
     public function __construct()
     {
         $this->languageCourses = new ArrayCollection();
+        $this->answeredQuestions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -226,6 +233,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if ($this->languageCourses->removeElement($languageCourse)) {
             $languageCourse->removeUser($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, AnsweredQuestion>
+     */
+    public function getAnsweredQuestions(): Collection
+    {
+        return $this->answeredQuestions;
+    }
+
+    public function addAnsweredQuestion(AnsweredQuestion $answeredQuestion): static
+    {
+        if (!$this->answeredQuestions->contains($answeredQuestion)) {
+            $this->answeredQuestions->add($answeredQuestion);
+            $answeredQuestion->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAnsweredQuestion(AnsweredQuestion $answeredQuestion): static
+    {
+        if ($this->answeredQuestions->removeElement($answeredQuestion)) {
+            // set the owning side to null (unless already changed)
+            if ($answeredQuestion->getUser() === $this) {
+                $answeredQuestion->setUser(null);
+            }
         }
 
         return $this;
