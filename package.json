@@ -1,8 +1,10 @@
 {
   "dependencies": {
+    "@hotwired/stimulus": "^3.2.2",
     "bootstrap": "^5.3.8"
   },
   "devDependencies": {
+    "sass-embedded": "^1.92.1",
     "vite": "^7.1.5",
     "vite-plugin-symfony": "^8.2.1"
   },
