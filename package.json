@@ -1,5 +1,14 @@
 {
   "dependencies": {
     "bootstrap": "^5.3.8"
+  },
+  "devDependencies": {
+    "vite": "^7.1.5",
+    "vite-plugin-symfony": "^8.2.1"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   }
 }
