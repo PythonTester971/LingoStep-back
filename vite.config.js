@@ -16,7 +16,7 @@ export default defineConfig({
         preprocessorOptions: {
             scss: {
                 additionalData: `
-                    @import "./assets/styles/_variables.scss";
+                    @import "C:/Users/Utilisateur/Documents/Simplon.co/simplonco_exe/END_PROJECT/lingostep/lingostep-back/assets/styles/_variables.scss";
                 `
             }
         }

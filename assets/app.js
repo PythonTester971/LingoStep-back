@@ -6,7 +6,7 @@
 import './styles/app.scss';
 
 // Then import Bootstrap JavaScript
-import * as bootstrap from 'bootstrap';
+import 'bootstrap';
 
 // Import your other JavaScript files
 import './bootstrap.js';
