@@ -5,7 +5,7 @@
     <div class="card-body">
       <h5 class="card-title">{{ languageCourse.label }}</h5>
       <p class="card-text">{{ languageCourse.description }}</p>
-      <a href="#" class="btn btn-primary">Join</a>
+      <a href="{{ path('language_course_missions', {'id': languageCourse.id})}}" class="btn btn-primary">Join</a>
     </div>
   </div>
 </div>
