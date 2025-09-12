@@ -4,7 +4,7 @@ namespace App\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-final class MissionControllerTest extends WebTestCase
+final class MissionListControllerTest extends WebTestCase
 {
     public function testIndex(): void
     {
