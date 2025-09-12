@@ -55,6 +55,7 @@ class LanguageCourse
     {
         $this->users = new ArrayCollection();
         $this->missions = new ArrayCollection();
+        $this->status = LanguageCourseStatus::NOT_STARTED; // valeur par défaut
     }
 
     public function getId(): ?int
