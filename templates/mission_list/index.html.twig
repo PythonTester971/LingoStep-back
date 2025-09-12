@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}Learn French{% endblock %}
+
+{% block main %}
+
+
+<h1>Missions</h1>
+
+<div class="container">
+    <div class="row row-cols-1 row-cols-md-3 g-4 mt-4">
+        {% for mission in missions %}
+        {% include '_components/mission-card.html.twig' %}
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
