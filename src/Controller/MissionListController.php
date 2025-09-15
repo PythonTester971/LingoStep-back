@@ -14,6 +14,7 @@ final class MissionListController extends AbstractController
     {
         $missions = $missionRepository->findAll();
 
+
         return $this->render('mission_list/index.html.twig', [
             'missions' => $missions,
         ]);
