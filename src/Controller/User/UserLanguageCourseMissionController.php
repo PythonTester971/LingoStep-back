@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\User;
 
 use App\Repository\LanguageCourseRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-final class LanguageCourseMissionsController extends AbstractController
+final class UserLanguageCourseMissionController extends AbstractController
 {
-    #[Route('/languages_course/{id}/missions', name: 'language_course_missions')]
+    #[Route('user/languages_course/{id}/missions', name: 'language_course_missions')]
     public function missions(int $id, LanguageCourseRepository $languageCourseRepository): Response
     {
 

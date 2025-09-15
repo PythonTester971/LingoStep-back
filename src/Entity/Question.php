@@ -19,9 +19,6 @@ class Question
     #[ORM\Column(type: Types::TEXT)]
     private ?string $instruction = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?bool $isAnswered = null;
-
     #[ORM\ManyToOne(inversedBy: 'questions')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Mission $mission = null;
@@ -53,18 +50,6 @@ class Question
     public function setInstruction(string $instruction): static
     {
         $this->instruction = $instruction;
-
-        return $this;
-    }
-
-    public function isAnswered(): ?bool
-    {
-        return $this->isAnswered;
-    }
-
-    public function setIsAnswered(?bool $isAnswered): static
-    {
-        $this->isAnswered = $isAnswered;
 
         return $this;
     }
