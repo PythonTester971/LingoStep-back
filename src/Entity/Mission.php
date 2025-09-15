@@ -47,11 +47,18 @@ class Mission
     #[ORM\Column]
     private ?int $xpReward = null;
 
+    /**
+     * @var Collection<int, UserMission>
+     */
+    #[ORM\OneToMany(targetEntity: UserMission::class, mappedBy: 'mission')]
+    private Collection $userMissions;
+
 
     public function __construct()
     {
         $this->questions = new ArrayCollection();
         $this->answeredQuestions = new ArrayCollection();
+        $this->userMissions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -187,6 +194,36 @@ class Mission
     public function setXpReward(int $xpReward): static
     {
         $this->xpReward = $xpReward;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, UserMission>
+     */
+    public function getUserMissions(): Collection
+    {
+        return $this->userMissions;
+    }
+
+    public function addUserMission(UserMission $userMission): static
+    {
+        if (!$this->userMissions->contains($userMission)) {
+            $this->userMissions->add($userMission);
+            $userMission->setMission($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserMission(UserMission $userMission): static
+    {
+        if ($this->userMissions->removeElement($userMission)) {
+            // set the owning side to null (unless already changed)
+            if ($userMission->getMission() === $this) {
+                $userMission->setMission(null);
+            }
+        }
 
         return $this;
     }

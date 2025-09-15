@@ -67,10 +67,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(nullable: true)]
     private ?int $xp = null;
 
+    /**
+     * @var Collection<int, UserMission>
+     */
+    #[ORM\OneToMany(targetEntity: UserMission::class, mappedBy: 'user')]
+    private Collection $userMissions;
+
     public function __construct()
     {
         $this->languageCourses = new ArrayCollection();
         $this->answeredQuestions = new ArrayCollection();
+        $this->userMissions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -279,6 +286,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setXp(?int $xp): static
     {
         $this->xp = $xp;
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, UserMission>
+     */
+    public function getUserMissions(): Collection
+    {
+        return $this->userMissions;
+    }
+
+    public function addUserMission(UserMission $userMission): static
+    {
+        if (!$this->userMissions->contains($userMission)) {
+            $this->userMissions->add($userMission);
+            $userMission->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserMission(UserMission $userMission): static
+    {
+        if ($this->userMissions->removeElement($userMission)) {
+            // set the owning side to null (unless already changed)
+            if ($userMission->getUser() === $this) {
+                $userMission->setUser(null);
+            }
+        }
+
         return $this;
     }
 }
