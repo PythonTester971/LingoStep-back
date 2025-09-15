@@ -23,12 +23,6 @@ class Mission
     private ?string $description = null;
 
     #[ORM\Column]
-    private ?bool $isCompleted = null;
-
-    #[ORM\Column]
-    private ?bool $isOpen = null;
-
-    #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
     #[ORM\Column]
@@ -49,6 +43,10 @@ class Mission
      */
     #[ORM\OneToMany(targetEntity: AnsweredQuestion::class, mappedBy: 'mission')]
     private Collection $answeredQuestions;
+
+    #[ORM\Column]
+    private ?int $xpReward = null;
+
 
     public function __construct()
     {
@@ -81,30 +79,6 @@ class Mission
     public function setDescription(string $description): static
     {
         $this->description = $description;
-
-        return $this;
-    }
-
-    public function isCompleted(): ?bool
-    {
-        return $this->isCompleted;
-    }
-
-    public function setIsCompleted(bool $isCompleted): static
-    {
-        $this->isCompleted = $isCompleted;
-
-        return $this;
-    }
-
-    public function isOpen(): ?bool
-    {
-        return $this->isOpen;
-    }
-
-    public function setIsOpen(bool $isOpen): static
-    {
-        $this->isOpen = $isOpen;
 
         return $this;
     }
@@ -201,6 +175,18 @@ class Mission
                 $answeredQuestion->setMission(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getXpReward(): ?int
+    {
+        return $this->xpReward;
+    }
+
+    public function setXpReward(int $xpReward): static
+    {
+        $this->xpReward = $xpReward;
 
         return $this;
     }

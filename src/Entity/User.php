@@ -64,6 +64,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: AnsweredQuestion::class, mappedBy: 'user')]
     private Collection $answeredQuestions;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $xp = null;
+
     public function __construct()
     {
         $this->languageCourses = new ArrayCollection();
@@ -140,7 +143,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __serialize(): array
     {
         $data = (array) $this;
-        $data["\0".self::class."\0password"] = hash('crc32c', $this->password);
+        $data["\0" . self::class . "\0password"] = hash('crc32c', $this->password);
 
         return $data;
     }
@@ -265,6 +268,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             }
         }
 
+        return $this;
+    }
+
+    public function getXp(): ?int
+    {
+        return $this->xp;
+    }
+
+    public function setXp(?int $xp): static
+    {
+        $this->xp = $xp;
         return $this;
     }
 }
