@@ -3,9 +3,10 @@
 namespace App\Form;
 
 use App\Entity\Option;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use App\Repository\OptionRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class QuizType extends AbstractType
@@ -20,6 +21,11 @@ class QuizType extends AbstractType
                 'choice_label' => 'label',
                 'expanded' => true,
                 'multiple' => false,
+                'query_builder' => function (OptionRepository $er) use ($options) {
+                    return $er->createQueryBuilder('o')
+                        ->where('o.question = :question')
+                        ->setParameter('question', $options['question']);
+                }
             ]);
     }
 
