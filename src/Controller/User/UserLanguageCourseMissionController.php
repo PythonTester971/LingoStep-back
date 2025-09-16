@@ -9,7 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 final class UserLanguageCourseMissionController extends AbstractController
 {
-    #[Route('user/languages_course/{id}/missions', name: 'language_course_missions')]
+    #[Route('/user/languages_course/{id}/missions', name: 'language_course_missions')]
     public function missions(int $id, LanguageCourseRepository $languageCourseRepository): Response
     {
 
