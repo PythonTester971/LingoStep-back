@@ -1,0 +1,11 @@
+.navbar-custom {
+  background-color: $primary;
+
+  .nav-link {
+    color: white;
+
+    &:hover {
+      color: lighten($primary, 15%);
+    }
+  }
+}

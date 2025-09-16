@@ -1,15 +1,19 @@
-// Import Bootstrap from node_modules
+@import "variables";
+
 @import "../../node_modules/bootstrap/scss/bootstrap";
+
 @import "forms";
+
+@import "navbar";
 
 // Custom styles
 .my-custom-btn {
-  background-color: $primary;
+  background-color: $primary; // Utilise maintenant la variable personnalisée
   border-radius: $border-radius-lg;
   padding: 0.5rem 1rem;
 }
 
-// Additional global styles
+// Styles globaux
 body {
   min-height: 100vh;
   display: flex;
