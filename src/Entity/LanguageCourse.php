@@ -24,12 +24,6 @@ class LanguageCourse
     private ?string $description = null;
 
     #[ORM\Column]
-    private ?float $progress = null;
-
-    #[ORM\Column(enumType: LanguageCourseStatus::class)]
-    private ?LanguageCourseStatus $status = null;
-
-    #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
     #[ORM\Column]
@@ -51,11 +45,17 @@ class LanguageCourse
     #[ORM\OneToMany(targetEntity: Mission::class, mappedBy: 'languageCourse', orphanRemoval: true)]
     private Collection $missions;
 
+    /**
+     * @var Collection<int, UserLanguageCourse>
+     */
+    #[ORM\OneToMany(targetEntity: UserLanguageCourse::class, mappedBy: 'languageCourse')]
+    private Collection $userLanguageCourses;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
         $this->missions = new ArrayCollection();
-        $this->status = LanguageCourseStatus::NOT_STARTED; // valeur par défaut
+        $this->userLanguageCourses = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -83,30 +83,6 @@ class LanguageCourse
     public function setDescription(string $description): static
     {
         $this->description = $description;
-
-        return $this;
-    }
-
-    public function getProgress(): ?float
-    {
-        return $this->progress;
-    }
-
-    public function setProgress(float $progress): static
-    {
-        $this->progress = $progress;
-
-        return $this;
-    }
-
-    public function getStatus(): ?LanguageCourseStatus
-    {
-        return $this->status;
-    }
-
-    public function setStatus(LanguageCourseStatus $status): static
-    {
-        $this->status = $status;
 
         return $this;
     }
@@ -195,6 +171,36 @@ class LanguageCourse
             // set the owning side to null (unless already changed)
             if ($mission->getLanguageCourse() === $this) {
                 $mission->setLanguageCourse(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, UserLanguageCourse>
+     */
+    public function getUserLanguageCourses(): Collection
+    {
+        return $this->userLanguageCourses;
+    }
+
+    public function addUserLanguageCourse(UserLanguageCourse $userLanguageCourse): static
+    {
+        if (!$this->userLanguageCourses->contains($userLanguageCourse)) {
+            $this->userLanguageCourses->add($userLanguageCourse);
+            $userLanguageCourse->setLanguageCourse($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserLanguageCourse(UserLanguageCourse $userLanguageCourse): static
+    {
+        if ($this->userLanguageCourses->removeElement($userLanguageCourse)) {
+            // set the owning side to null (unless already changed)
+            if ($userLanguageCourse->getLanguageCourse() === $this) {
+                $userLanguageCourse->setLanguageCourse(null);
             }
         }
 

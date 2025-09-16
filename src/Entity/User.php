@@ -73,11 +73,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: UserMission::class, mappedBy: 'user')]
     private Collection $userMissions;
 
+    /**
+     * @var Collection<int, UserLanguageCourse>
+     */
+    #[ORM\OneToMany(targetEntity: UserLanguageCourse::class, mappedBy: 'user')]
+    private Collection $userLanguageCourses;
+
     public function __construct()
     {
         $this->languageCourses = new ArrayCollection();
         $this->answeredQuestions = new ArrayCollection();
         $this->userMissions = new ArrayCollection();
+        $this->userLanguageCourses = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -313,6 +320,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($userMission->getUser() === $this) {
                 $userMission->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, UserLanguageCourse>
+     */
+    public function getUserLanguageCourses(): Collection
+    {
+        return $this->userLanguageCourses;
+    }
+
+    public function addUserLanguageCourse(UserLanguageCourse $userLanguageCourse): static
+    {
+        if (!$this->userLanguageCourses->contains($userLanguageCourse)) {
+            $this->userLanguageCourses->add($userLanguageCourse);
+            $userLanguageCourse->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserLanguageCourse(UserLanguageCourse $userLanguageCourse): static
+    {
+        if ($this->userLanguageCourses->removeElement($userLanguageCourse)) {
+            // set the owning side to null (unless already changed)
+            if ($userLanguageCourse->getUser() === $this) {
+                $userLanguageCourse->setUser(null);
             }
         }
 

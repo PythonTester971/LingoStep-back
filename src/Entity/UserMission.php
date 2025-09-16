@@ -25,6 +25,12 @@ class UserMission
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $completedAt = null;
 
+    #[ORM\Column]
+    private ?int $xpObtained = null;
+
+    #[ORM\ManyToOne(inversedBy: 'userMission')]
+    private ?UserLanguageCourse $userLanguageCourse = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -74,6 +80,30 @@ class UserMission
     public function setCompletedAt(?\DateTimeImmutable $completedAt): static
     {
         $this->completedAt = $completedAt;
+
+        return $this;
+    }
+
+    public function getXpObtained(): ?int
+    {
+        return $this->xpObtained;
+    }
+
+    public function setXpObtained(int $xpObtained): static
+    {
+        $this->xpObtained = $xpObtained;
+
+        return $this;
+    }
+
+    public function getUserLanguageCourse(): ?UserLanguageCourse
+    {
+        return $this->userLanguageCourse;
+    }
+
+    public function setUserLanguageCourse(?UserLanguageCourse $userLanguageCourse): static
+    {
+        $this->userLanguageCourse = $userLanguageCourse;
 
         return $this;
     }
