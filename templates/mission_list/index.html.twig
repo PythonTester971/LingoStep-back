@@ -3,12 +3,13 @@
 
 {% block title %}Learn {{ languageCourse.language.label }}{% endblock %}
 
+
+
+
 {% block main %}
 
-
 <h1>{{ languageCourse.language.label }} Missions</h1>
-
-<div class="container">
+<div>
     <div class="row row-cols-1 row-cols-md-3 g-4 mt-4">
         {% for mission in missions %}
         {% set question = mission.questions|first %}

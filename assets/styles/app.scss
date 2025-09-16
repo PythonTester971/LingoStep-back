@@ -13,13 +13,28 @@
   padding: 0.5rem 1rem;
 }
 
-// Styles globaux
 body {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+  background-color: $light;
+  color: $dark;
+  font-family: 'Arial', sans-serif;
+}
 
-  main {
-    flex: 1;
+a {
+  color: $primary;
+  text-decoration: none;
+
+  &:hover {
+    color: darken($primary, 10%);
+    text-decoration: underline;
   }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: $dark;
+  margin-bottom: 1rem;
 }

@@ -35,11 +35,20 @@ final class QuizController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
+            $user = $this->getUser();
 
-            $answeredQuestion = new AnsweredQuestion();
-            $answeredQuestion->setUser($this->getUser());
-            $answeredQuestion->setMission($mission);
-            $answeredQuestion->setQuestion($question);
+            $answeredQuestion = $em->getRepository(AnsweredQuestion::class)->findOneBy([
+                'user' => $user,
+                'question' => $question,
+            ]);
+
+            if (!$answeredQuestion) {
+                $answeredQuestion = new AnsweredQuestion();
+                $answeredQuestion->setUser($this->getUser());
+                $answeredQuestion->setMission($mission);
+                $answeredQuestion->setQuestion($question);
+            }
+
             $answeredQuestion->setOptione($data['question']);
 
             $em->persist($answeredQuestion);
