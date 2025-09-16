@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Quiz Result{% endblock %}
+
+{% block main %}
+
+<h1>Quiz Result</h1>
+<p>Your score: {{ score }} out of {{ total }}</p>
+<p>You received {{ xpObtained }} XP</p>
+
+{# <a href="{{ path('app_mission_index') }}">Back to Missions</a> #}
+
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+{# Add any page-specific JavaScript here #}
+{% endblock %}
