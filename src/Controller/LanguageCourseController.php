@@ -12,7 +12,7 @@ final class LanguageCourseController extends AbstractController
     #[Route('/language-course/{id}', name: 'language_courses', methods: ['GET'])]
     public function course($id, LanguageCourseRepository $langCoursRepository): Response
     {
-        $languageCourse = $langCoursRepository->findBy([], ['id' => 'ASC'], 4);
+        $languageCourse = $langCoursRepository->find($id);
 
         return $this->render('language_course/index.html.twig', [
             'languageCourse' => $languageCourse,

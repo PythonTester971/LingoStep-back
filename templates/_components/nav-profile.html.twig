@@ -1,0 +1,22 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary position-sticky top-0" style="height: 100vh; overflow: auto">
+  <div class="container-fluid d-flex flex-column align-items-center py-3">
+    <a class="navbar-brand mb-4" href="{{path('app_admin')}}">LingoStep Profile</a>
+    <div class="" id="navbarNav">
+      <ul class="navbar-nav d-block">
+        {# <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Board</a>
+        </li> #}
+        <li class="nav-item">
+          <a class="nav-link" href="{{path('home')}}">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ path('app_admin_language_course') }}">Personal informations</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" aria-disabled="true" href="#">My courses</a>
+        </li>
+        <li class="nav-item">
+      </ul>
+    </div>
+  </div>
+</nav>
