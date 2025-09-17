@@ -11,7 +11,7 @@ final class AdminMissionController extends AbstractController
     #[Route('/admin/mission', name: 'app_admin_mission')]
     public function index(): Response
     {
-        return $this->render('admin_mission/index.html.twig', [
+        return $this->render('admin_templates/admin_mission/index.html.twig', [
             'controller_name' => 'AdminMissionController',
         ]);
     }
