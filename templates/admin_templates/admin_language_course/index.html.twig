@@ -2,32 +2,70 @@
 
 {% block title %}Hello AdminLanguageCourseController!{% endblock %}
 
-{% block body %}
-<style>
-    .example-wrapper {
-        margin: 1em auto;
-        max-width: 800px;
-        width: 95%;
-        font: 18px/1.5 sans-serif;
-    }
+{% block main %}
+<div class="d-flex flex-column align-items-center justify-content-center min-vh-100">
+    <h1 class="mb-4">Language Course list</h1>
 
-    .example-wrapper code {
-        background: #F5F5F5;
-        padding: 2px 6px;
-    }
-</style>
+    <div class="d-flex justify-content-evenly mb-4">
+        <a class="btn btn-outline-info me-3" href="{{ path('app_admin') }}">Retour à l'admin</a>
+        <a class="btn btn-outline-info" href="{{path('app_admin_language_course_create')}}">Create a language course</a>
+    </div>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <table class="table table-hover mt-3">
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at
-            <code>C:/Users/Utilisateur/Documents/Simplon.co/simplonco_exe/END_PROJECT/lingostep/lingostep-back/src/Controller/AdminLanguageCourseController.php</code>
-        </li>
-        <li>Your template at
-            <code>C:/Users/Utilisateur/Documents/Simplon.co/simplonco_exe/END_PROJECT/lingostep/lingostep-back/templates/admin_language_course/index.html.twig</code>
-        </li>
-    </ul>
+        <thead>
+            <tr class="text-center">
+                {# <th scope="col">#</th> #}
+                <th scope="col">Course label</th>
+                <th scope="col">Description</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for languageCourse in languageCourses %}
+            <tr>
+                {# <td scope="row">{{ game.id }}</td> #}
+                <td scope="row">{{ languageCourse.label }}</td>
+                <td scope="row">{{ languageCourse.description}}</td>
+                <td class="text-center"><a href="{{ path('language_courses',{ id: languageCourse.id } )}}"
+                        class="btn btn-outline-secondary me-2"><i class="bi bi-eye-fill"></i></a>
+                    <a href="{{ path('app_admin_language_course_edit', { id: languageCourse.id })}}"
+                        class="btn btn-outline-primary me-2"><i class="bi bi-pencil-square"></i>
+                    </a>
+                    <button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{languageCourse.id}}"
+                        class="btn btn-outline-danger"><i class="bi bi-trash3"></i>
+                    </button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="staticBackdrop{{languageCourse.id}}" data-bs-backdrop="static"
+                        data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Deletion of
+                                        {{languageCourse.label}}</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    Souhaitez-vous vraiment supprimer ce produit ?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Close</button>
+                                    <a href="{{ path('app_admin_language_course_delete',{id: languageCourse.id}) }}"
+                                        class="btn btn-outline-danger">Delete</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
 </div>
 {% endblock %}

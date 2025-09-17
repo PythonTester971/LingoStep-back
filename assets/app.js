@@ -2,13 +2,13 @@
  * Welcome to your app's main JavaScript file!
  */
 
-// Import SCSS first
+
 import './styles/app.scss';
 
-// Then import Bootstrap JavaScript
 import 'bootstrap';
 
-// Import your other JavaScript files
+import 'bootstrap-icons/font/bootstrap-icons.css';
+
 import './bootstrap.js';
 
 console.log('This log comes from assets/app.js - welcome to AssetMapper! 🎉');

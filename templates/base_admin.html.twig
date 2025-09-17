@@ -6,6 +6,7 @@
   <title>{% block title %}Welcome!{% endblock %}</title>
   <link rel="icon"
     href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+  <link rel="stylesheet" href="{{ asset('node_modules/bootstrap-icons/font/bootstrap-icons.css') }}">
 
 </head>
 
@@ -20,15 +21,13 @@
     {% block header %} {% include "_components/nav-admin.html.twig" %} {% endblock %}
   </header>
 
-  <main class="container text-center py-4 flex-grow-1 d-flex align-items-center justify-content-center">
+  <main class="container text-center py-4 flex-grow-1">
     {% block main %}
-    <div>
-      <h1 class="mb-4">Bienvenue sur le tableau de bord administrateur</h1>
-      <p class="lead">Gérez les cours de langues, les utilisateurs, les missions et bien plus encore.</p>
-      <div class="d-flex justify-content-center mt-4">
-        <a href="{{ path('app_admin') }}" class="btn btn-primary me-2">Accéder au tableau de bord</a>
-        <a href="{{ path('home') }}" class="btn btn-secondary">Retour à l'accueil</a>
-      </div>
+    <h1 class="mb-4">Bienvenue sur le tableau de bord administrateur</h1>
+    <p class="lead">Gérez les cours de langues, les utilisateurs, les missions et bien plus encore.</p>
+    <div class="d-flex justify-content-center mt-4">
+      <a href="{{ path('app_admin') }}" class="btn btn-primary me-2">Accéder au tableau de bord</a>
+      <a href="{{ path('home') }}" class="btn btn-secondary">Retour à l'accueil</a>
     </div>
     {% endblock %}
   </main>
