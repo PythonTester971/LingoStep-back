@@ -4,12 +4,14 @@ namespace App\Controller\Admin;
 
 use App\Entity\LanguageCourse;
 use App\Form\LanguageCourseType;
+use App\Repository\LanguageRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\LanguageCourseRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 final class AdminLanguageCourseController extends AbstractController
 {
@@ -24,14 +26,16 @@ final class AdminLanguageCourseController extends AbstractController
     }
 
     #[Route('/admin/language_course/create', name: 'app_admin_language_course_create')]
-    public function create(Request $request, LanguageCourseRepository $repository): Response
+    public function create(Request $request, LanguageCourseRepository $repository, EntityManagerInterface $em): Response
     {
         $languageCourse = new LanguageCourse();
         $form = $this->createForm(LanguageCourseType::class, $languageCourse);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $repository->save($languageCourse, true);
+
+            $em->persist($languageCourse);
+            $em->flush();
 
             return $this->redirectToRoute('app_admin_language_course');
         }
@@ -42,13 +46,17 @@ final class AdminLanguageCourseController extends AbstractController
     }
 
     #[Route('/admin/language_course/edit/{id}', name: 'app_admin_language_course_edit')]
-    public function edit(Request $request, LanguageCourse $languageCourse, LanguageCourseRepository $repository): Response
+    public function edit(int $id, Request $request, LanguageRepository $languageRepository, EntityManagerInterface $em): Response
     {
+        $languageCourse = $languageRepository->find($id);
+
         $form = $this->createForm(LanguageCourseType::class, $languageCourse);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $repository->save($languageCourse, true);
+
+            $em->persist($languageCourse);
+            $em->flush();
 
             return $this->redirectToRoute('app_admin_language_course');
         }

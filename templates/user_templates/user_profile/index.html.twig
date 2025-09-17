@@ -12,6 +12,14 @@
 <h1>{{ app.user.username }} Profile</h1>
 <p>Email: {{ app.user.email }}</p>
 <p>XP : {{ app.user.xp }}</p>
+<p>Language : {{ app.user.language.label }}</p>
+<p>Language Courses :
+    {% for course in app.user.languageCourses %}
+    {{ course.label }}{% if not loop.last %}, {% endif %}
+    {% else %}
+    No courses enrolled yet.
+    {% endfor %}
+</p>
 
 {# <p>Points : {{ app.user.points }}</p>
 <p>Level : {{ app.user.level }}</p>

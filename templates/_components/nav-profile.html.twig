@@ -10,7 +10,7 @@
           <a class="nav-link" href="{{path('home')}}">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{ path('app_admin_language_course') }}">Personal informations</a>
+          <a class="nav-link" href="{{ path('app_user_profile_edit', {'id': app.user.id}) }}">Change infos</a>
         </li>
         <li class="nav-item">
           <a class="nav-link disabled" aria-disabled="true" href="#">My courses</a>
