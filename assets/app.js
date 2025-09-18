@@ -11,4 +11,6 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 
 import './bootstrap.js';
 
+import './scripts/carrousel.js'
+
 console.log('This log comes from assets/app.js - welcome to AssetMapper! 🎉');

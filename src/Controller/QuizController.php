@@ -11,6 +11,8 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use App\Repository\UserLanguageCourseRepository;
+use App\Repository\UserMissionRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 final class QuizController extends AbstractController
@@ -97,16 +99,14 @@ final class QuizController extends AbstractController
     public function result(
         int $mission_id,
         MissionRepository $missionRepository,
+        UserLanguageCourseRepository $userLanguageCourseRepository,
+        UserMissionRepository $userMissionRepository,
         EntityManagerInterface $em
     ): Response {
         $mission = $missionRepository->find($mission_id);
-        if (!$mission) {
-            throw $this->createNotFoundException('Mission not found');
-        }
 
         /** @var \App\Entity\User $user */
         $user = $this->getUser();
-
 
         $answered = $mission->getAnsweredQuestions($user);
         $score = 0;
@@ -118,8 +118,7 @@ final class QuizController extends AbstractController
         $total = count($answered);
         $successRate = $total > 0 ? ($score / $total) * 100 : 0;
 
-        $userMissionRepo = $em->getRepository(UserMission::class);
-        $userMission = $userMissionRepo->findOneBy([
+        $userMission = $userMissionRepository->findOneBy([
             'user' => $user,
             'mission' => $mission,
         ]);
@@ -130,6 +129,15 @@ final class QuizController extends AbstractController
             $userMission->setMission($mission);
         }
 
+        $userLanguageCourse = $userLanguageCourseRepository->findOneBy([
+            'user' => $user,
+            'languageCourse' => $mission->getLanguageCourse(),
+        ]);
+
+        if ($userLanguageCourse) {
+            $userMission->setUserLanguageCourse($userLanguageCourse);
+        }
+
         if ($successRate >= 70) {
             if (!$userMission->isCompleted()) {
 
@@ -138,15 +146,12 @@ final class QuizController extends AbstractController
                 $userMission->setCompletedAt(new \DateTimeImmutable());
 
                 $user->setXp($user->getXp() + $userMission->getXpObtained());
-                $this->addFlash('success', 'Félicitations ! Vous avez complété la mission et gagné ' . $mission->getXpReward() . ' XP.');
             }
-
-            $rewardGiven = true;
         } else {
 
             $userMission->setXpObtained(0);
             $userMission->setIsCompleted(false);
-            $rewardGiven = false;
+            $userMission->setCompletedAt(null);
             $this->addFlash('warning', 'Mission échouée, vous n’avez gagné aucun XP.');
         }
 
@@ -155,11 +160,11 @@ final class QuizController extends AbstractController
 
         return $this->render('quiz/result.html.twig', [
             'mission' => $mission,
+            'languageCourse' => $mission->getLanguageCourse(),
             'score' => $score,
             'total' => $total,
             'successRate' => $successRate,
             'xpObtained' => $userMission->getXpObtained(),
-            'rewardGiven' => $rewardGiven,
         ]);
     }
 }
