@@ -1,0 +1,26 @@
+{% extends "base_admin.html.twig" %}
+
+{% block title %}Create a user{% endblock %}
+
+{% block main %}
+
+<h1 class="mb-4">Create a user</h1>
+<div class="d-flex justify-content-center">
+  <div class="card p-4 shadow-sm" style="width: 40rem;">
+
+    {{ form_start(form) }}
+    {{ form_row(form.username) }}
+    {{ form_row(form.picturePath)}}
+    {{ form_row(form.email) }}
+    {{ form_row(form.password) }}
+    {{ form_row(form.language) }}
+    {{ form_row(form.languageCourses) }}
+    {# {{ form_row(form.roles) }} #}
+    {# {{ form_row(form.xp) }} #}
+    <div class="d-flex justify-content-center mt-4">
+      <button type="submit" class="btn btn-primary">Create</button>
+    </div>
+    {{ form_end(form) }}
+  </div>
+</div>
+{% endblock %}

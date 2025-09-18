@@ -2,12 +2,10 @@
 
 {% block title %}{{ app.user.username }} Profile{% endblock %}
 
-{% block header %}
-{% include "_components/nav-profile.html.twig" %}
-{% endblock %}
+
+
 
 {% block main %}
-
 
 <h1>{{ app.user.username }} Profile</h1>
 <p>Email: {{ app.user.email }}</p>
@@ -30,6 +28,5 @@
     No badges earned yet.
     {% endfor %}
 </p> #}
-
 
 {% endblock %}

@@ -11,14 +11,16 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 final class AdminLanguageCourseController extends AbstractController
 {
     #[Route('/admin/language_course', name: 'app_admin_language_course')]
-    public function index(LanguageCourseRepository $repository): Response
+    #[IsGranted('ROLE_ADMIN')]
+    public function index(LanguageCourseRepository $languageRepository): Response
     {
-        $languageCourses = $repository->findAll();
+        $languageCourses = $languageRepository->findAll();
 
         return $this->render('admin_templates/admin_language_course/index.html.twig', [
             'languageCourses' => $languageCourses,
@@ -26,7 +28,8 @@ final class AdminLanguageCourseController extends AbstractController
     }
 
     #[Route('/admin/language_course/create', name: 'app_admin_language_course_create')]
-    public function create(Request $request, LanguageCourseRepository $repository, EntityManagerInterface $em): Response
+    #[IsGranted('ROLE_ADMIN')]
+    public function create(Request $request, EntityManagerInterface $em): Response
     {
         $languageCourse = new LanguageCourse();
         $form = $this->createForm(LanguageCourseType::class, $languageCourse);
@@ -46,6 +49,7 @@ final class AdminLanguageCourseController extends AbstractController
     }
 
     #[Route('/admin/language_course/edit/{id}', name: 'app_admin_language_course_edit')]
+    #[IsGranted('ROLE_ADMIN')]
     public function edit(int $id, Request $request, LanguageRepository $languageRepository, EntityManagerInterface $em): Response
     {
         $languageCourse = $languageRepository->find($id);
@@ -67,9 +71,10 @@ final class AdminLanguageCourseController extends AbstractController
     }
 
     #[Route('/admin/language_course/delete/{id}', name: 'app_admin_language_course_delete')]
-    public function delete(LanguageCourse $languageCourse, LanguageCourseRepository $repository): RedirectResponse
+    #[IsGranted('ROLE_ADMIN')]
+    public function delete(LanguageCourse $languageCourse, LanguageCourseRepository $languageRepository): RedirectResponse
     {
-        $repository->remove($languageCourse, true);
+        $languageRepository->remove($languageCourse, true);
 
         return $this->redirectToRoute('app_admin_language_course');
     }

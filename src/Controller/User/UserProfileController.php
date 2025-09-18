@@ -46,10 +46,7 @@ final class UserProfileController extends AbstractController
             //     $user->removeLanguageCourse($languageCourse);
             // }
 
-            // Add new language courses
-            foreach ($form->get('languageCourses')->getData() as $languageCourse) {
-                $user->addLanguageCourse($languageCourse);
-            }
+            $user->setUpdatedAt(new \DateTimeImmutable());
 
             $em->persist($user);
             $em->flush();

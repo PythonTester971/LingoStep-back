@@ -2,7 +2,10 @@
 
 namespace App\Entity;
 
-use App\Enum\LanguageCourseStatus;
+use App\Entity\User;
+use App\Entity\Language;
+use App\Entity\Mission;
+use App\Entity\UserLanguageCourse;
 use App\Repository\LanguageCourseRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -29,12 +32,6 @@ class LanguageCourse
     #[ORM\Column]
     private ?\DateTimeImmutable $updatedAt = null;
 
-    /**
-     * @var Collection<int, User>
-     */
-    #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'languageCourses')]
-    private Collection $users;
-
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
     private ?Language $Language = null;
@@ -53,7 +50,6 @@ class LanguageCourse
 
     public function __construct()
     {
-        $this->users = new ArrayCollection();
         $this->missions = new ArrayCollection();
         $this->userLanguageCourses = new ArrayCollection();
     }
@@ -111,29 +107,6 @@ class LanguageCourse
         return $this;
     }
 
-    /**
-     * @return Collection<int, User>
-     */
-    public function getUsers(): Collection
-    {
-        return $this->users;
-    }
-
-    public function addUser(User $user): static
-    {
-        if (!$this->users->contains($user)) {
-            $this->users->add($user);
-        }
-
-        return $this;
-    }
-
-    public function removeUser(User $user): static
-    {
-        $this->users->removeElement($user);
-
-        return $this;
-    }
 
     public function getLanguage(): ?Language
     {

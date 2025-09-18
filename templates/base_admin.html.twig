@@ -23,11 +23,11 @@
 
   <main class="container text-center py-4 flex-grow-1">
     {% block main %}
-    <h1 class="mb-4">Bienvenue sur le tableau de bord administrateur</h1>
-    <p class="lead">Gérez les cours de langues, les utilisateurs, les missions et bien plus encore.</p>
+    <h1 class="mb-4">Welcome to LingoStep Admin Dashboard !</h1>
+    <p class="lead">Manage language course, users, missions and a lot more</p>
     <div class="d-flex justify-content-center mt-4">
-      <a href="{{ path('app_admin') }}" class="btn btn-primary me-2">Accéder au tableau de bord</a>
-      <a href="{{ path('home') }}" class="btn btn-secondary">Retour à l'accueil</a>
+      {# <a href="{{ path('app_admin') }}" class="btn btn-primary me-2">Accéder au tableau de bord</a> #}
+      <a href="{{ path('home') }}" class="btn btn-secondary text-white">Admin Home</a>
     </div>
     {% endblock %}
   </main>

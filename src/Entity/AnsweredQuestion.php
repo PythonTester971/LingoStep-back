@@ -16,10 +16,10 @@ class AnsweredQuestion
     #[ORM\ManyToOne(inversedBy: 'answeredQuestions')]
     private ?User $user = null;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[ORM\ManyToOne(cascade: ['persist', 'remove'])]
     private ?Option $optione = null;
 
-    #[ORM\OneToOne(inversedBy: 'answeredQuestion', cascade: ['persist', 'remove'])]
+    #[ORM\ManyToOne(inversedBy: 'answeredQuestion', cascade: ['persist', 'remove'])]
     private ?Question $question = null;
 
     #[ORM\ManyToOne(inversedBy: 'answeredQuestions')]

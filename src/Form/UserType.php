@@ -2,13 +2,12 @@
 
 namespace App\Form;
 
+use App\Entity\User;
 use App\Entity\Language;
 use App\Entity\LanguageCourse;
-use App\Entity\User;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class UserType extends AbstractType
@@ -28,8 +27,10 @@ class UserType extends AbstractType
                 'class' => LanguageCourse::class,
                 'choice_label' => 'label',
                 'multiple' => true,
-                'expanded' => true
+                'expanded' => true,
+                'mapped' => false
             ])
+
         ;
     }
 

@@ -60,6 +60,7 @@ final class QuizController extends AbstractController
 
             $nextQuestion = $questions[$currentIndex + 1] ?? null;
 
+
             if ($nextQuestion) {
                 return $this->redirectToRoute('app_quiz', [
                     'mission_id' => $mission->getId(),

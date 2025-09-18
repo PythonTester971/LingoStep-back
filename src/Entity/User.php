@@ -6,11 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\Validator\Constraints\Regex;
-use Symfony\Component\Validator\Constraints\Length;
-use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Validator\Constraints\PasswordStrength;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
@@ -57,12 +53,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?Language $language = null;
 
     /**
-     * @var Collection<int, LanguageCourse>
-     */
-    #[ORM\ManyToMany(targetEntity: LanguageCourse::class, mappedBy: 'users')]
-    private Collection $languageCourses;
-
-    /**
      * @var Collection<int, AnsweredQuestion>
      */
     #[ORM\OneToMany(targetEntity: AnsweredQuestion::class, mappedBy: 'user')]
@@ -85,7 +75,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function __construct()
     {
-        $this->languageCourses = new ArrayCollection();
         $this->answeredQuestions = new ArrayCollection();
         $this->userMissions = new ArrayCollection();
         $this->userLanguageCourses = new ArrayCollection();
@@ -223,33 +212,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setLanguage(?Language $language): static
     {
         $this->language = $language;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, LanguageCourse>
-     */
-    public function getLanguageCourses(): Collection
-    {
-        return $this->languageCourses;
-    }
-
-    public function addLanguageCourse(LanguageCourse $languageCourse): static
-    {
-        if (!$this->languageCourses->contains($languageCourse)) {
-            $this->languageCourses->add($languageCourse);
-            $languageCourse->addUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeLanguageCourse(LanguageCourse $languageCourse): static
-    {
-        if ($this->languageCourses->removeElement($languageCourse)) {
-            $languageCourse->removeUser($this);
-        }
 
         return $this;
     }
