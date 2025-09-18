@@ -3,8 +3,9 @@
 namespace App\Controller\User;
 
 
-use App\Form\UserType;
 use App\Entity\User;
+use App\Form\UserType;
+use App\Entity\UserLanguageCourse;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -41,10 +42,21 @@ final class UserProfileController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // // Clear existing language courses
-            // foreach ($user->getLanguageCourses() as $languageCourse) {
-            //     $user->removeLanguageCourse($languageCourse);
-            // }
+
+            $selectedCourses = $form->get('languageCourses')->getData();
+
+            // Clear existing UserLanguageCourse entries
+            foreach ($user->getUserLanguageCourses() as $existingCourse) {
+                $user->removeUserLanguageCourse($existingCourse);
+            }
+
+            foreach ($selectedCourses as $course) {
+                $userLanguageCourse = new UserLanguageCourse();
+                $userLanguageCourse->setUser($user);
+                $userLanguageCourse->setLanguageCourse($course);
+                $userLanguageCourse->setProgress(0);
+                $user->addUserLanguageCourse($userLanguageCourse);
+            }
 
             $user->setUpdatedAt(new \DateTimeImmutable());
 

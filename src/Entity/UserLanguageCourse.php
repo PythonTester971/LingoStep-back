@@ -15,10 +15,10 @@ class UserLanguageCourse
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(inversedBy: 'userLanguageCourses')]
+    #[ORM\ManyToOne(inversedBy: 'userLanguageCourses', cascade: ['persist'])]
     private ?User $user = null;
 
-    #[ORM\ManyToOne(inversedBy: 'userLanguageCourses')]
+    #[ORM\ManyToOne(inversedBy: 'userLanguageCourses', cascade: ['persist'])]
     private ?LanguageCourse $languageCourse = null;
 
     #[ORM\Column]

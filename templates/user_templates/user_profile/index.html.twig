@@ -12,10 +12,11 @@
 <p>XP : {{ app.user.xp }}</p>
 <p>Language : {{ app.user.language.label }}</p>
 <p>Language Courses :
-    {% for course in app.user.languageCourses %}
-    {{ course.label }}{% if not loop.last %}, {% endif %}
+    {% for userLanguageCourse in app.user.userLanguageCourses %}
+    {{ userLanguageCourse.languageCourse.label }} (Progress: {{ userLanguageCourse.progress }}%) {% if not loop.last %},
+    {% endif %}
     {% else %}
-    No courses enrolled yet.
+    No language courses enrolled yet.
     {% endfor %}
 </p>
 
