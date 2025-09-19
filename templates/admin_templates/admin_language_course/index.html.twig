@@ -24,11 +24,13 @@
         <tbody>
             {% for languageCourse in languageCourses %}
             <tr>
-                {# <td scope="row">{{ game.id }}</td> #}
+
                 <td scope="row">{{ languageCourse.label }}</td>
                 <td scope="row">{{ languageCourse.description}}</td>
-                <td class="text-center"><a href="{{ path('language_courses',{ id: languageCourse.id } )}}"
-                        class="btn btn-outline-secondary me-2"><i class="bi bi-eye-fill"></i></a>
+                <td class="text-center">
+                    <a href="{{ path('admin_language_course_detail',{ id: languageCourse.id } )}}"
+                        class="btn btn-outline-secondary me-2"><i class="bi bi-eye-fill"></i>
+                    </a>
                     <a href="{{ path('app_admin_language_course_edit', { id: languageCourse.id })}}"
                         class="btn btn-outline-primary me-2"><i class="bi bi-pencil-square"></i>
                     </a>

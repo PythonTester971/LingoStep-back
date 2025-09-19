@@ -16,7 +16,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 final class AdminLanguageCourseController extends AbstractController
 {
-    #[Route('/admin/language_course', name: 'app_admin_language_course')]
+    #[Route('/admin/language_course', name: 'admin_language_course')]
     #[IsGranted('ROLE_ADMIN')]
     public function index(LanguageCourseRepository $languageRepository): Response
     {
@@ -24,6 +24,17 @@ final class AdminLanguageCourseController extends AbstractController
 
         return $this->render('admin_templates/admin_language_course/index.html.twig', [
             'languageCourses' => $languageCourses,
+        ]);
+    }
+
+    #[Route('/admin/language_course/{id}', name: 'admin_language_course_detail')]
+    #[IsGranted('ROLE_ADMIN')]
+    public function detail(int $id, LanguageCourseRepository $languageRepository): Response
+    {
+        $languageCourse = $languageRepository->find($id);
+
+        return $this->render('admin_templates/admin_language_course/detail.html.twig', [
+            'languageCourse' => $languageCourse,
         ]);
     }
 
@@ -50,14 +61,16 @@ final class AdminLanguageCourseController extends AbstractController
 
     #[Route('/admin/language_course/edit/{id}', name: 'app_admin_language_course_edit')]
     #[IsGranted('ROLE_ADMIN')]
-    public function edit(int $id, Request $request, LanguageRepository $languageRepository, EntityManagerInterface $em): Response
+    public function edit(int $id, Request $request, LanguageCourseRepository $languageCourseRepository, EntityManagerInterface $em): Response
     {
-        $languageCourse = $languageRepository->find($id);
+        $languageCourse = $languageCourseRepository->find($id);
 
         $form = $this->createForm(LanguageCourseType::class, $languageCourse);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $languageCourse->setUpdatedAt(new \DateTimeImmutable());
 
             $em->persist($languageCourse);
             $em->flush();
@@ -67,6 +80,7 @@ final class AdminLanguageCourseController extends AbstractController
 
         return $this->render('admin_templates/admin_language_course/edit.html.twig', [
             'form' => $form->createView(),
+            'languageCourse' => $languageCourse,
         ]);
     }
 

@@ -1,0 +1,13 @@
+{% extends 'base_admin.html.twig' %}
+
+{% block title %}Edit {{ languageCourse.label }}{% endblock %}
+
+{% block main %}
+<h1>Edit {{ languageCourse.label }}</h1>
+
+{{ form_start(form) }}
+{{ form_widget(form) }}
+<button class="btn btn-primary">Save changes</button>
+{{ form_end(form) }}
+
+{% endblock %}

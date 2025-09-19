@@ -5,6 +5,20 @@
 
 {% block main %}
 
-<h1>Apprendre les langues est devenu plus simple !</h1>
+<h1>Learning languages has never been more simple!</h1>
+<p class="lead">Join us and start your language adventure today!</p>
+<div class="d-flex justify-content-center mt-4">
+  <a href="{{ path('register') }}" class="btn btn-primary me-2">Get Started</a>
+  <a href="{{ path('app_login') }}" class="btn btn-secondary text-white">Login</a>
+</div>
+<br>
+{% include "_components/carousel.html.twig" %}
+
+{% endblock %}
+
+{% block javascripts %}
+{{ vite_entry_script_tags('app') }}
+<script src="{{ asset('scripts/carrousel.js') }}"></script>
+
 
 {% endblock %}
