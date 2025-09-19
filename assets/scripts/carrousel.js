@@ -1,10 +1,10 @@
-const track = document.querySelector(".carousel-track");
-const slides = document.querySelectorAll(".carousel-track .card");
+const carousel = document.querySelector(".carousel");
+const slides = document.querySelectorAll(".carousel .card");
 let currentSlide = 0;
 
 function updateSlide() {
-  const slideWidth = slides[0].clientWidth;
-  track.style.transform = `translateX(-${currentSlide * slideWidth}px)`;
+  const carouselLength = slides[0].clientWidth;
+  carousel.style.transform = `translateX(-${currentSlide * carouselLength}px)`;
 }
 
 document.getElementById("next").addEventListener("click", () => {

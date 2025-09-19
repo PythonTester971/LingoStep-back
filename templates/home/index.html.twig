@@ -6,13 +6,48 @@
 {% block main %}
 
 <h1>Learning languages has never been more simple!</h1>
-<p class="lead">Join us and start your language adventure today!</p>
-<div class="d-flex justify-content-center mt-4">
-  <a href="{{ path('register') }}" class="btn btn-primary me-2">Get Started</a>
-  <a href="{{ path('app_login') }}" class="btn btn-secondary text-white">Login</a>
-</div>
-<br>
-{% include "_components/carousel.html.twig" %}
+<section>
+  <p class="lead">Join us and start your language adventure today!</p>
+  <br>
+  {% include "_components/carousel.html.twig" %}
+</section>
+<section>
+  <h2 class="mt-5 mb-4">Why choose LingoStep?</h2>
+  <div class="row">
+    <div class="col-md-4">
+      <div class="card mb-4 shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">Personalized Learning</h5>
+          <p class="card-text">Tailor your learning experience with courses designed to fit your goals and pace.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card mb-4 shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">Interactive Content</h5>
+          <p class="card-text">Engage with interactive lessons, quizzes, and real-life scenarios to enhance your
+            learning.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card mb-4 shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">Community Support</h5>
+          <p class="card-text">Join a vibrant community of learners and native speakers to practice and grow together.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section>
+  <h2 class="mt-5 mb-4">Get Started Today!</h2>
+  <p>Sign up now and take the first step towards mastering a new language with LingoStep.</p>
+  <a href="{{ path('register') }}" class="btn btn-primary btn-lg">Sign Up</a>
+  <a href="{{ path('language_courses_list') }}" class="btn btn-secondary btn-lg">Explore Courses</a>
+</section>
 
 {% endblock %}
 

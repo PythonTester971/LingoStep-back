@@ -6,7 +6,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0 align-items-lg-center">
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Language courses
@@ -27,18 +27,25 @@
           <a class="nav-link disabled" aria-disabled="true" href="#"><span class="text-body-tertiary">Ranking</span></a>
         </li>
         {% if app.user %}
-        <ul class="navbar-nav me-3 mb-2 mb-lg-0">
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle btn btn-secondary text-white" href="#" role="button"
-              data-bs-toggle="dropdown" aria-expanded="false">Profile</a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="{{ path('app_user_profile') }}">View Profile</a></li>
-              <li><a class="dropdown-item" href="{{ path('app_user_profile_edit') }}">Edit Profile</a></li>
-              <li><a class="dropdown-item disabled" aria-disabled="true" href="#">My Courses</a></li>
-              <li><a class="dropdown-item disabled" aria-disabled="true" href="#">Settings</a></li>
-            </ul>
-          </li>
-        </ul>
+        <li>
+          <ul class="navbar-nav me-3 mb-2 mb-lg-0">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">Profile</a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="{{ path('app_user_profile') }}">View Profile</a></li>
+                <li><a class="dropdown-item" href="{{ path('app_user_profile_edit') }}">Edit Profile</a></li>
+                <li><a class="dropdown-item disabled" aria-disabled="true" href="#">My Courses</a></li>
+                <li><a class="dropdown-item disabled" aria-disabled="true" href="#">Settings</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <ul class="navbar-nav me-3 mb-2 mb-lg-0">
+            <li class="nav-item text-align text-white">{{ app.user.xp }} XP</li>
+          </ul>
+        </li>
         {% if is_granted('ROLE_ADMIN') %}
         <li class="nav-item me-2">
           <a class="btn btn-warning text-white" href="{{ path('app_admin') }}">Admin</a>
@@ -56,10 +63,10 @@
         </li>
         {% endif %}
       </ul>
-      <form class="d-flex" role="search">
+      {# <form class="d-flex" role="search">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
         <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
+      </form> #}
     </div>
   </div>
 </nav>

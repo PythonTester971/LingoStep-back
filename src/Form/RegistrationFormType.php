@@ -34,7 +34,7 @@ class RegistrationFormType extends AbstractType
             ->add('language', EntityType::class, [
                 'class' => Language::class,
                 'choice_label' => 'label',
-                'placeholder' => 'Choose your language',
+                'placeholder' => 'Choose your spoken language',
                 'required' => true,
             ])
             ->add('plainPassword', PasswordType::class, [
