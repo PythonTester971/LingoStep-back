@@ -2,12 +2,13 @@
 
 namespace App\Form;
 
-use App\Entity\LanguageCourse;
 use App\Entity\Mission;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use App\Entity\LanguageCourse;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class MissionType extends AbstractType
 {
@@ -26,8 +27,15 @@ class MissionType extends AbstractType
             ->add('languageCourse', EntityType::class, [
                 'class' => LanguageCourse::class,
                 'choice_label' => 'id',
-            ])
-        ;
+            ]);
+
+        $builder->add('questions', CollectionType::class, [
+            'entry_type' => QuestionType::class,
+            'entry_options' => ['label' => false],
+            'allow_add' => true,
+            'allow_delete' => true,
+            'by_reference' => false,
+        ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
