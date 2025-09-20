@@ -6,18 +6,33 @@ export default defineConfig({
         symfonyPlugin(),
     ],
     build: {
+        manifest: true,
+        outDir: 'public/build',
         rollupOptions: {
             input: {
                 app: "./assets/app.js"
             },
+            external: [
+                '@symfony/stimulus-bridge/controllers.json'
+            ]
         }
     },
-    css: {
-        preprocessorOptions: {
-            scss: {
-                additionalData: `
-                    @import "C:/Users/Utilisateur/Documents/Simplon.co/simplonco_exe/END_PROJECT/lingostep/lingostep-back/assets/styles/_variables.scss";
-                `
+    resolve: {
+        alias: {
+            '@': '/assets',
+            '~bootstrap': 'bootstrap',
+            '~bootstrap-icons': 'bootstrap-icons',
+        }
+    },
+    server: {
+        watch: {
+            usePolling: true
+        }
+    },
+    build: {
+        rollupOptions: {
+            input: {
+                app: './assets/app.js'
             }
         }
     }

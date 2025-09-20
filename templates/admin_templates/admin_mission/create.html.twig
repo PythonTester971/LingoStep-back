@@ -1,68 +1,40 @@
-{# admin_templates/admin_mission/create.html.twig #}
+{% extends "base_admin.html.twig" %}
 
-{# ... #}
+{% block title %}Create a mission{% endblock %}
+
+{% block main %}
+<h1 class="mb-4">Create a mission</h1>
 
 {{ form_start(form) }}
+{{ form_row(form.label) }}
 {{ form_row(form.description) }}
+{{ form_row(form.languageCourse) }}
+{# {{ form_row(form.createdAt) }}
+{{ form_row(form.updatedAt) }}
+{{ form_row(form.xpReward) }} #}
 
-<h3>Questions</h3>
-<ul class="questions" data-index="{{ form.questions|length > 0 ? form.questions|last.vars.name + 1 : 0 }}"
-  data-prototype="{{ form_widget(form.questions.vars.prototype)|e('html_attr') }}">
-  {% for question in form.questions %}
-  <li>{{ form_row(question.instruction) }}</li>
-  {% endfor %}
-</ul>
-<button type="button" class="add_item_link" data-collection-holder-class="questions">Add a question</button>
-<button type="button" class="remove_item_link" data-collection-holder-class="questions">Delete last question</button>
+<div {{ stimulus_controller('form-collection') }} data-form-collection-index-value="{{ form.questions|length }}"
+  data-form-collection-prototype-value="{{ form_widget(form.questions.vars.prototype)|e('html_attr') }}">
+
+  <div class="mb-3">
+    <h3>Questions</h3>
+    <ul class="list-unstyled" {{ stimulus_target('form-collection', 'collectionContainer' ) }}>
+      {% for question in form.questions %}
+      <li class="mb-3">{{ form_widget(question) }}</li>
+      {% endfor %}
+    </ul>
+
+    <div class="btn-group">
+      <button type="button" class="btn btn-primary" {{ stimulus_action('form-collection', 'addCollectionElement' ) }}>
+        <i class="bi bi-plus-circle"></i> Ajouter une question
+      </button>
+      <button type="button" class="btn btn-danger" {{ stimulus_action('form-collection', 'removeCollectionElement' ) }}>
+        <i class="bi bi-trash"></i> Supprimer la dernière question
+      </button>
+    </div>
+  </div>
+
+</div>
 {{ form_end(form) }}
 
-<script>
-
-  document
-    .querySelectorAll('.add_item_link')
-    .forEach(btn => {
-      btn.addEventListener("click", addFormToCollection)
-    });
-
-  document
-    .querySelectorAll('ul.questions li')
-    .forEach((tag) => {
-      addTagFormDeleteLink(tag)
-    })
-
-  function addFormToCollection(e) {
-    const collectionHolder = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
-
-    const item = document.createElement('li');
-
-    item.innerHTML = collectionHolder
-      .dataset
-      .prototype
-      .replace(
-        /__name__/g,
-        collectionHolder.dataset.index
-      );
-
-    collectionHolder.appendChild(item);
-
-    collectionHolder.dataset.index++;
-
-    addTagFormDeleteLink(item);
-  };
-
-  function addQuestionFormDeleteLink(item) {
-    const removeFormButton = document.createElement('button');
-    removeFormButton.innerText = 'Delete this question';
-
-    item.append(removeFormButton);
-
-    removeFormButton.addEventListener('click', (e) => {
-      e.preventDefault();
-      // remove the li for the tag form
-      item.remove();
-    });
-  }
-
-</script>
-
-{# ... #}
+{% endblock %}

@@ -3,14 +3,18 @@
  */
 
 
+import './bootstrap.js';
 import './styles/app.scss';
 
-import 'bootstrap';
+import * as bootstrap from 'bootstrap';
+window.bootstrap = bootstrap;
 
-import 'bootstrap-icons/font/bootstrap-icons.css';
+import './controllers';
 
-import './bootstrap.js';
+import '../node_modules/bootstrap-icons/font/bootstrap-icons.css';
 
-import './scripts/carrousel.js'
+import './scripts/carrousel.js';
+
+
 
 console.log('This log comes from assets/app.js - welcome to AssetMapper! 🎉');

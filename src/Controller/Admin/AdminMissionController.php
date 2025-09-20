@@ -33,9 +33,6 @@ final class AdminMissionController extends AbstractController
         $question1 = new Question();
         $question1->setInstruction('question1');
         $mission->getQuestions()->add($question1);
-        $question2 = new Question();
-        $question2->setInstruction('question2');
-        $mission->getQuestions()->add($question2);
         // end dummy code
 
         $form = $this->createForm(MissionType::class, $mission);

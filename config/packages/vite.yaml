@@ -1,0 +1,5 @@
+pentatrion_vite:
+    build_directory: build
+    script_attributes:
+        type: module
+        crossorigin: anonymous

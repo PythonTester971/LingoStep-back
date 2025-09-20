@@ -17,25 +17,24 @@ class MissionType extends AbstractType
         $builder
             ->add('label')
             ->add('description')
-            ->add('createdAt', null, [
-                'widget' => 'single_text',
-            ])
-            ->add('updatedAt', null, [
-                'widget' => 'single_text',
-            ])
-            ->add('xpReward')
+            // ->add('createdAt', null, [
+            //     'widget' => 'single_text',
+            // ])
+            // ->add('updatedAt', null, [
+            //     'widget' => 'single_text',
+            // ])
+            // ->add('xpReward')
             ->add('languageCourse', EntityType::class, [
                 'class' => LanguageCourse::class,
                 'choice_label' => 'id',
+            ])
+            ->add('questions', CollectionType::class, [
+                'entry_type' => QuestionType::class,
+                'entry_options' => ['label' => false],
+                'allow_add' => true,
+                'allow_delete' => true,
+                'by_reference' => false,
             ]);
-
-        $builder->add('questions', CollectionType::class, [
-            'entry_type' => QuestionType::class,
-            'entry_options' => ['label' => false],
-            'allow_add' => true,
-            'allow_delete' => true,
-            'by_reference' => false,
-        ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

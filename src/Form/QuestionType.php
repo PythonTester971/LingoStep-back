@@ -20,10 +20,10 @@ class QuestionType extends AbstractType
                 'class' => Mission::class,
                 'choice_label' => 'id',
             ])
-            ->add('answeredQuestion', EntityType::class, [
-                'class' => AnsweredQuestion::class,
-                'choice_label' => 'id',
-            ])
+            // ->add('answeredQuestion', EntityType::class, [
+            //     'class' => AnsweredQuestion::class,
+            //     'choice_label' => 'id',
+            // ])
         ;
     }
 
