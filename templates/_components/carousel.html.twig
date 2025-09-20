@@ -1,37 +1,8 @@
-<div class="carousel-container mb-5 mt-3">
-
-  <div class="carousel d-flex gap-4">
-
-    <div class="card">
-      <img src="image1.jpg" class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">Titre 1</h5>
-        <p class="card-text">Petit texte de description pour la première card.</p>
-        <a href="#" class="btn btn-primary">Action</a>
-      </div>
+<div id="card-{{language.id}}" class="card">
+  <a href="{{ path('language_courses', {'id': language.id}) }}" class="card-link">
+    <img src="{{ asset(language.flagPath) }}" class="card-img-top" alt="Drapeau {{language.label}}">
+    <div class="card-overlay">
+      <h3 class="language-name">{{language.label}}</h3>
     </div>
-
-    <div class="card">
-      <img src="image2.jpg" class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">Titre 2</h5>
-        <p class="card-text">Un autre texte pour la deuxième card.</p>
-        <a href="#" class="btn btn-primary">Action</a>
-      </div>
-    </div>
-
-    <div class="card">
-      <img src="image3.jpg" class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">Titre 3</h5>
-        <p class="card-text">Et encore une description pour la troisième card.</p>
-        <a href="#" class="btn btn-primary">Action</a>
-      </div>
-    </div>
-
-  </div>
-</div>
-<div>
-  <button id="next" class="carousel-btn next">Next</button>
-  <button id="prev" class="carousel-btn prev active">Prev</button>
+  </a>
 </div>

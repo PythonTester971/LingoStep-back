@@ -9,7 +9,18 @@
 <section>
   <p class="lead">Join us and start your language adventure today!</p>
   <br>
-  {% include "_components/carousel.html.twig" %}
+  <div class="carousel-container">
+    <button id="prev" class="carousel-btn prev disabled"><i class="bi bi-chevron-left"></i></button>
+    <div class="carousel">
+      <div class="carousel-track">
+        {% for language in languages %}
+        {% include "_components/carousel.html.twig" with {'language': language} %}
+        {% endfor %}
+      </div>
+    </div>
+    <button id="next" class="carousel-btn next"><i class="bi bi-chevron-right"></i></button>
+  </div>
+
 </section>
 <section>
   <h2 class="mt-5 mb-4">Why choose LingoStep?</h2>
@@ -52,8 +63,6 @@
 {% endblock %}
 
 {% block javascripts %}
-{{ vite_entry_script_tags('app') }}
-<script src="{{ asset('scripts/carrousel.js') }}"></script>
-
-
+{{ parent() }}
+{{ vite_entry_script_tags('carrousel') }}
 {% endblock %}

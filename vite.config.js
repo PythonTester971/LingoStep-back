@@ -10,7 +10,8 @@ export default defineConfig({
         outDir: 'public/build',
         rollupOptions: {
             input: {
-                app: "./assets/app.js"
+                app: "./assets/app.js",
+                carrousel: "./assets/scripts/carrousel.js"
             },
             external: [
                 '@symfony/stimulus-bridge/controllers.json'
