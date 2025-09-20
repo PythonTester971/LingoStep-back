@@ -9,12 +9,13 @@
   <link rel="stylesheet" href="{{ asset('node_modules/bootstrap-icons/font/bootstrap-icons.css') }}">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
-{% block stylesheets %}
-{{ vite_entry_link_tags('app') }}
-{% endblock %}
+
 
 
 <body class="d-flex min-vh-100">
+  {% block stylesheets %}
+  {{ vite_entry_link_tags('app') }}
+  {% endblock %}
   {% block body %}
 
 

@@ -17,21 +17,20 @@ export default class extends Controller {
 
   addCollectionElement(event) {
     event.preventDefault();
+    console.log('Adding new element');
 
-    if (!this.hasPrototypeTarget) return;
-
-    const prototypeHTML = this.prototypeTarget.innerHTML;
+    const prototype = this.prototypeValue;
     const index = this.indexValue || 0;
-    const newFormHTML = prototypeHTML.replace(/__name__/g, index);
 
-    const li = document.createElement("li");
-    li.classList.add("mb-3", "border", "p-3");
-    li.innerHTML = newFormHTML;
+    const newForm = prototype.replace(/__name__/g, index);
+    const element = document.createElement('li');
+    element.innerHTML = newForm;
+    element.classList.add('mb-3', 'border', 'p-3');
 
-    this.collectionContainerTarget.appendChild(li);
+    this.collectionContainerTarget.appendChild(element);
     this.indexValue = index + 1;
 
-    console.log(`Added question ${index}`);
+    console.log(`Added element with index ${index}`);
   }
 
   removeCollectionElement(event) {
