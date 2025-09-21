@@ -15,12 +15,12 @@ class LanguageType extends AbstractType
             ->add('label')
             ->add('slug')
             ->add('flagPath')
-            ->add('createdAt', null, [
-                'widget' => 'single_text',
-            ])
-            ->add('updatedAt', null, [
-                'widget' => 'single_text',
-            ])
+            // ->add('createdAt', null, [
+            //     'widget' => 'single_text',
+            // ])
+            // ->add('updatedAt', null, [
+            //     'widget' => 'single_text',
+            // ])
         ;
     }
 

@@ -8,7 +8,7 @@
 
     <div class="d-flex justify-content-evenly mb-4">
         <a class="btn btn-outline-info me-3" href="{{ path('app_admin') }}">Retour à l'admin</a>
-        <a class="btn btn-outline-info" href="{{path('app_admin_language_course_create')}}">Create a language</a>
+        <a class="btn btn-outline-info" href="{{path('app_admin_language_create')}}">Create a language</a>
     </div>
 
     <table class="table table-hover mt-3">
@@ -33,19 +33,19 @@
                     <a href="{{ path('admin_language_detail',{ 'id': language.id } )}}"
                         class="btn btn-outline-secondary me-2"><i class="bi bi-eye-fill"></i>
                     </a>
-                    <a href="{{ path('admin_language_edit', { 'id': language.id })}}"
-                        class="btn btn-outline-primary me-2"><i class="bi bi-pencil-square"></i>
-                    </a>
-                    {# <button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{language.id}}"
+                    <button type="button" data-bs-toggle="modal" data-bs-target="#editBackdrop{{language.id}}"
+                        class="btn btn-outline-primary"><i class="bi bi-pencil-square"></i>
+                    </button>
+                    <button type="button" data-bs-toggle="modal" data-bs-target="#deleteBackdrop{{language.id}}"
                         class="btn btn-outline-danger"><i class="bi bi-trash3"></i>
-                    </button> #}
-                    <!-- Modal -->
-                    {# <div class="modal fade" id="staticBackdrop{{language.id}}" data-bs-backdrop="static"
-                        data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    </button>
+                    <!-- DELETE Modal -->
+                    <div class="modal fade" id="deleteBackdrop{{language.id}}" data-bs-backdrop="static"
+                        data-bs-keyboard="false" tabindex="-1" aria-labelledby="deleteBackdropLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Deletion of
+                                    <h1 class="modal-title fs-5" id="deleteBackdropLabel">Deletion of
                                         {{language.label}}</h1>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
@@ -56,12 +56,35 @@
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary"
                                         data-bs-dismiss="modal">Close</button>
-                                    <a href="{{ path('app_admin_language_delete',{'id': language.id}) }}"
+                                    <a href="{{ path('admin_language_delete',{'id': language.id}) }}"
                                         class="btn btn-outline-danger">Delete</a>
                                 </div>
                             </div>
                         </div>
-                    </div> #}
+                    </div>
+                    <!-- EDIT Modal -->
+                    <div class="modal fade" id="editBackdrop{{language.id}}" data-bs-backdrop="static"
+                        data-bs-keyboard="false" tabindex="-1" aria-labelledby="editBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="editBackdropLabel">Edition of
+                                        {{language.label}}</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    Souhaitez-vous vraiment modifier les informations de {{ language.label }} ?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Close</button>
+                                    <a href="{{ path('admin_language_edit',{'id': language.id}) }}"
+                                        class="btn btn-outline-danger">Save</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </td>
             </tr>
 

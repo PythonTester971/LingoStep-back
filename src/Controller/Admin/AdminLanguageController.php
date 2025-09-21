@@ -14,7 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 final class AdminLanguageController extends AbstractController
 {
-    #[Route('/admin/languages', name: 'app_admin_languages')]
+    #[Route('/admin/languages', name: 'admin_languages')]
     #[IsGranted('ROLE_ADMIN')]
     public function index(LanguageRepository $languageRepository): Response
     {
@@ -22,6 +22,30 @@ final class AdminLanguageController extends AbstractController
 
         return $this->render('admin_templates/admin_language/index.html.twig', [
             'languages' => $languages,
+        ]);
+    }
+
+    #[Route('/admin/language/create', name: 'app_admin_language_create')]
+    #[IsGranted('ROLE_ADMIN')]
+    public function create(Request $request, EntityManagerInterface $em): Response
+    {
+        $language = new Language();
+        $form = $this->createForm(LanguageType::class, $language);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $language->setCreatedAt(new \DateTimeImmutable());
+            $language->setUpdatedAt(new \DateTimeImmutable());
+
+            $em->persist($language);
+            $em->flush();
+
+            return $this->redirectToRoute('app_admin_languages');
+        }
+
+        return $this->render('admin_templates/admin_language/language_create.html.twig', [
+            'form' => $form->createView(),
         ]);
     }
 
@@ -38,6 +62,21 @@ final class AdminLanguageController extends AbstractController
         return $this->render('admin_templates/admin_language/language_detail.html.twig', [
             'language' => $language,
         ]);
+    }
+
+    #[Route('/admin/language/{id}/delete', name: 'admin_language_delete', requirements: ['id' => '\d+'])]
+    #[IsGranted('ROLE_ADMIN')]
+    public function delete(EntityManagerInterface $em, LanguageRepository $languageRepository, int $id): Response
+    {
+        $language = $languageRepository->find($id);
+
+        if (!$language) {
+            throw $this->createNotFoundException('The language does not exist');
+        }
+
+        $em->remove($language);
+
+        return $this->redirectToRoute('app_admin_languages');
     }
 
     #[Route('/admin/language/{id}/edit', name: 'admin_language_edit', requirements: ['id' => '\d+'])]
