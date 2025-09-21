@@ -2,10 +2,8 @@
 
 namespace App\Controller\Admin;
 
-use Dom\Entity;
 use App\Entity\Mission;
 use App\Entity\Question;
-use App\Entity\Option;
 use App\Form\MissionType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,18 +12,18 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-final class AdminMissionController extends AbstractController
+final class AdminQuizController extends AbstractController
 {
-    #[Route('/admin/mission', name: 'app_admin_mission')]
+    #[Route('/admin/quiz', name: 'app_admin_quiz')]
     #[IsGranted('ROLE_ADMIN')]
     public function index(): Response
     {
-        return $this->render('admin_templates/admin_mission/index.html.twig', [
-            'controller_name' => 'AdminMissionController',
+        return $this->render('admin_templates/admin_quiz/index.html.twig', [
+            'controller_name' => 'AdminQuizController',
         ]);
     }
 
-    #[Route('/admin/mission/create', name: 'app_admin_mission_create')]
+    #[Route('/admin/quiz/create', name: 'app_admin_quiz_create')]
     #[IsGranted('ROLE_ADMIN')]
     public function create(Request $request, EntityManagerInterface $em): Response
     {
@@ -34,16 +32,11 @@ final class AdminMissionController extends AbstractController
         $question1 = new Question();
         $question1->setInstruction('Enter your question here');
 
-        // Add some default options to the question
         $option1 = new \App\Entity\Option();
         $option1->setLabel('Answer option 1');
         $option1->setIsCorrect(true);
         $question1->addOption($option1);
 
-        $option2 = new \App\Entity\Option();
-        $option2->setLabel('Answer option 2');
-        $option2->setIsCorrect(false);
-        $question1->addOption($option2);
 
         $mission->getQuestions()->add($question1);
 
@@ -60,7 +53,6 @@ final class AdminMissionController extends AbstractController
                 $question->setMission($mission);
                 $em->persist($question);
 
-                // Handle options for each question
                 foreach ($question->getOptions() as $option) {
                     $option->setQuestion($question);
                     $em->persist($option);
@@ -70,10 +62,10 @@ final class AdminMissionController extends AbstractController
             $em->persist($mission);
             $em->flush();
 
-            return $this->redirectToRoute('app_admin_mission');
+            return $this->redirectToRoute('app_admin_quiz');
         }
 
-        return $this->render('admin_templates/admin_mission/create.html.twig', [
+        return $this->render('admin_templates/admin_quiz/create.html.twig', [
             'form' => $form,
         ]);
     }

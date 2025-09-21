@@ -2,14 +2,43 @@
 
 {% block title %}Quiz{% endblock %}
 
-{% block body %}
+{% block main %}
 
-<div class="container mt-4">
-    <h1>Quiz</h1>
 
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn btn-primary mt-3">Submit</button>
-    {{ form_end(form) }}
+<h1>Quiz</h1>
+
+{# {{ form_start(form) }}
+{{ form_widget(form) }}
+<button class="btn btn-primary mt-3">Submit</button>
+{{ form_end(form) }} #}
+
+{{ form_start(form, {'attr': {'id': 'quiz-form'}}) }}
+
+<div id="quiz-container">
+    <div id="progress-bar" style="width:100%; background:#eee; height:20px; margin-bottom:15px;">
+        <div id="progress" style="width:0%; height:100%; background:#4caf50;"></div>
+    </div>
+
+    {# Render exactly one slide per question (not per form child) #}
+    {% for question in questions %}
+    {% set fieldName = 'question_' ~ question.id %}
+    <div class="question-slide{% if not loop.first %} hidden{% endif %}" data-index="{{ loop.index0 }}">
+        {{ form_label(form[fieldName]) }}
+        {{ form_widget(form[fieldName]) }}
+        <button type="button" class="next-btn">
+            {% if loop.last %}Terminer{% else %}Suivant{% endif %}
+        </button>
+    </div>
+    {% endfor %}
+
+    {# Render CSRF token and any other hidden fields outside the slides #}
+    {{ form_rest(form) }}
 </div>
+
+{# Prevent form_end from rendering the rest again (we already rendered it) #}
+{{ form_end(form, {'render_rest': false}) }}
+
+
+
+
 {% endblock %}

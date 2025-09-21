@@ -17,8 +17,27 @@
     {{ form_row(form.languageCourses) }}
     {# {{ form_row(form.level) }} #}
     {# {{ form_row(form.save, { label: 'Update Profile' }) }} #}
-    <div class="d-flex justify-content-center mt-4">
-      <button type="submit" class="btn btn-primary">Update</button>
+    <button type="button" data-bs-toggle="modal" data-bs-target="#editBackdrop{{app.user.id}}"
+      class="btn btn-outline-primary">Save changes</button>
+
+    <div class="modal fade" id="editBackdrop{{app.user.id}}" data-bs-backdrop="static" data-bs-keyboard="false"
+      tabindex="-1" aria-labelledby="editBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="editBackdropLabel">Edition of
+              {{app.user.username}}</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            Souhaitez-vous vraiment modifier les informations de {{ app.user.username }} ?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" form="language_form" class="btn btn-outline-danger">Save</button>
+          </div>
+        </div>
+      </div>
     </div>
     {{ form_end(form) }}
 

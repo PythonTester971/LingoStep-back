@@ -19,6 +19,10 @@
     No language courses enrolled yet.
     {% endfor %}
 </p>
+<div class="d-flex justify-content-start">
+    <a class="btn btn-outline-info me-3" href="{{ path('home') }}">Home</a>
+    <a class="btn btn-outline-primary" href="{{ path('app_user_profile_edit', { 'id': app.user.id }) }}">Edit</a>
+</div>
 
 {# <p>Points : {{ app.user.points }}</p>
 <p>Level : {{ app.user.level }}</p>

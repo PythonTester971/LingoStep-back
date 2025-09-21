@@ -53,6 +53,12 @@ class Mission
     #[ORM\OneToMany(targetEntity: UserMission::class, mappedBy: 'mission')]
     private Collection $userMissions;
 
+    #[ORM\Column(length: 255)]
+    private ?string $illustration = null;
+
+    #[ORM\OneToOne(mappedBy: 'mission', cascade: ['persist', 'remove'])]
+    private ?Lesson $lesson = null;
+
 
     public function __construct()
     {
@@ -224,6 +230,40 @@ class Mission
                 $userMission->setMission(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getIllustration(): ?string
+    {
+        return $this->illustration;
+    }
+
+    public function setIllustration(string $illustration): static
+    {
+        $this->illustration = $illustration;
+
+        return $this;
+    }
+
+    public function getLesson(): ?Lesson
+    {
+        return $this->lesson;
+    }
+
+    public function setLesson(?Lesson $lesson): static
+    {
+        // unset the owning side of the relation if necessary
+        if ($lesson === null && $this->lesson !== null) {
+            $this->lesson->setMission(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($lesson !== null && $lesson->getMission() !== $this) {
+            $lesson->setMission($this);
+        }
+
+        $this->lesson = $lesson;
 
         return $this;
     }
