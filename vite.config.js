@@ -30,4 +30,11 @@ export default defineConfig({
             usePolling: true
         }
     },
+    build: {
+        rollupOptions: {
+            input: {
+                app: './assets/app.js'
+            }
+        }
+    }
 });

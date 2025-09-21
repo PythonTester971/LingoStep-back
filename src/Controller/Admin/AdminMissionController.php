@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use Dom\Entity;
 use App\Entity\Mission;
 use App\Entity\Question;
+use App\Entity\Option;
 use App\Form\MissionType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,7 +32,19 @@ final class AdminMissionController extends AbstractController
         $mission = new Mission();
 
         $question1 = new Question();
-        $question1->setInstruction('question1');
+        $question1->setInstruction('Enter your question here');
+
+        // Add some default options to the question
+        $option1 = new \App\Entity\Option();
+        $option1->setLabel('Answer option 1');
+        $option1->setIsCorrect(true);
+        $question1->addOption($option1);
+
+        $option2 = new \App\Entity\Option();
+        $option2->setLabel('Answer option 2');
+        $option2->setIsCorrect(false);
+        $question1->addOption($option2);
+
         $mission->getQuestions()->add($question1);
 
         $form = $this->createForm(MissionType::class, $mission);
@@ -46,6 +59,12 @@ final class AdminMissionController extends AbstractController
             foreach ($mission->getQuestions() as $question) {
                 $question->setMission($mission);
                 $em->persist($question);
+
+                // Handle options for each question
+                foreach ($question->getOptions() as $option) {
+                    $option->setQuestion($question);
+                    $em->persist($option);
+                }
             }
 
             $em->persist($mission);

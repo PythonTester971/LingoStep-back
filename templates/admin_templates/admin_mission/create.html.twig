@@ -3,30 +3,70 @@
 {% block title %}Quiz creation{% endblock %}
 
 {% block main %}
-<h1 class="mb-4">Create a quiz</h1>
+<h1 class="mb-4">Create a quiz for the mission</h1>
 
 {{ form_start(form) }}
 {{ form_row(form.label) }}
 {{ form_row(form.description) }}
 {{ form_row(form.languageCourse) }}
-{# {{ form_row(form.createdAt) }}
-{{ form_row(form.updatedAt) }}
-{{ form_row(form.xpReward) }} #}
+{{ form_row(form.xpReward) }}
 
 
 
 <div class="mb-3">
-  <h3>Questions</h3>
+  <p>Questions</p>
   <ul class="questions list-unstyled"
     data-index="{{ form.questions|length > 0 ? form.questions|last.vars.name + 1 : 0 }}"
     data-prototype="{{ form_widget(form.questions.vars.prototype)|e('html_attr') }}">
-    {% for question in form.questions %}
-    <li>{{ form_row(question.instruction) }}</li>
+    {% for questionForm in form.questions %}
+    <li class="question-item card mb-4 p-3">
+      <div class="card-header d-flex justify-content-between align-items-center bg-light">
+        <h4>Question {{ loop.index }}</h4>
+        <button type="button" class="btn btn-sm btn-outline-danger remove-question">Remove this question</button>
+      </div>
+      <div class="card-body">
+        {{ form_row(questionForm.instruction) }}
+
+        <div class="options-section mt-3">
+          <p>Options</p>
+          <ul class="options list-unstyled"
+            data-index="{{ questionForm.options|length > 0 ? questionForm.options|last.vars.name + 1 : 0 }}"
+            data-prototype="{{ form_widget(questionForm.options.vars.prototype)|e('html_attr') }}">
+            {% for optionForm in questionForm.options %}
+            <li class="option-item mb-3 p-2 border rounded">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <h6>Option {{ loop.index }}</h6>
+                <button type="button" class="btn btn-sm btn-outline-danger remove-option">Remove</button>
+              </div>
+              {{ form_row(optionForm.label) }}
+              {{ form_row(optionForm.code) }}
+              {{ form_row(optionForm.isCorrect) }}
+            </li>
+            {% endfor %}
+          </ul>
+          <button type="button" class="btn btn-sm btn-outline-success add-option-link mt-2"
+            data-collection-holder-class="options">
+            Add an answer option
+          </button>
+        </div>
+      </div>
+    </li>
     {% endfor %}
   </ul>
 
-  <button type="button" class="add_item_link" data-collection-holder-class="questions">Add a question</button>
-  <button type="button" class="remove_item_link" data-collection-holder-class="questions">Remove a question</button>
+  <div class="d-flex justify-content-between">
+    <button type="button" class="btn btn-outline-primary add-question-link mt-3"
+      data-collection-holder-class="questions">
+      Add a question
+    </button>
+    <button type="button" class="btn btn-outline-danger remove-question mt-3" data-collection-holder-class="questions">
+      Remove question
+    </button>
+  </div>
+</div>
+
+<div class="d-flex justify-content-center mt-4">
+  <button type="submit" class="btn btn-primary">Create</button>
 </div>
 
 {{ form_end(form) }}

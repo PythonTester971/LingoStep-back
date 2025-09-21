@@ -23,7 +23,7 @@ class MissionType extends AbstractType
             // ->add('updatedAt', null, [
             //     'widget' => 'single_text',
             // ])
-            // ->add('xpReward')
+            ->add('xpReward')
             ->add('languageCourse', EntityType::class, [
                 'class' => LanguageCourse::class,
                 'choice_label' => 'label',
