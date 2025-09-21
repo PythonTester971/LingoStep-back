@@ -1,0 +1,18 @@
+{% extends 'base_admin.html.twig' %}
+
+{% block title %}{{ language.label }}{% endblock %}
+
+{% block main %}
+
+
+<h1>{{ language.label }}</h1>
+
+<div class="text-start">
+  <p>Description: {{ language.description }}</p>
+  <p>Created at: {{ language.createdAt ? language.createdAt|date('Y-m-d H:i:s') }}</p>
+  <p>Updated at: {{ language.updatedAt ? language.updatedAt|date('Y-m-d H:i:s') }}</p>
+  <p><a href="{{ path('app_admin_language_edit', {'id': language.id}) }}">Edit</a></p>
+  <p><a href="{{ path('admin_language') }}">Back to list</a></p>
+</div>
+
+{% endblock %}

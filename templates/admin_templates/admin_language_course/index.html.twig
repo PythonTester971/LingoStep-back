@@ -1,6 +1,6 @@
 {% extends 'base_admin.html.twig' %}
 
-{% block title %}Hello AdminLanguageCourseController!{% endblock %}
+{% block title %}Language Course List{% endblock %}
 
 {% block main %}
 <div class="d-flex flex-column align-items-center justify-content-center min-vh-100">
@@ -28,10 +28,10 @@
                 <td scope="row">{{ languageCourse.label }}</td>
                 <td scope="row">{{ languageCourse.description}}</td>
                 <td class="text-center">
-                    <a href="{{ path('admin_language_course_detail',{ id: languageCourse.id } )}}"
+                    <a href="{{ path('admin_language_course_detail',{ 'id': languageCourse.id } )}}"
                         class="btn btn-outline-secondary me-2"><i class="bi bi-eye-fill"></i>
                     </a>
-                    <a href="{{ path('app_admin_language_course_edit', { id: languageCourse.id })}}"
+                    <a href="{{ path('app_admin_language_course_edit', { 'id': languageCourse.id })}}"
                         class="btn btn-outline-primary me-2"><i class="bi bi-pencil-square"></i>
                     </a>
                     <button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{languageCourse.id}}"
@@ -54,7 +54,7 @@
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary"
                                         data-bs-dismiss="modal">Close</button>
-                                    <a href="{{ path('app_admin_language_course_delete',{id: languageCourse.id}) }}"
+                                    <a href="{{ path('app_admin_language_course_delete',{'id': languageCourse.id}) }}"
                                         class="btn btn-outline-danger">Delete</a>
                                 </div>
                             </div>

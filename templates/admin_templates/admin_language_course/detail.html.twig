@@ -4,18 +4,21 @@
 
 {% block main %}
 
+
 <h1>{{ languageCourse.label }}</h1>
 
-<ul>
-  <li>Description: {{ languageCourse.description }}</li>
-  <li>Created at: {{ languageCourse.createdAt ? languageCourse.createdAt|date('Y-m-d H:i:s') }}</li>
-  <li>Updated at: {{ languageCourse.updatedAt ? languageCourse.updatedAt|date('Y-m-d H:i:s') }}</li>
-  <li><a href="{{ path('admin_language_course_edit', {'id': languageCourse.id}) }}">Edit</a></li>
-  <li><a href="{{ path('admin_language_course') }}">Back to list</a></li>
-  {# <li><a href="{{ path('admin_language_course_missions', {'id': languageCourse.id}) }}">See {{ languageCourse.label
-      }}
-      missions</a></li> #}
-</ul>
+<div class="text-start">
+  <p>Description: {{ languageCourse.description }}</p>
+  <p>Created at: {{ languageCourse.createdAt ? languageCourse.createdAt|date('Y-m-d H:i:s') }}</p>
+  <p>Updated at: {{ languageCourse.updatedAt ? languageCourse.updatedAt|date('Y-m-d H:i:s') }}</p>
+  {# <p><a href="{{ path('app_admin_language_course_edit', {'id': languageCourse.id}) }}">Edit</a></p> #}
+  <p><a href="{{ path('admin_language_course') }}">Back to list</a></p>
+</div>
+
+
+{# <li><a href="{{ path('admin_language_course_missions', {'id': languageCourse.id}) }}">See {{ languageCourse.label
+    }}
+    missions</a></li> #}
 
 
 

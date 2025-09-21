@@ -27,11 +27,11 @@ final class AdminLanguageCourseController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/language_course/{id}', name: 'admin_language_course_detail')]
+    #[Route('/admin/language_course/{id}', name: 'admin_language_course_detail', requirements: ['id' => '\d+'])]
     #[IsGranted('ROLE_ADMIN')]
-    public function detail(int $id, LanguageCourseRepository $languageRepository): Response
+    public function detail(int $id, LanguageCourseRepository $languageCourseRepository): Response
     {
-        $languageCourse = $languageRepository->find($id);
+        $languageCourse = $languageCourseRepository->find($id);
 
         return $this->render('admin_templates/admin_language_course/detail.html.twig', [
             'languageCourse' => $languageCourse,
@@ -48,10 +48,13 @@ final class AdminLanguageCourseController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
+            $languageCourse->setCreatedAt(new \DateTimeImmutable());
+            $languageCourse->setUpdatedAt(new \DateTimeImmutable());
+
             $em->persist($languageCourse);
             $em->flush();
 
-            return $this->redirectToRoute('app_admin_language_course');
+            return $this->redirectToRoute('admin_language_course');
         }
 
         return $this->render('admin_templates/admin_language_course/admin_create_language_course.html.twig', [

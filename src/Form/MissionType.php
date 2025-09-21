@@ -26,7 +26,7 @@ class MissionType extends AbstractType
             // ->add('xpReward')
             ->add('languageCourse', EntityType::class, [
                 'class' => LanguageCourse::class,
-                'choice_label' => 'id',
+                'choice_label' => 'label',
             ])
             ->add('questions', CollectionType::class, [
                 'entry_type' => QuestionType::class,

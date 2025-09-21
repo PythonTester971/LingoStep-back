@@ -2,6 +2,11 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Language;
+use App\Form\LanguageType;
+use App\Repository\LanguageRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
@@ -9,12 +14,60 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 final class AdminLanguageController extends AbstractController
 {
-    #[Route('/admin/language', name: 'app_admin_language')]
+    #[Route('/admin/languages', name: 'app_admin_languages')]
     #[IsGranted('ROLE_ADMIN')]
-    public function index(): Response
+    public function index(LanguageRepository $languageRepository): Response
     {
-        return $this->render('admin_language/index.html.twig', [
-            'controller_name' => 'AdminLanguageController',
+        $languages = $languageRepository->findAll();
+
+        return $this->render('admin_templates/admin_language/index.html.twig', [
+            'languages' => $languages,
+        ]);
+    }
+
+    #[Route('/admin/language/{id}', name: 'admin_language_detail', requirements: ['id' => '\d+'])]
+    #[IsGranted('ROLE_ADMIN')]
+    public function detail(LanguageRepository $languageRepository, int $id): Response
+    {
+        $language = $languageRepository->find($id);
+
+        if (!$language) {
+            throw $this->createNotFoundException('The language does not exist');
+        }
+
+        return $this->render('admin_templates/admin_language/language_detail.html.twig', [
+            'language' => $language,
+        ]);
+    }
+
+    #[Route('/admin/language/{id}/edit', name: 'admin_language_edit', requirements: ['id' => '\d+'])]
+    #[IsGranted('ROLE_ADMIN')]
+    public function edit(Request $request, EntityManagerInterface $em, LanguageRepository $languageRepository, int $id): Response
+    {
+        $language = $languageRepository->find($id);
+
+        if (!$language) {
+            throw $this->createNotFoundException('The language does not exist');
+        }
+
+        $form = $this->createForm(LanguageType::class, $language);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $language->setUpdatedAt(new \DateTimeImmutable());
+
+            $em->persist($language);
+            $em->flush();
+
+
+
+            return $this->redirectToRoute('admin_language_detail', ['id' => $language->getId()]);
+        }
+
+        return $this->render('admin_templates/admin_language/language_edit.html.twig', [
+            'form' => $form->createView(),
+            'language' => $language,
         ]);
     }
 }
