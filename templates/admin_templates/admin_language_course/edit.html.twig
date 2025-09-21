@@ -7,7 +7,29 @@
 
 {{ form_start(form) }}
 {{ form_widget(form) }}
-<button class="btn btn-primary">Save changes</button>
+<button type="button" data-bs-toggle="modal" data-bs-target="#editBackdrop{{languageCourse.id}}"
+  class="btn btn-outline-primary">Save changes</button>
 {{ form_end(form) }}
+
+<div class="modal fade" id="editBackdrop{{languageCourse.id}}" data-bs-backdrop="static" data-bs-keyboard="false"
+  tabindex="-1" aria-labelledby="editBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="editBackdropLabel">Edition of
+          {{languageCourse.label}}</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Souhaitez-vous vraiment modifier les informations de {{ languageCourse.label }} ?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <a href="{{ path('app_admin_language_course_edit',{'id': languageCourse.id}) }}"
+          class="btn btn-outline-danger">Save</a>
+      </div>
+    </div>
+  </div>
+</div>
 
 {% endblock %}

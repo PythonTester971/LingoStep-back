@@ -32,6 +32,20 @@ final class AdminUserController extends AbstractController
         ]);
     }
 
+    #[Route('/admin/user/{id}', name: 'app_admin_user')]
+    #[IsGranted('ROLE_ADMIN')]
+    public function detail(UserRepository $userRepository, int $id): Response
+    {
+        $user = $userRepository->find($id);
+        if (!$user) {
+            throw $this->createNotFoundException('User not found');
+        }
+
+        return $this->render('admin_templates/admin_user/user_detail.html.twig', [
+            'user' => $user,
+        ]);
+    }
+
     #[Route('/admin/user/create', name: 'app_admin_user_create')]
     #[IsGranted('ROLE_ADMIN')]
     public function create(Request $request, EntityManagerInterface $em): Response

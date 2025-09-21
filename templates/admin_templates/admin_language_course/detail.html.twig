@@ -11,15 +11,11 @@
   <p>Description: {{ languageCourse.description }}</p>
   <p>Created at: {{ languageCourse.createdAt ? languageCourse.createdAt|date('Y-m-d H:i:s') }}</p>
   <p>Updated at: {{ languageCourse.updatedAt ? languageCourse.updatedAt|date('Y-m-d H:i:s') }}</p>
-  {# <p><a href="{{ path('app_admin_language_course_edit', {'id': languageCourse.id}) }}">Edit</a></p> #}
-  <p><a href="{{ path('admin_language_course') }}">Back to list</a></p>
+  <div class="d-flex justify-content-start">
+    <a class="btn btn-outline-info me-3" href="{{ path('admin_languages') }}">Back to list</a>
+    <a class="btn btn-outline-primary"
+      href="{{ path('app_admin_language_course_edit', { 'id': languageCourse.id }) }}">Edit</a>
+  </div>
 </div>
-
-
-{# <li><a href="{{ path('admin_language_course_missions', {'id': languageCourse.id}) }}">See {{ languageCourse.label
-    }}
-    missions</a></li> #}
-
-
 
 {% endblock %}
