@@ -13,28 +13,22 @@
 {{ form_row(form.updatedAt) }}
 {{ form_row(form.xpReward) }} #}
 
-<div {{ stimulus_controller('form-collection') }} data-form-collection-index-value="{{ form.questions|length }}"
-  data-form-collection-prototype-value="{{ form_widget(form.questions.vars.prototype)|e('html_attr') }}">
 
-  <div class="mb-3">
-    <h3>Questions</h3>
-    <ul class="list-unstyled" {{ stimulus_target('form-collection', 'collectionContainer' ) }}>
-      {% for question in form.questions %}
-      <li class="mb-3">{{ form_widget(question) }}</li>
-      {% endfor %}
-    </ul>
 
-    <div class="btn-group">
-      <button type="button" class="btn btn-primary" {{ stimulus_action('form-collection', 'addCollectionElement' ) }}>
-        <i class="bi bi-plus-circle"></i> Ajouter une question
-      </button>
-      <button type="button" class="btn btn-danger" {{ stimulus_action('form-collection', 'removeCollectionElement' ) }}>
-        <i class="bi bi-trash"></i> Supprimer la dernière question
-      </button>
-    </div>
-  </div>
+<div class="mb-3">
+  <h3>Questions</h3>
+  <ul class="questions list-unstyled"
+    data-index="{{ form.questions|length > 0 ? form.questions|last.vars.name + 1 : 0 }}"
+    data-prototype="{{ form_widget(form.questions.vars.prototype)|e('html_attr') }}">
+    {% for question in form.questions %}
+    <li>{{ form_row(question.instruction) }}</li>
+    {% endfor %}
+  </ul>
 
+  <button type="button" class="add_item_link" data-collection-holder-class="questions">Add a question</button>
+  <button type="button" class="remove_item_link" data-collection-holder-class="questions">Remove a question</button>
 </div>
+
 {{ form_end(form) }}
 
 {% endblock %}

@@ -2,9 +2,11 @@
 
 namespace App\Controller\Admin;
 
+use Dom\Entity;
 use App\Entity\Mission;
 use App\Entity\Question;
 use App\Form\MissionType;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -24,23 +26,32 @@ final class AdminMissionController extends AbstractController
 
     #[Route('/admin/mission/create', name: 'app_admin_mission_create')]
     #[IsGranted('ROLE_ADMIN')]
-    public function create(Request $request): Response
+    public function create(Request $request, EntityManagerInterface $em): Response
     {
         $mission = new Mission();
 
-        // dummy code - add some example questions to the mission
-        // (otherwise, the template will render an empty list of questions)
         $question1 = new Question();
         $question1->setInstruction('question1');
         $mission->getQuestions()->add($question1);
-        // end dummy code
 
         $form = $this->createForm(MissionType::class, $mission);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // ... do your form processing, like saving the Task and Tag entities
+
+            $mission->setCreatedAt(new \DateTimeImmutable());
+            $mission->setUpdatedAt(new \DateTimeImmutable());
+
+            foreach ($mission->getQuestions() as $question) {
+                $question->setMission($mission);
+                $em->persist($question);
+            }
+
+            $em->persist($mission);
+            $em->flush();
+
+            return $this->redirectToRoute('app_admin_mission');
         }
 
         return $this->render('admin_templates/admin_mission/create.html.twig', [

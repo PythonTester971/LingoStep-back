@@ -90,11 +90,12 @@ final class AdminUserController extends AbstractController
             $em->persist($user);
             $em->flush();
 
-            return $this->redirectToRoute('app_admin_user');
+            return $this->redirectToRoute('app_admin_users');
         }
 
-        return $this->render('admin_templates/admin_user/edit.html.twig', [
+        return $this->render('admin_templates/admin_user/edit_user.html.twig', [
             'form' => $form->createView(),
+            'user' => $user,
         ]);
     }
 

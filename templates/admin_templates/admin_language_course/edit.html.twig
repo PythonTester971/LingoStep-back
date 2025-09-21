@@ -5,7 +5,7 @@
 {% block main %}
 <h1>Edit {{ languageCourse.label }}</h1>
 
-{{ form_start(form) }}
+{{ form_start(form, {'attr': {'id': 'language_course_form'}}) }}
 {{ form_widget(form) }}
 <button type="button" data-bs-toggle="modal" data-bs-target="#editBackdrop{{languageCourse.id}}"
   class="btn btn-outline-primary">Save changes</button>
@@ -25,8 +25,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <a href="{{ path('app_admin_language_course_edit',{'id': languageCourse.id}) }}"
-          class="btn btn-outline-danger">Save</a>
+        <button type="submit" form="language_course_form" class="btn btn-outline-danger">Save</button>
       </div>
     </div>
   </div>

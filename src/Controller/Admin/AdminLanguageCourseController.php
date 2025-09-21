@@ -78,7 +78,7 @@ final class AdminLanguageCourseController extends AbstractController
             $em->persist($languageCourse);
             $em->flush();
 
-            return $this->redirectToRoute('app_admin_language_course');
+            return $this->redirectToRoute('admin_language_course');
         }
 
         return $this->render('admin_templates/admin_language_course/edit.html.twig', [
