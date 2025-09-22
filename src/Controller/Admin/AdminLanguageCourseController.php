@@ -89,9 +89,14 @@ final class AdminLanguageCourseController extends AbstractController
 
     #[Route('/admin/language_course/delete/{id}', name: 'app_admin_language_course_delete')]
     #[IsGranted('ROLE_ADMIN')]
-    public function delete(LanguageCourse $languageCourse, LanguageCourseRepository $languageRepository): RedirectResponse
+    public function delete(int $id, LanguageCourse $languageCourse, LanguageCourseRepository $languageRepository, EntityManagerInterface $em): RedirectResponse
     {
-        $languageRepository->remove($languageCourse, true);
+        $languageCourse = $languageRepository->find($id);
+        if (!$languageCourse) {
+            throw $this->createNotFoundException('The language course does not exist');
+        }
+
+        $em->remove($languageCourse);
 
         return $this->redirectToRoute('app_admin_language_course');
     }

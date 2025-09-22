@@ -21,7 +21,30 @@
 </p>
 <div class="d-flex justify-content-start">
     <a class="btn btn-outline-info me-3" href="{{ path('home') }}">Home</a>
-    <a class="btn btn-outline-primary" href="{{ path('app_user_profile_edit', { 'id': app.user.id }) }}">Edit</a>
+    <a class="btn btn-outline-primary me-3" href="{{ path('app_user_profile_edit', { 'id': app.user.id }) }}">Edit</a>
+    <button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{app.user.id}}"
+        class="btn btn-outline-danger">Delete</button>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop{{app.user.id}}" data-bs-backdrop="static" data-bs-keyboard="false"
+    tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Deletion of
+                    your account {{ app.user.username }}</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete your account {{ app.user.username }} ?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <a href="{{ path('app_user_profile_delete', {'id': app.user.id}) }}"
+                    class="btn btn-outline-danger">Delete</a>
+            </div>
+        </div>
+    </div>
 </div>
 
 {# <p>Points : {{ app.user.points }}</p>

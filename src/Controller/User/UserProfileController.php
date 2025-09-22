@@ -10,6 +10,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 final class UserProfileController extends AbstractController
@@ -69,5 +70,21 @@ final class UserProfileController extends AbstractController
         return $this->render('user_templates/user_profile/edit-profile.html.twig', [
             'form' => $form->createView(),
         ]);
+    }
+
+    #[Route('/profile/delete/', name: 'app_user_profile_delete')]
+    public function deleteProfile(EntityManagerInterface $em): Response
+    {
+        /** @var \App\Entity\User $user */
+        $user = $this->getUser();
+
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
+
+        $em->remove($user);
+        $em->flush();
+
+        return $this->redirectToRoute('home');
     }
 }
