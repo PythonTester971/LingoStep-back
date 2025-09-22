@@ -14,6 +14,7 @@ class UserMission
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'userMissions')]
+    #[ORM\JoinColumn(name: "user_id", referencedColumnName: "id", onDelete: "CASCADE")]
     private ?User $user = null;
 
     #[ORM\ManyToOne(inversedBy: 'userMissions')]
@@ -29,6 +30,7 @@ class UserMission
     private ?int $xpObtained = null;
 
     #[ORM\ManyToOne(inversedBy: 'userMission')]
+    #[ORM\JoinColumn(name: "user_language_course_id", referencedColumnName: "id", onDelete: "CASCADE")]
     private ?UserLanguageCourse $userLanguageCourse = null;
 
     public function getId(): ?int

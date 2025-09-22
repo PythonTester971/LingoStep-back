@@ -55,7 +55,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var Collection<int, AnsweredQuestion>
      */
-    #[ORM\OneToMany(targetEntity: AnsweredQuestion::class, mappedBy: 'user')]
+    #[ORM\OneToMany(mappedBy: "user", targetEntity: AnsweredQuestion::class, cascade: ["remove"], orphanRemoval: true)]
     private Collection $answeredQuestions;
 
     #[ORM\Column(nullable: true)]

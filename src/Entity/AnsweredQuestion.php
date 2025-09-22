@@ -14,12 +14,15 @@ class AnsweredQuestion
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'answeredQuestions')]
+    #[ORM\JoinColumn(name: "user_id", referencedColumnName: "id", onDelete: "CASCADE")]
     private ?User $user = null;
 
-    #[ORM\ManyToOne(cascade: ['persist', 'remove'])]
+    #[ORM\ManyToOne(targetEntity: Option::class)]
+    #[ORM\JoinColumn(nullable: true, onDelete: "SET NULL")]
     private ?Option $optione = null;
 
-    #[ORM\ManyToOne(inversedBy: 'answeredQuestion', cascade: ['persist', 'remove'])]
+    #[ORM\ManyToOne(targetEntity: Question::class)]
+    #[ORM\JoinColumn(nullable: true, onDelete: "SET NULL")]
     private ?Question $question = null;
 
     #[ORM\ManyToOne(inversedBy: 'answeredQuestions')]

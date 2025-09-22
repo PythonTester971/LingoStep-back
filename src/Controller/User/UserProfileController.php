@@ -73,7 +73,7 @@ final class UserProfileController extends AbstractController
     }
 
     #[Route('/profile/delete/', name: 'app_user_profile_delete')]
-    public function deleteProfile(EntityManagerInterface $em): Response
+    public function deleteProfile(EntityManagerInterface $em, Request $request): Response
     {
         /** @var \App\Entity\User $user */
         $user = $this->getUser();
@@ -82,9 +82,45 @@ final class UserProfileController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
 
+        // Store user ID for flash message
+        $userId = $user->getId();
+        $username = $user->getUsername();
+
+        // First, invalidate the session before we delete the user
+        // This prevents Symfony from trying to refresh a deleted user
+        $request->getSession()->invalidate();
+        $this->container->get('security.token_storage')->setToken(null);
+
+        // First, handle all AnsweredQuestions
+        foreach ($user->getAnsweredQuestions() as $answer) {
+            // Set Option and Question to null to avoid constraint issues
+            $answer->setOptione(null);
+            $answer->setQuestion(null);
+            $em->persist($answer);
+        }
+        $em->flush();
+
+        // Clear all UserLanguageCourses
+        foreach ($user->getUserLanguageCourses() as $userLanguageCourse) {
+            // This will cascade to UserMissions
+            $user->removeUserLanguageCourse($userLanguageCourse);
+        }
+
+        // Clear all UserMissions
+        foreach ($user->getUserMissions() as $userMission) {
+            $user->removeUserMission($userMission);
+        }
+
+        $em->flush();
+
+        // Now remove the user
         $em->remove($user);
         $em->flush();
 
+        // Add a flash message
+        $this->addFlash('success', "User account '{$username}' (ID: {$userId}) has been successfully deleted.");
+
+        // Redirect to home page since we're already logged out
         return $this->redirectToRoute('home');
     }
 }
