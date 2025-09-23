@@ -18,7 +18,8 @@ class UserLanguageCourse
     #[ORM\ManyToOne(inversedBy: 'userLanguageCourses', cascade: ['persist'])]
     private ?User $user = null;
 
-    #[ORM\ManyToOne(inversedBy: 'userLanguageCourses', cascade: ['persist'])]
+    #[ORM\ManyToOne(targetEntity: LanguageCourse::class, inversedBy: 'userLanguageCourses')]
+    #[ORM\JoinColumn(nullable: true, onDelete: "SET NULL")]  // Ajout de onDelete="SET NULL"
     private ?LanguageCourse $languageCourse = null;
 
     #[ORM\Column]

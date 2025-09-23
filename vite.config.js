@@ -29,12 +29,5 @@ export default defineConfig({
         watch: {
             usePolling: true
         }
-    },
-    build: {
-        rollupOptions: {
-            input: {
-                app: './assets/app.js'
-            }
-        }
     }
 });

@@ -4,8 +4,7 @@
       <h5 class="card-title">{{ mission.label }}</h5>
       <p class="card-text">{{ mission.description }}</p>
       <a href="{{ path('app_quiz', {
-    'mission_id': mission.id,
-    'question_id': question.id
+    'mission_id': mission.id
 }) }}" class="btn btn-primary">Start mission</a>
     </div>
   </div>

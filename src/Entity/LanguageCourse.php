@@ -32,9 +32,8 @@ class LanguageCourse
     #[ORM\Column]
     private ?\DateTimeImmutable $updatedAt = null;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Language $Language = null;
+    #[ORM\ManyToOne(inversedBy: 'languageCourses')]
+    private ?Language $language = null;
 
     /**
      * @var Collection<int, Mission>
@@ -110,12 +109,12 @@ class LanguageCourse
 
     public function getLanguage(): ?Language
     {
-        return $this->Language;
+        return $this->language;
     }
 
-    public function setLanguage(Language $Language): static
+    public function setLanguage(Language $language): static
     {
-        $this->Language = $Language;
+        $this->language = $language;
 
         return $this;
     }

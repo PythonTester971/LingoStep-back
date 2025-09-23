@@ -41,7 +41,7 @@ final class AdminLanguageController extends AbstractController
             $em->persist($language);
             $em->flush();
 
-            return $this->redirectToRoute('app_admin_languages');
+            return $this->redirectToRoute('admin_languages');
         }
 
         return $this->render('admin_templates/admin_language/language_create.html.twig', [
@@ -75,8 +75,9 @@ final class AdminLanguageController extends AbstractController
         }
 
         $em->remove($language);
+        $em->flush();
 
-        return $this->redirectToRoute('app_admin_languages');
+        return $this->redirectToRoute('admin_languages');
     }
 
     #[Route('/admin/language/{id}/edit', name: 'admin_language_edit', requirements: ['id' => '\d+'])]

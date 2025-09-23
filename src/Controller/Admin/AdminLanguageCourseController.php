@@ -97,7 +97,8 @@ final class AdminLanguageCourseController extends AbstractController
         }
 
         $em->remove($languageCourse);
+        $em->flush();
 
-        return $this->redirectToRoute('app_admin_language_course');
+        return $this->redirectToRoute('admin_language_course');
     }
 }
