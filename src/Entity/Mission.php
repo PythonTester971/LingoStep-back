@@ -35,13 +35,13 @@ class Mission
     /**
      * @var Collection<int, Question>
      */
-    #[ORM\OneToMany(targetEntity: Question::class, mappedBy: 'mission')]
+    #[ORM\OneToMany(targetEntity: Question::class, mappedBy: 'mission', cascade: ['persist', 'remove'], orphanRemoval: true)]
     private Collection $questions;
 
     /**
      * @var Collection<int, AnsweredQuestion>
      */
-    #[ORM\OneToMany(targetEntity: AnsweredQuestion::class, mappedBy: 'mission')]
+    #[ORM\OneToMany(targetEntity: AnsweredQuestion::class, mappedBy: 'mission', orphanRemoval: false)]
     private Collection $answeredQuestions;
 
     #[ORM\Column]
@@ -50,7 +50,7 @@ class Mission
     /**
      * @var Collection<int, UserMission>
      */
-    #[ORM\OneToMany(targetEntity: UserMission::class, mappedBy: 'mission')]
+    #[ORM\OneToMany(targetEntity: UserMission::class, mappedBy: 'mission', orphanRemoval: false)]
     private Collection $userMissions;
 
     #[ORM\Column(length: 255)]

@@ -18,6 +18,7 @@ class UserMission
     private ?User $user = null;
 
     #[ORM\ManyToOne(inversedBy: 'userMissions')]
+    #[ORM\JoinColumn(nullable: true, onDelete: "SET NULL")]
     private ?Mission $mission = null;
 
     #[ORM\Column]

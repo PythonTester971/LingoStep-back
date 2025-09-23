@@ -1,9 +1,9 @@
 {% extends "base_admin.html.twig" %}
 
-{% block title %}Quiz creation{% endblock %}
+{% block title %}Edit Quiz{% endblock %}
 
 {% block main %}
-<h1 class="mb-4">Create a quiz for the mission</h1>
+<h1 class="mb-4">Edit Quiz</h1>
 
 {{ form_start(form) }}
 {{ form_row(form.label) }}
@@ -23,8 +23,6 @@
   {% endif %}
   {% endif %}
 </div>
-
-
 
 <div class="mb-3">
   <p>Questions</p>
@@ -78,8 +76,9 @@
   </div>
 </div>
 
-<div class="d-flex justify-content-center mt-4">
-  <button type="submit" class="btn btn-primary">Create</button>
+<div class="d-flex justify-content-between mt-4">
+  <a href="{{ path('app_admin_quiz') }}" class="btn btn-secondary">Back to List</a>
+  <button type="submit" class="btn btn-primary">Save Changes</button>
 </div>
 
 {{ form_end(form) }}

@@ -26,15 +26,19 @@ class Question
     /**
      * @var Collection<int, Option>
      */
-    #[ORM\OneToMany(targetEntity: Option::class, mappedBy: 'question')]
+    #[ORM\OneToMany(targetEntity: Option::class, mappedBy: 'question', cascade: ['persist', 'remove'], orphanRemoval: true)]
     private Collection $options;
 
-    #[ORM\OneToOne(mappedBy: 'question', cascade: ['persist', 'remove'])]
-    private ?AnsweredQuestion $answeredQuestion = null;
+    /**
+     * @var Collection<int, AnsweredQuestion>
+     */
+    #[ORM\OneToMany(targetEntity: AnsweredQuestion::class, mappedBy: 'question', orphanRemoval: false)]
+    private Collection $answeredQuestions;
 
     public function __construct()
     {
         $this->options = new ArrayCollection();
+        $this->answeredQuestions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -96,24 +100,32 @@ class Question
         return $this;
     }
 
-    public function getAnsweredQuestion(): ?AnsweredQuestion
+    /**
+     * @return Collection<int, AnsweredQuestion>
+     */
+    public function getAnsweredQuestions(): Collection
     {
-        return $this->answeredQuestion;
+        return $this->answeredQuestions;
     }
 
-    public function setAnsweredQuestion(?AnsweredQuestion $answeredQuestion): static
+    public function addAnsweredQuestion(AnsweredQuestion $answeredQuestion): static
     {
-        // unset the owning side of the relation if necessary
-        if ($answeredQuestion === null && $this->answeredQuestion !== null) {
-            $this->answeredQuestion->setQuestion(null);
-        }
-
-        // set the owning side of the relation if necessary
-        if ($answeredQuestion !== null && $answeredQuestion->getQuestion() !== $this) {
+        if (!$this->answeredQuestions->contains($answeredQuestion)) {
+            $this->answeredQuestions->add($answeredQuestion);
             $answeredQuestion->setQuestion($this);
         }
 
-        $this->answeredQuestion = $answeredQuestion;
+        return $this;
+    }
+
+    public function removeAnsweredQuestion(AnsweredQuestion $answeredQuestion): static
+    {
+        if ($this->answeredQuestions->removeElement($answeredQuestion)) {
+            // set the owning side to null (unless already changed)
+            if ($answeredQuestion->getQuestion() === $this) {
+                $answeredQuestion->setQuestion(null);
+            }
+        }
 
         return $this;
     }

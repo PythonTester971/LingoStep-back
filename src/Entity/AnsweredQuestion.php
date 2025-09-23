@@ -21,11 +21,12 @@ class AnsweredQuestion
     #[ORM\JoinColumn(nullable: true, onDelete: "SET NULL")]
     private ?Option $optione = null;
 
-    #[ORM\ManyToOne(targetEntity: Question::class)]
+    #[ORM\ManyToOne(targetEntity: Question::class, inversedBy: 'answeredQuestions')]
     #[ORM\JoinColumn(nullable: true, onDelete: "SET NULL")]
     private ?Question $question = null;
 
     #[ORM\ManyToOne(inversedBy: 'answeredQuestions')]
+    #[ORM\JoinColumn(nullable: true, onDelete: "SET NULL")]
     private ?Mission $mission = null;
 
     public function getId(): ?int
