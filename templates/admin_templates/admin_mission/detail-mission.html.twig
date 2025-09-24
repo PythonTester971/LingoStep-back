@@ -1,0 +1,86 @@
+{% extends 'base_admin.html.twig' %}
+
+{% block title %}{{ mission.label }}{% endblock %}
+
+{% block main %}
+
+
+<h1>{{ mission.label }}</h1>
+
+<div class="text-start">
+  <div class="d-flex justify-content-start mb-3">
+    <a class="btn btn-outline-info me-3" href="#">Back to list</a>
+    <a class="btn btn-outline-primary" href="#">Edit</a>
+  </div>
+  <p>Description: {{ mission.description }}</p>
+  <p>XP Reward: {{ mission.xpReward }}</p>
+  <p>Illustration: {{ mission.illustration }}</p>
+  <p>Created at: {{ mission.createdAt ? mission.createdAt|date('Y-m-d') }}</p>
+  <p>Updated at: {{ mission.updatedAt ? mission.updatedAt|date('Y-m-d') }}</p>
+
+  <div>
+    <p>Questions:</p>
+    <div class="d-flex justify-content-evenly mb-4">
+      <a class="btn btn-outline-info me-3" href="{{ path('app_admin') }}">Retour à l'admin</a>
+      <a class="btn btn-outline-info" href="{{path('create_admin_question', { 'id': mission.id })}}">Create a
+        question</a>
+    </div>
+    <table class="table table-hover mt-3">
+
+      <thead>
+        <tr class="text-center">
+          <th scope="col">Question instruction</th>
+          <th scope="col">Created at</th>
+          <th scope="col">Updated at</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for question in questions %}
+        <tr>
+
+          <td scope="row" class="text-center">{{ question.instruction }}</td>
+          <td scope="row" class="text-center">{{ question.createdAt ? question.createdAt|date('Y-m-d') }}</td>
+          <td scope="row" class="text-center">{{ question.updatedAt ? question.updatedAt|date('Y-m-d') }}</td>
+          <td class="text-center">
+            <a href="{{ path('detail_admin_question',{ 'id': question.id } )}}"
+              class="btn btn-outline-secondary me-2"><i class="bi bi-eye-fill"></i>
+            </a>
+            <a href="#" class="btn btn-outline-primary me-2"><i class="bi bi-pencil-square"></i></i>
+            </a>
+            <button type="button" data-bs-toggle="modal" data-bs-target="#deleteBackdrop{{question.id}}"
+              class="btn btn-outline-danger"><i class="bi bi-trash3"></i>
+            </button>
+            <!-- DELETE Modal -->
+            <div class="modal fade" id="deleteBackdrop{{question.id}}" data-bs-backdrop="static"
+              data-bs-keyboard="false" tabindex="-1" aria-labelledby="deleteBackdropLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="deleteBackdropLabel">Deletion of
+                      {{ question.instruction }}</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    Souhaitez-vous vraiment supprimer {{ question.instruction }} ?
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <a href="#" class="btn btn-outline-danger">Delete</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </td>
+        </tr>
+
+
+        {% endfor %}
+
+      </tbody>
+
+    </table>
+  </div>
+</div>
+
+{% endblock %}

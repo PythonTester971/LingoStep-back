@@ -12,8 +12,9 @@
             Language courses
           </a>
           <ul class="dropdown-menu">
-            {% for language in get_languages() %}
-            <li><a class="dropdown-item" href="{{ path('language_courses', {'id':language.id})}}">{{ language.label
+            {% for languageCourse in get_language_courses() %}
+            <li><a class="dropdown-item" href="{{ path('language_courses', {'id':languageCourse.id})}}">{{
+                languageCourse.language.label
                 }}</a>
             </li>
             {% endfor %}

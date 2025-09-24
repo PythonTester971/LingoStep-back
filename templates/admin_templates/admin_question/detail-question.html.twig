@@ -1,0 +1,88 @@
+{% extends 'base_admin.html.twig' %}
+
+{% block title %}{{ question.instruction }}{% endblock %}
+
+{% block main %}
+
+
+<h1>{{ question.instruction }}</h1>
+
+<div class="text-start">
+  <div class="d-flex justify-content-start mb-3">
+    <a class="btn btn-outline-info me-3" href="#">Back to list</a>
+    <a class="btn btn-outline-primary" href="#">Edit</a>
+  </div>
+  <p>Description: {{ question.instruction }}</p>
+  <p>Created at: {{ question.createdAt ? question.createdAt|date('Y-m-d') }}</p>
+  <p>Updated at: {{ question.updatedAt ? question.updatedAt|date('Y-m-d') }}</p>
+
+  <div>
+    <p>Options:</p>
+    <div class="d-flex justify-content-evenly mb-4">
+      <a class="btn btn-outline-info me-3" href="{{ path('app_admin') }}">Retour à l'admin</a>
+      <a class="btn btn-outline-info" href="{{path('create_admin_option', { 'id': question.id })}}">Create an
+        option</a>
+    </div>
+    <table class="table table-hover mt-3">
+
+      <thead>
+        <tr class="text-center">
+          <th scope="col">Option label</th>
+          <th scope="col">Code</th>
+          <th scope="col">Correct?</th>
+          <th scope="col">Created at</th>
+          <th scope="col">Updated at</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for option in options %}
+        <tr>
+
+          <td scope="row">{{ option.label }}</td>
+          <td scope="row">{{ option.code }}</td>
+          <td scope="row">{{ option.isCorrect ? 'Yes' : 'No' }}</td>
+          <td scope="row">{{ option.createdAt ? option.createdAt|date('Y-m-d') }}</td>
+          <td scope="row">{{ option.updatedAt ? option.updatedAt|date('Y-m-d') }}</td>
+          <td class="text-center">
+            <a href="{{ path('detail_admin_option',{ 'id': option.id } )}}" class="btn btn-outline-secondary me-2"><i
+                class="bi bi-eye-fill"></i>
+            </a>
+            <a href="#" class="btn btn-outline-primary me-2"><i class="bi bi-pencil-square"></i></i>
+            </a>
+            <button type="button" data-bs-toggle="modal" data-bs-target="#deleteBackdrop{{option.id}}"
+              class="btn btn-outline-danger"><i class="bi bi-trash3"></i>
+            </button>
+            <!-- DELETE Modal -->
+            <div class="modal fade" id="deleteBackdrop{{option.id}}" data-bs-backdrop="static" data-bs-keyboard="false"
+              tabindex="-1" aria-labelledby="deleteBackdropLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="deleteBackdropLabel">Deletion of
+                      {{ option.label }}</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    Souhaitez-vous vraiment supprimer {{ option.label }} ?
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <a href="#" class="btn btn-outline-danger">Delete</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </td>
+        </tr>
+
+
+        {% endfor %}
+
+      </tbody>
+
+    </table>
+  </div>
+</div>
+
+{% endblock %}

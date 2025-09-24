@@ -29,6 +29,7 @@ class RegistrationController extends AbstractController
             // encode the plain password
             $user->setPassword($userPasswordHasher->hashPassword($user, $plainPassword));
             $user->setPicturePath('lingostep-back\assets\thin-smoke-blue_23-2147785935.jpg');
+            $user->setXp(0);
             $user->setRoles(['ROLE_USER']);
             $user->setCreatedAt(new \DateTimeImmutable());
             $user->setUpdatedAt(new \DateTimeImmutable());

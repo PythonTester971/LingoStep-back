@@ -17,24 +17,17 @@ class MissionType extends AbstractType
         $builder
             ->add('label')
             ->add('description')
-            // ->add('createdAt', null, [
-            //     'widget' => 'single_text',
-            // ])
-            // ->add('updatedAt', null, [
-            //     'widget' => 'single_text',
-            // ])
             ->add('xpReward')
             ->add('illustration')
             ->add('languageCourse', EntityType::class, [
                 'class' => LanguageCourse::class,
                 'choice_label' => 'label',
-            ])
-            ->add('questions', CollectionType::class, [
-                'entry_type' => QuestionType::class,
-                'entry_options' => ['label' => false],
-                'allow_add' => true,
-                'allow_delete' => true,
-                'by_reference' => false,
+                // ->add('createdAt', null, [
+                //     'widget' => 'single_text',
+                // ])
+                // ->add('updatedAt', null, [
+                //     'widget' => 'single_text',
+                // ])
             ]);
     }
 

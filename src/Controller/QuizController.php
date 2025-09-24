@@ -17,19 +17,20 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 final class QuizController extends AbstractController
 {
-    #[Route('/quiz/mission/{mission_id}', name: 'app_quiz')]
+    #[Route('/quiz/mission/{mission_id}/question/{question_id}', name: 'app_quiz')]
     public function index(
-        int $mission_id,
+        $mission_id,
+        $question_id,
         MissionRepository $missionRepository,
         QuestionRepository $questionRepository,
-        EntityManagerInterface $em,
-        Request $request
+        Request $request,
+        EntityManagerInterface $em
     ): Response {
         $mission = $missionRepository->find($mission_id);
-        $questions = $questionRepository->findBy(['mission' => $mission], ['id' => 'ASC']);
+        $question = $questionRepository->find($question_id);
 
         $form = $this->createForm(QuizType::class, null, [
-            'questions' => $questions,
+            'question' => $question,
         ]);
 
         $form->handleRequest($request);
@@ -38,116 +39,60 @@ final class QuizController extends AbstractController
             $data = $form->getData();
             $user = $this->getUser();
 
-            foreach ($questions as $question) {
-                $option = $data['question_' . $question->getId()] ?? null;
-                if (!$option) continue;
+            $answeredQuestion = $em->getRepository(AnsweredQuestion::class)->findOneBy([
+                'user' => $user,
+                'question' => $question,
+            ]);
 
-                $answeredQuestion = $em->getRepository(AnsweredQuestion::class)->findOneBy([
-                    'user' => $user,
-                    'question' => $question,
-                ]);
-
-                if (!$answeredQuestion) {
-                    $answeredQuestion = new AnsweredQuestion();
-                    $answeredQuestion->setUser($user);
-                    $answeredQuestion->setMission($mission);
-                    $answeredQuestion->setQuestion($question);
-                }
-
-                $answeredQuestion->setOptione($option);
-                $em->persist($answeredQuestion);
+            if (!$answeredQuestion) {
+                $answeredQuestion = new AnsweredQuestion();
+                $answeredQuestion->setUser($this->getUser());
+                $answeredQuestion->setMission($mission);
+                $answeredQuestion->setQuestion($question);
             }
 
+            $answeredQuestion->setOptione($data['question']);
+
+            $em->persist($answeredQuestion);
             $em->flush();
 
-            return $this->redirectToRoute('app_quiz_result', [
-                'mission_id' => $mission->getId(),
+            $questions = $questionRepository->findBy(['mission' => $mission], ['id' => 'ASC']);
+
+            $currentIndex = array_search($question, $questions, true);
+
+            $nextQuestion = $questions[$currentIndex + 1] ?? null;
+
+
+            if ($nextQuestion) {
+                return $this->redirectToRoute('app_quiz', [
+                    'mission_id' => $mission->getId(),
+                    'question_id' => $nextQuestion->getId(),
+                ]);
+            } else {
+                return $this->redirectToRoute('app_quiz_result', [
+                    'mission_id' => $mission->getId(),
+                ]);
+            }
+        }
+
+        if ($form->isSubmitted() && !$form->isValid()) {
+            $this->addFlash('error', 'Veuillez sélectionner une réponse.');
+
+            return $this->render('quiz/index.html.twig', [
+                'controller_name' => 'QuizController',
+                'form' => $form->createView(),
+                'question' => $question,
+                'mission' => $mission,
             ]);
         }
 
         return $this->render('quiz/index.html.twig', [
-            'mission' => $mission,
-            'questions' => $questions,
+            'controller_name' => 'QuizController',
             'form' => $form->createView(),
+            'question' => $question,
+            'mission' => $mission,
         ]);
     }
-
-    // #[Route('/quiz/mission/{mission_id}/question/{question_id}', name: 'app_quiz')]
-    // public function index(
-    //     $mission_id,
-    //     $question_id,
-    //     MissionRepository $missionRepository,
-    //     QuestionRepository $questionRepository,
-    //     Request $request,
-    //     EntityManagerInterface $em
-    // ): Response {
-    //     $mission = $missionRepository->find($mission_id);
-    //     $question = $questionRepository->find($question_id);
-
-    //     $form = $this->createForm(QuizType::class, null, [
-    //         'question' => $question,
-    //     ]);
-
-    //     $form->handleRequest($request);
-
-    //     if ($form->isSubmitted() && $form->isValid()) {
-    //         $data = $form->getData();
-    //         $user = $this->getUser();
-
-    //         $answeredQuestion = $em->getRepository(AnsweredQuestion::class)->findOneBy([
-    //             'user' => $user,
-    //             'question' => $question,
-    //         ]);
-
-    //         if (!$answeredQuestion) {
-    //             $answeredQuestion = new AnsweredQuestion();
-    //             $answeredQuestion->setUser($this->getUser());
-    //             $answeredQuestion->setMission($mission);
-    //             $answeredQuestion->setQuestion($question);
-    //         }
-
-    //         $answeredQuestion->setOptione($data['question']);
-
-    //         $em->persist($answeredQuestion);
-    //         $em->flush();
-
-    //         $questions = $questionRepository->findBy(['mission' => $mission], ['id' => 'ASC']);
-
-    //         $currentIndex = array_search($question, $questions, true);
-
-    //         $nextQuestion = $questions[$currentIndex + 1] ?? null;
-
-
-    //         if ($nextQuestion) {
-    //             return $this->redirectToRoute('app_quiz', [
-    //                 'mission_id' => $mission->getId(),
-    //                 'question_id' => $nextQuestion->getId(),
-    //             ]);
-    //         } else {
-    //             return $this->redirectToRoute('app_quiz_result', [
-    //                 'mission_id' => $mission->getId(),
-    //             ]);
-    //         }
-    //     }
-
-    //     if ($form->isSubmitted() && !$form->isValid()) {
-    //         $this->addFlash('error', 'Veuillez sélectionner une réponse.');
-
-    //         return $this->render('quiz/index.html.twig', [
-    //             'controller_name' => 'QuizController',
-    //             'form' => $form->createView(),
-    //             'question' => $question,
-    //             'mission' => $mission,
-    //         ]);
-    //     }
-
-    //     return $this->render('quiz/index.html.twig', [
-    //         'controller_name' => 'QuizController',
-    //         'form' => $form->createView(),
-    //         'question' => $question,
-    //         'mission' => $mission,
-    //     ]);
-    // }
 
 
     #[Route('/quiz/mission/{mission_id}/result', name: 'app_quiz_result')]

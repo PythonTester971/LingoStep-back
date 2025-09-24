@@ -1,0 +1,22 @@
+{% extends 'base_admin.html.twig' %}
+
+{% block title %}{{ option.label }}{% endblock %}
+
+{% block main %}
+
+
+<h1>{{ option.label }}</h1>
+
+<div class="text-start">
+  <div class="d-flex justify-content-start mb-3">
+    <a class="btn btn-outline-info me-3" href="#">Back to list</a>
+    <a class="btn btn-outline-primary" href="#">Edit</a>
+  </div>
+  <p>Related question: {{ option.question ? option.question.instruction : 'N/A' }}</p>
+  <p>Code: {{ option.code }}</p>
+  <p>Correct ?: {{ option.isCorrect ? 'Yes' : 'No' }}</p>
+  <p>Created at: {{ option.createdAt ? option.createdAt|date('Y-m-d') }}</p>
+  <p>Updated at: {{ option.updatedAt ? option.updatedAt|date('Y-m-d') }}</p>
+</div>
+
+{% endblock %}

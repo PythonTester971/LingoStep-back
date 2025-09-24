@@ -26,24 +26,19 @@ class OptionType extends AbstractType
             ->add('isCorrect', null, [
                 'label' => 'Is this the correct answer?',
                 'required' => false
-            ]);
-
-        // Only add the question field when this form is not embedded in a collection
-        if (!isset($options['in_collection']) || $options['in_collection'] === false) {
-            $builder->add('question', EntityType::class, [
+            ])
+            ->add('question', EntityType::class, [
                 'class' => Question::class,
                 'choice_label' => 'instruction',
-            ]);
-        };
+            ])
+        ;
     }
+
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => Option::class,
-            'in_collection' => false,
         ]);
-
-        $resolver->setAllowedTypes('in_collection', 'bool');
     }
 }
