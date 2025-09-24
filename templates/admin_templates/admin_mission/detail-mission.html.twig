@@ -9,8 +9,8 @@
 
 <div class="text-start">
   <div class="d-flex justify-content-start mb-3">
-    <a class="btn btn-outline-info me-3" href="#">Back to list</a>
-    <a class="btn btn-outline-primary" href="#">Edit</a>
+    <a class="btn btn-outline-info me-3" href="{{ path('admin_language_course') }}">Back to list</a>
+    <a class="btn btn-outline-primary" href="{{ path('edit_admin_mission', { 'id': mission.id }) }}">Edit</a>
   </div>
   <p>Description: {{ mission.description }}</p>
   <p>XP Reward: {{ mission.xpReward }}</p>
@@ -46,8 +46,8 @@
             <a href="{{ path('detail_admin_question',{ 'id': question.id } )}}"
               class="btn btn-outline-secondary me-2"><i class="bi bi-eye-fill"></i>
             </a>
-            <a href="#" class="btn btn-outline-primary me-2"><i class="bi bi-pencil-square"></i></i>
-            </a>
+            <a href="{{ path('edit_admin_question',{ 'id': question.id } )}}" class="btn btn-outline-primary me-2"><i
+                class="bi bi-pencil-square"></i></a>
             <button type="button" data-bs-toggle="modal" data-bs-target="#deleteBackdrop{{question.id}}"
               class="btn btn-outline-danger"><i class="bi bi-trash3"></i>
             </button>
@@ -66,7 +66,8 @@
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <a href="#" class="btn btn-outline-danger">Delete</a>
+                    <a href="{{ path('delete_admin_question', { 'id': question.id }) }}"
+                      class="btn btn-outline-danger">Delete</a>
                   </div>
                 </div>
               </div>

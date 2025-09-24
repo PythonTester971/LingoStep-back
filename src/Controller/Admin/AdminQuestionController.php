@@ -65,4 +65,46 @@ final class AdminQuestionController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+    #[Route('/admin/edit_question/{id}', name: 'edit_admin_question')]
+    #[IsGranted('ROLE_ADMIN')]
+    public function edit(int $id, Request $request, QuestionRepository $questionRepository, EntityManagerInterface $em): Response
+    {
+        $question = $questionRepository->find($id);
+        if (!$question) {
+            throw $this->createNotFoundException('Question not found');
+        }
+
+        $form = $this->createForm(QuestionType::class, $question);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $question->setUpdatedAt(new \DateTimeImmutable());
+            $em->flush();
+
+            $this->addFlash('success', 'Question updated successfully.');
+
+            return $this->redirectToRoute('detail_admin_question', ['id' => $question->getId()]);
+        }
+
+        return $this->render('admin_templates/admin_question/edit-question.html.twig', [
+            'form' => $form->createView(),
+            'question' => $question,
+        ]);
+    }
+
+    #[Route('/admin/delete_question/{id}', name: 'delete_admin_question')]
+    #[IsGranted('ROLE_ADMIN')]
+    public function delete(int $id, QuestionRepository $questionRepository, EntityManagerInterface $em): Response
+    {
+        $question = $questionRepository->find($id);
+        if (!$question) {
+            throw $this->createNotFoundException('The question does not exist');
+        }
+        $em->remove($question);
+        $em->flush();
+
+        return $this->redirectToRoute('detail_admin_mission', ['id' => $question->getMission()->getId()]);
+    }
 }

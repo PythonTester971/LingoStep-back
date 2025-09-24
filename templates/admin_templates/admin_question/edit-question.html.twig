@@ -1,0 +1,37 @@
+{% extends 'base_admin.html.twig' %}
+
+{% block title %}Edit {{ question.instruction }}{% endblock %}
+
+{% block main %}
+<h1>Edit {{ question.instruction }}</h1>
+<a href="{{ path('admin_languages') }}" class="btn btn-outline-secondary">Back to list</a>
+
+{{ form_start(form, {'attr': {'id': 'question_form'}}) }}
+{{ form_widget(form) }}
+<button type="button" data-bs-toggle="modal" data-bs-target="#editBackdrop{{question.id}}"
+  class="btn btn-outline-primary">Save changes</button>
+
+<div class="modal fade" id="editBackdrop{{question.id}}" data-bs-backdrop="static" data-bs-keyboard="false"
+  tabindex="-1" aria-labelledby="editBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="editBackdropLabel">Edition of
+          {{ question.instruction }}</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Souhaitez-vous vraiment modifier les informations de {{ question.instruction }} ?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" form="question_form" class="btn btn-outline-danger">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{ form_end(form) }}
+
+
+{% endblock %}

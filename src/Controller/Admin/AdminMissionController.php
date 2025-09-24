@@ -67,4 +67,42 @@ final class AdminMissionController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+    #[Route('/admin/edit_mission/{id}', name: 'edit_admin_mission')]
+    #[IsGranted('ROLE_ADMIN')]
+    public function edit(int $id, Request $request, MissionRepository $missionRepository, EntityManagerInterface $em): Response
+    {
+        $mission = $missionRepository->find($id);
+        if (!$mission) {
+            throw $this->createNotFoundException('Mission not found');
+        }
+        $form = $this->createForm(MissionType::class, $mission);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $mission->setUpdatedAt(new \DateTimeImmutable());
+            $em->flush();
+
+            $this->addFlash('success', 'Mission updated successfully.');
+
+            return $this->redirectToRoute('admin_language_course', ['id' => $mission->getLanguageCourse()->getId()]);
+        }
+        return $this->render('admin_templates/admin_mission/edit-mission.html.twig', [
+            'form' => $form->createView(),
+            'mission' => $mission,
+        ]);
+    }
+
+    #[Route('/admin/delete_mission/{id}', name: 'delete_admin_mission')]
+    #[IsGranted('ROLE_ADMIN')]
+    public function delete(int $id, MissionRepository $missionRepository, EntityManagerInterface $em): Response
+    {
+        $mission = $missionRepository->find($id);
+        if (!$mission) {
+            throw $this->createNotFoundException('The mission does not exist');
+        }
+
+        $em->remove($mission);
+        $em->flush();
+
+        return $this->redirectToRoute('admin_language_course', ['id' => $mission->getLanguageCourse()->getId()]);
+    }
 }

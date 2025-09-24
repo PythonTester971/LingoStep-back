@@ -60,4 +60,46 @@ final class AdminOptionController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+    #[Route('/admin/edit_option/{id}', name: 'edit_admin_option')]
+    #[IsGranted('ROLE_ADMIN')]
+    public function edit(int $id, Request $request, OptionRepository $optionRepository, EntityManagerInterface $em): Response
+    {
+        $option = $optionRepository->find($id);
+        if (!$option) {
+            throw $this->createNotFoundException('Option not found');
+        }
+
+        $form = $this->createForm(OptionType::class, $option);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $option->setUpdatedAt(new \DateTimeImmutable());
+            $em->flush();
+
+            $this->addFlash('success', 'Option updated successfully.');
+
+            return $this->redirectToRoute('detail_admin_option', ['id' => $option->getId()]);
+        }
+
+        return $this->render('admin_templates/admin_option/admin_edit_option.html.twig', [
+            'form' => $form->createView(),
+            'option' => $option,
+        ]);
+    }
+
+    #[Route('/admin/delete_option/{id}', name: 'delete_admin_option')]
+    #[IsGranted('ROLE_ADMIN')]
+    public function delete(int $id, OptionRepository $optionRepository, EntityManagerInterface $em): Response
+    {
+        $option = $optionRepository->find($id);
+        if (!$option) {
+            throw $this->createNotFoundException('The option does not exist');
+        }
+
+        $em->remove($option);
+        $em->flush();
+
+        return $this->redirectToRoute('detail_admin_question', ['id' => $option->getQuestion()->getId()]);
+    }
 }
