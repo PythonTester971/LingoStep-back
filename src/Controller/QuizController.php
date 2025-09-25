@@ -144,7 +144,6 @@ final class QuizController extends AbstractController
                 $userMission->setXpObtained($mission->getXpReward());
                 $userMission->setIsCompleted(true);
                 $userMission->setCompletedAt(new \DateTimeImmutable());
-
                 $user->setXp($user->getXp() + $userMission->getXpObtained());
             }
         } else {

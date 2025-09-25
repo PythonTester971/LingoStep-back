@@ -48,7 +48,8 @@
             <a href="{{ path('detail_admin_option',{ 'id': option.id } )}}" class="btn btn-outline-secondary me-2"><i
                 class="bi bi-eye-fill"></i>
             </a>
-            <a href="#" class="btn btn-outline-primary me-2"><i class="bi bi-pencil-square"></i></i>
+            <a href="{{ path('edit_admin_option', { 'id': option.id }) }}" class="btn btn-outline-primary me-2"><i
+                class="bi bi-pencil-square"></i></i>
             </a>
             <button type="button" data-bs-toggle="modal" data-bs-target="#deleteBackdrop{{option.id}}"
               class="btn btn-outline-danger"><i class="bi bi-trash3"></i>
