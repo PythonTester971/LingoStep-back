@@ -18,9 +18,10 @@
             <div class="col-md-4 mb-3 mb-md-0">
                 <h5 class="text-white fw-bold">Navigation</h5>
                 <ul class="list-unstyled">
-                    <li><a href="/" class="footer-link">Home</a></li>
+                    <li><a href="{{ path('home') }}" class="footer-link">Home</a></li>
                     <li><a href="/contact" class="footer-link">Contact Us</a></li>
-                    <li><a href="/politique-de-confidentialite" class="footer-link">Politique de confidentialité</a></li>
+                    <li><a href="{{ path('app_privacy_policy') }}" class="footer-link">Privacy Policy</a></li>
+                    <li><a href="{{ path('app_terms_of_service') }}" class="footer-link">Terms of service</a></li>
                 </ul>
             </div>
 
@@ -32,8 +33,9 @@
             </div>
 
             <!-- Crédit -->
-            <div class="col-md-4 text-center text-md-end">
+            <div class="col-md-4 d-flex flex-column justify-content-center align-items-center">
                 <p class="mb-0 text-white">Created by <strong>Geoline@2025</strong></p>
+                <img style="width: 80px" src="{{ asset('images/logo-lingo.png') }}" alt="logo">
             </div>
 
         </div>

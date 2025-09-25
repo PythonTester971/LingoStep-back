@@ -7,6 +7,10 @@
 @import "footer";
 @import "text";
 @import "button";
+@import "header";
+@import "card";
+@import "home";
+@import "quizz";
 
 // Custom styles
 .my-custom-btn {
@@ -16,7 +20,7 @@
 }
 
 body {
-    background-color: $light;
+    background-color: #FFF;
     color: $dark;
     font-family: 'Arial', sans-serif;
 }
@@ -54,3 +58,4 @@ h6 {
 .section-white{
     padding: 4rem;
 }
+

@@ -5,15 +5,18 @@
 
 {% block main %}
 
-<h1>{{ languageCourse.language.label }} Missions</h1>
-<div>
-    <div class="row row-cols-1 row-cols-md-3 g-4 mt-4">
-        {% for mission in missions %}
-        {% set question = mission.questions|first %}
-        {% if question %}
-        {% include '_components/mission-card.html.twig' %}
-        {% endif %}
-        {% endfor %}
+    <div class="container">
+        <h1 class="text-center">{{ languageCourse.language.label }} Missions</h1>
+        <div>
+            <div class="row row-cols-1 row-cols-md-3 g-4 mt-4">
+                {% for mission in missions %}
+                    {% set question = mission.questions|first %}
+                    {% if question %}
+                        {% include '_components/mission-card.html.twig' %}
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
     </div>
-</div>
+
 {% endblock %}

@@ -10,6 +10,11 @@
             <h1 class="text-center">Learning languages has never been more simple!</h1>
             <p class="lead text-center">Join us and start your language adventure today!</p>
             <br>
+            <div class="d-flex justify-content-center">
+                <img class="home-img-top" src="{{ asset('images/img_standard/2.png') }}" alt="Interactive Content">
+            </div>
+
+            <br>
             <div class="carousel-container">
                 <button id="prev" class="carousel-btn prev disabled"><i class="bi bi-chevron-left"></i></button>
                 <div class="carousel">
@@ -26,50 +31,87 @@
     </div>
 
 
-    <section class="section-green">
+    <section class="section-green py-5">
         <div class="container">
-            <h2 class="mb-4 text-center">Why choose LingoStep?</h2>
-            <div class="row">
-                <div>
-                    <div class="card mb-4 shadow-sm">
-                        <div class="card-body">
-                            <h5 class="card-title">Personalized Learning</h5>
-                            <p class="card-text">Tailor your learning experience with courses designed to fit your goals
-                                and pace.</p>
-                        </div>
-                    </div>
+            <h2 class="mb-5 text-center title-green">Why choose LingoStep?</h2>
+
+            <!-- Card 1: Image left -->
+            <div class="row align-items-center mb-5 row-card-home">
+                <div class="col-md-5">
+                    <img src="{{ asset('images/img_standard/1.png') }}" alt="Personalized Learning"
+                         class="img-fluid rounded shadow-sm">
                 </div>
-                <div>
-                    <div class="card mb-4 shadow-sm">
+                <div class="col-md-7">
+                    <div class="card border-0 shadow-sm">
                         <div class="card-body">
-                            <h5 class="card-title">Interactive Content</h5>
-                            <p class="card-text">Engage with interactive lessons, quizzes, and real-life scenarios to
-                                enhance your
-                                learning.</p>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <div class="card mb-4 shadow-sm">
-                        <div class="card-body">
-                            <h5 class="card-title">Community Support</h5>
-                            <p class="card-text">Join a vibrant community of learners and native speakers to practice
-                                and grow together.
+                            <h5 class="card-title title-green">Personalized Learning</h5>
+                            <p class="card-text">
+                                At LingoStep, we tailor every course to your individual goals and pace.
+                                Whether you're a beginner or an advanced learner, our system adapts to you,
+                                ensuring efficient progress and lasting results. Track your achievements and
+                                celebrate milestones along the way.
                             </p>
                         </div>
                     </div>
                 </div>
-                <div class="text-center">
-                    {% if app.user %}
-                        <a href="{{ path('language_courses_list') }}" class="btn-lingo btn-lingo--white">Start Learning</a>
-                    {% else %}
-                        <a href="{{ path('register') }}" class="btn-lingo btn-lingo--white">Start Learning</a>
-                    {% endif %}
+            </div>
+
+            <!-- Card 2: Image right -->
+            <div class="row align-items-center mb-5 flex-md-row-reverse row-card-home">
+                <div class="col-md-5">
+                    <img src="{{ asset('images/img_standard/4.png') }}" alt="Interactive Content"
+                         class="img-fluid rounded shadow-sm">
+                </div>
+                <div class="col-md-7">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title title-green">Interactive Content</h5>
+                            <p class="card-text">
+                                Dive into immersive lessons, quizzes, and real-world scenarios. Our interactive
+                                content keeps you engaged and motivated. Learn by doing, test your skills,
+                                and reinforce your knowledge with exercises designed to make learning fun and effective.
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
 
+            <!-- Card 3: Image left -->
+            <div class="row align-items-center mb-5 row-card-home">
+                <div class="col-md-5">
+                    <img src="{{ asset('images/img_standard/3.png') }}" alt="Community Support"
+                         class="img-fluid rounded shadow-sm">
+                </div>
+                <div class="col-md-7">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title title-green">Community Support</h5>
+                            <p class="card-text">
+                                Join a vibrant community of learners and native speakers. Share tips, practice
+                                conversations, and get support from fellow learners and mentors. Our community
+                                makes language learning social, motivating, and fun.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center">
+                {% if app.user %}
+                    <a href="{{ path('language_courses_list') }}"
+                       class="btn-lingo btn-lingo--white">Start
+                        Learning
+                    </a>
+                {% else %}
+                    <a href="{{ path('register') }}" class="btn-lingo btn-lingo--white">
+                        Start
+                        Learning
+                    </a>
+                {% endif %}
+            </div>
+        </div>
     </section>
+
     <div class="container">
         <section class="section-white">
             <h2 class="mb-4 text-center">Get Started Today!</h2>
