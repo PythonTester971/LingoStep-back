@@ -28,8 +28,6 @@
     <div>
       <div class="card mb-4 shadow-sm">
         <div class="card-body">
-          <div class="p-2 ">
-          </div>
           <h5 class="card-title">Personalized Learning</h5>
           <p class="card-text">Tailor your learning experience with courses designed to fit your goals and pace.</p>
         </div>
@@ -53,13 +51,22 @@
         </div>
       </div>
     </div>
+    <div class="text-center">
+      {% if app.user %}
+      <a href="{{ path('language_courses_list') }}" class="btn btn-primary btn-lg">Start Learning</a>
+      {% else %}
+      <a href="{{ path('register') }}" class="btn btn-primary btn-lg">Start Learning</a>
+      {% endif %}
+    </div>
   </div>
 </section>
 <section>
-  <h2 class="mt-5 mb-4">Get Started Today!</h2>
-  <p>Sign up now and take the first step towards mastering a new language with LingoStep.</p>
-  <a href="{{ path('register') }}" class="btn btn-primary btn-lg">Sign Up</a>
-  <a href="{{ path('language_courses_list') }}" class="btn btn-secondary btn-lg">Explore Courses</a>
+  <h2 class="mt-5 mb-4 text-center">Get Started Today!</h2>
+  <p class="text-center">Sign up now and take the first step towards mastering a new language with LingoStep.</p>
+  <div class="text-center">
+    <a href="{{ path('register') }}" class="btn btn-primary btn-lg">Sign Up</a>
+    <a href="{{ path('language_courses_list') }}" class="btn btn-secondary btn-lg">Explore Courses</a>
+  </div>
 </section>
 
 {% endblock %}

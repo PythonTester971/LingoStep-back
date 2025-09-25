@@ -2,9 +2,10 @@
 
 namespace App\Repository;
 
+use App\Entity\User;
 use App\Entity\Mission;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Mission>
@@ -40,4 +41,17 @@ class MissionRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+
+    public function findAllMissionByUser(User $user)
+    {
+        return $this->createQueryBuilder('m')
+            ->join('m.answeredQuestions', 'aq')
+            ->join('aq.user', 'u')
+            ->andWhere('u = :user')
+            ->setParameter('user', $user)
+            ->groupBy('m.id')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }
