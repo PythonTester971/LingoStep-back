@@ -1,36 +1,34 @@
 @import "variables";
-
 @import "../../node_modules/bootstrap/scss/bootstrap";
-
 @import "forms";
-
 @import "navbar";
-
 @import "carousel";
-
 @import "quiz-slide";
+@import "footer";
+@import "text";
+@import "button";
 
 // Custom styles
 .my-custom-btn {
-  background-color: $primary; // Utilise maintenant la variable personnalisée
-  border-radius: $border-radius-lg;
-  padding: 0.5rem 1rem;
+    background-color: $primary; // Utilise maintenant la variable personnalisée
+    border-radius: $border-radius-lg;
+    padding: 0.5rem 1rem;
 }
 
 body {
-  background-color: $light;
-  color: $dark;
-  font-family: 'Arial', sans-serif;
+    background-color: $light;
+    color: $dark;
+    font-family: 'Arial', sans-serif;
 }
 
 a {
-  color: $primary;
-  text-decoration: none;
+    color: $primary;
+    text-decoration: none;
 
-  &:hover {
-    color: darken($primary, 10%);
-    text-decoration: underline;
-  }
+    &:hover {
+        color: darken($primary, 10%);
+        text-decoration: underline;
+    }
 }
 
 h1,
@@ -39,6 +37,20 @@ h3,
 h4,
 h5,
 h6 {
-  color: $dark;
-  margin-bottom: 1rem;
+    color: $primary;
+    margin-bottom: 1rem;
+}
+
+.section-green {
+    padding: 4rem;
+    background-color: $primary;
+    color: #FFF !important;
+
+    h1, h2, h3, h4, h5, h6{
+        color: #FFF;
+    }
+}
+
+.section-white{
+    padding: 4rem;
 }
