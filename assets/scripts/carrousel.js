@@ -60,47 +60,4 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
-
-  // function adjustCarouselForScreenSize() {
-  //   const container = document.querySelector(".carousel-container");
-  //   const windowWidth = window.innerWidth;
-
-  //   if (windowWidth < 768) {
-
-  //     slides.forEach(slide => {
-  //       slide.style.flex = "0 0 calc(100% - 1rem)";
-  //       slide.style.minWidth = "calc(100% - 1rem)";
-  //     });
-  //   } else if (windowWidth < 992) {
-
-  //     slides.forEach(slide => {
-  //       slide.style.flex = "0 0 calc(50% - 1rem)";
-  //       slide.style.minWidth = "calc(50% - 1rem)";
-  //     });
-  //   } else {
-
-  //     slides.forEach(slide => {
-  //       slide.style.flex = "0 0 calc(33.333% - 1rem)";
-  //       slide.style.minWidth = "calc(33.333% - 1rem)";
-  //     });
-  //   }
-
-
-  //   const visibleSlides = windowWidth < 768 ? 1 : (windowWidth < 992 ? 2 : 3);
-  //   return Math.max(0, slides.length - visibleSlides);
-  // }
-
-
-  // window.addEventListener('resize', () => {
-  //   currentSlide = 0; // Réinitialiser la position
-  //   const newMaxSlides = adjustCarouselForScreenSize();
-  //   if (newMaxSlides !== maxSlides) {
-  //     maxSlides = newMaxSlides;
-  //   }
-  //   updateSlide();
-  // });
-
-
-  // adjustCarouselForScreenSize();
-  // updateButtonStates();
 });
