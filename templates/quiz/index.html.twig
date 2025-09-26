@@ -4,9 +4,9 @@
 
 {% block main %}
 
-    <div class="container quiz-main-container mt-5">
+    <div class="container quiz-main-container  mt-5">
         <h1 class="text-center">Quiz</h1>
-        <div class="dual-section">
+        <div class="dual-section {% if (index % 2 == 0) %} section-reverse{% endif %}">
             <section class="quiz-main">
                 {{ form_start(form) }}
                 <div class="quiz-question-label">
@@ -24,7 +24,22 @@
             <section class="quiz-secondary">
 
                 <div class="main-img">
-                    <img src="{{ asset('images/img_standard/11.png') }}" alt="sleep">
+                    {% set imgs = [
+                        'images/img_standard/1.png',
+                        'images/img_standard/2.png',
+                        'images/img_standard/3.png',
+                        'images/img_standard/4.png',
+                        'images/img_standard/5.png',
+                        'images/img_standard/6.png',
+                        'images/img_standard/7.png',
+                        'images/img_standard/8.png',
+                        'images/img_standard/9.png',
+                        'images/img_standard/10.png',
+                        'images/img_standard/11.png',
+                        'images/img_standard/12.png'
+                    ] %}
+                    {% set randomImage = random(imgs) %}
+                    <img src="{{ asset(randomImage) }}" alt="sleep">
                 </div>
                 <div class="main-mission-info">
                     <h3 class="text-center">{{ mission.label }}</h3>
