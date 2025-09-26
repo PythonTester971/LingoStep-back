@@ -25,7 +25,8 @@ final class QuizController extends AbstractController
         QuestionRepository $questionRepository,
         Request $request,
         EntityManagerInterface $em
-    ): Response {
+    ): Response
+    {
         $mission = $missionRepository->find($mission_id);
         $question = $questionRepository->find($question_id);
 
@@ -34,6 +35,12 @@ final class QuizController extends AbstractController
         ]);
 
         $form->handleRequest($request);
+
+        $questions = $questionRepository->findBy(['mission' => $mission], ['id' => 'ASC']);
+
+        $currentIndex = array_search($question, $questions, true);
+
+        $nextQuestion = $questions[$currentIndex + 1] ?? null;
 
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
@@ -55,12 +62,6 @@ final class QuizController extends AbstractController
 
             $em->persist($answeredQuestion);
             $em->flush();
-
-            $questions = $questionRepository->findBy(['mission' => $mission], ['id' => 'ASC']);
-
-            $currentIndex = array_search($question, $questions, true);
-
-            $nextQuestion = $questions[$currentIndex + 1] ?? null;
 
 
             if ($nextQuestion) {
@@ -91,18 +92,20 @@ final class QuizController extends AbstractController
             'form' => $form->createView(),
             'question' => $question,
             'mission' => $mission,
+            'index' => $currentIndex + 1,
         ]);
     }
 
 
     #[Route('/quiz/mission/{mission_id}/result', name: 'app_quiz_result')]
     public function result(
-        int $mission_id,
-        MissionRepository $missionRepository,
+        int                          $mission_id,
+        MissionRepository            $missionRepository,
         UserLanguageCourseRepository $userLanguageCourseRepository,
-        UserMissionRepository $userMissionRepository,
-        EntityManagerInterface $em
-    ): Response {
+        UserMissionRepository        $userMissionRepository,
+        EntityManagerInterface       $em
+    ): Response
+    {
         $mission = $missionRepository->find($mission_id);
 
         /** @var \App\Entity\User $user */

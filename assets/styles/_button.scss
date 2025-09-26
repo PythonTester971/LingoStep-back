@@ -1,0 +1,36 @@
+.btn-lingo {
+    display: inline-block;
+    padding: 0.6rem 1.2rem;
+    border-radius: 2rem;
+    text-align: center;
+    font-weight: 600;
+    text-decoration: none !important;
+    transition: all 0.3s ease;
+    cursor: pointer;
+
+    &--white {
+        color: #fff;
+        border: 2px solid #fff;
+        background: transparent;
+
+        &:hover {
+            background: #fff;
+            color: $primary;
+        }
+    }
+
+    &--green {
+        color: $primary;
+        border: 2px solid $primary;
+        background: transparent;
+
+        &:hover {
+            background: $primary;
+            color: #fff;
+        }
+    }
+
+    i {
+        margin-right: 0.5rem;
+    }
+}

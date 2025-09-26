@@ -1,0 +1,13 @@
+.card {
+    .title-green {
+        color: $primary !important;
+    }
+}
+
+.row-card-home{
+    img{
+        @include media-breakpoint-down(lg){
+            margin-bottom: 0.5rem;
+        }
+    }
+}

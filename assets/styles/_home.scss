@@ -1,0 +1,7 @@
+.home-img-top {
+    width: 750px;
+
+    @include media-breakpoint-down(lg) {
+        width: 100%
+    }
+}
