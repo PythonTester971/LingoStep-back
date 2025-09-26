@@ -50,12 +50,16 @@ h6 {
     background-color: $primary;
     color: #FFF !important;
 
-    h1, h2, h3, h4, h5, h6{
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
         color: #FFF;
     }
 }
 
-.section-white{
+.section-white {
     padding: 4rem;
 }
-

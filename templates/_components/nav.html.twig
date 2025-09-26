@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-custom main-header">
   <div class="container-fluid">
     <a class="navbar-brand" href="{{ path('home') }}">
-        <img class="logo" src="{{ asset('images/logo-lingo.png') }}" alt="logo">
+      <img class="logo" src="{{ asset('images/logo-lingo.png') }}" alt="logo">
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -16,10 +16,10 @@
           <ul class="dropdown-menu">
             {% for languageCourse in get_language_courses() %}
             <li>
-                <a class="dropdown-item" href="{{ path('language_courses', {'id':languageCourse.id})}}">{{
+              <a class="dropdown-item" href="{{ path('language_courses', {'id':languageCourse.id})}}">{{
                 languageCourse.language.label
                 }}
-                </a>
+              </a>
             </li>
             {% endfor %}
             <li>
@@ -38,8 +38,7 @@
               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                 aria-expanded="false">Profile</a>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="{{ path('app_user_profile') }}">View Profile</a></li>
-                <li><a class="dropdown-item" href="{{ path('app_user_profile_edit') }}">Edit Profile</a></li>
+                <li><a class="dropdown-item" href="{{ path('app_user_profile') }}">My Profile</a></li>
                 <li><a class="dropdown-item" href="{{ path('user_answered_questions') }}">My missions</a></li>
                 <li><a class="dropdown-item disabled" aria-disabled="true" href="#">Settings</a></li>
               </ul>
@@ -53,18 +52,22 @@
         </li>
         {% if is_granted('ROLE_ADMIN') %}
         <li class="nav-item me-2">
-          <a class="btn-lingo btn-lingo--white" href="{{ path('app_admin') }}"><i class="fa-solid fa-gears"></i> Admin</a>
+          <a class="btn-lingo btn-lingo--white" href="{{ path('app_admin') }}"><i class="fa-solid fa-gears"></i>
+            Admin</a>
         </li>
         {% endif %}
         <li class="nav-item">
-          <a class="btn-lingo btn-lingo--white" href="{{ path('app_logout') }}"><i class="fa-solid fa-user-minus"></i> Log out</a>
+          <a class="btn-lingo btn-lingo--white" href="{{ path('app_logout') }}"><i class="fa-solid fa-user-minus"></i>
+            Log out</a>
         </li>
         {% else %}
         <li class="nav-item me-2">
-          <a class="btn-lingo btn-lingo--white" href="{{ path('register') }}"><i class="fa-solid fa-user-plus"></i> Sign up</a>
+          <a class="btn-lingo btn-lingo--white" href="{{ path('register') }}"><i class="fa-solid fa-user-plus"></i> Sign
+            up</a>
         </li>
         <li class="nav-item">
-          <a class="btn-lingo btn-lingo--white" href="{{ path('app_login') }}"><i class="fa-solid fa-arrow-right-to-bracket"></i>Log in</a>
+          <a class="btn-lingo btn-lingo--white" href="{{ path('app_login') }}"><i
+              class="fa-solid fa-arrow-right-to-bracket"></i>Log in</a>
         </li>
         {% endif %}
       </ul>

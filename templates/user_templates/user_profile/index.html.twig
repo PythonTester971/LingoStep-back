@@ -6,24 +6,26 @@
 
 
 {% block main %}
-
 <h1>{{ app.user.username }} Profile</h1>
 <p>Email: {{ app.user.email }}</p>
 <p>XP : {{ app.user.xp }}</p>
 <p>Language : {{ app.user.language.label }}</p>
 <p>Language Courses :
     {# {% for userLanguageCourse in app.user.userLanguageCourses %}
-    {{ userLanguageCourse.languageCourse.label }} (Progress: {{ userLanguageCourse.progress }}%) {% if not loop.last %},
+    {{ userLanguageCourse.languageCourse.label }} (Progress: {{ userLanguageCourse.progress }}%) {% if not loop.last
+    %},
     {% endif %}
     {% else %}
     No language courses enrolled yet.
     {% endfor %} #}
 </p>
-<div class="d-flex justify-content-start">
+</div>
+<div class="d-flex justify-content-center">
     <a class="btn btn-outline-info me-3" href="{{ path('home') }}">Home</a>
     <a class="btn btn-outline-primary me-3" href="{{ path('app_user_profile_edit', { 'id': app.user.id }) }}">Edit</a>
     <button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{app.user.id}}"
         class="btn btn-outline-danger">Delete</button>
+</div>
 </div>
 <!-- Modal -->
 <div class="modal fade" id="staticBackdrop{{app.user.id}}" data-bs-backdrop="static" data-bs-keyboard="false"
@@ -45,16 +47,17 @@
             </div>
         </div>
     </div>
+
+
+
+    {# <p>Points : {{ app.user.points }}</p>
+    <p>Level : {{ app.user.level }}</p>
+    <p>Badges :
+        {% for badge in app.user.badges %}
+        {{ badge.name }}{% if not loop.last %}, {% endif %}
+        {% else %}
+        No badges earned yet.
+        {% endfor %}
+    </p> #}
 </div>
-
-{# <p>Points : {{ app.user.points }}</p>
-<p>Level : {{ app.user.level }}</p>
-<p>Badges :
-    {% for badge in app.user.badges %}
-    {{ badge.name }}{% if not loop.last %}, {% endif %}
-    {% else %}
-    No badges earned yet.
-    {% endfor %}
-</p> #}
-
 {% endblock %}
