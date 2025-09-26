@@ -1,12 +1,26 @@
-<div class="col-sm-6 mb-3 mb-sm-0">
-  <div class="card">
-    <div class="card-body">
-      <h5 class="card-title">{{ mission.label }}</h5>
-      <p class="card-text">{{ mission.description }}</p>
-      <a href="{{ path('app_quiz', {
-    'mission_id': mission.id,
-    'question_id': question.id
-}) }}" class="btn btn-primary">Start mission</a>
+<div class="col-sm-6 mb-4">
+    <div class="mission-card h-100 shadow-sm">
+
+        <div class="mission-card__header">
+            <h5 class="m-0 text-white">{{ mission.label }}</h5>
+        </div>
+
+        <div class="mission-card__flag">
+            <img src="{{ asset(mission.languageCourse.language.flagPath) }}"
+                 alt="{{ mission.languageCourse.language.label }} flag">
+        </div>
+
+        <div class="mission-card__body">
+            <p class="mission-card__text">{{ mission.description }}</p>
+
+            <a href="{{ path('app_quiz', {
+                'mission_id': mission.id,
+                'question_id': question.id
+            }) }}" class="btn-lingo btn-lingo--green">
+                Start mission
+            </a>
+        </div>
+
     </div>
-  </div>
 </div>
+
