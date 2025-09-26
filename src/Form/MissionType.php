@@ -18,17 +18,17 @@ class MissionType extends AbstractType
             ->add('label')
             ->add('description')
             ->add('xpReward')
-            ->add('illustration')
-            ->add('languageCourse', EntityType::class, [
-                'class' => LanguageCourse::class,
-                'choice_label' => 'label',
-                // ->add('createdAt', null, [
-                //     'widget' => 'single_text',
-                // ])
-                // ->add('updatedAt', null, [
-                //     'widget' => 'single_text',
-                // ])
-            ]);
+            ->add('illustration');
+        // ->add('languageCourse', EntityType::class, [
+        //     'class' => LanguageCourse::class,
+        //     'choice_label' => 'label',
+        // ]);
+        // ->add('createdAt', null, [
+        //     'widget' => 'single_text',
+        // ])
+        // ->add('updatedAt', null, [
+        //     'widget' => 'single_text',
+        // ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

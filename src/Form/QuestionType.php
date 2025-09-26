@@ -16,10 +16,10 @@ class QuestionType extends AbstractType
     {
         $builder
             ->add('instruction')
-            ->add('mission', EntityType::class, [
-                'class' => Mission::class,
-                'choice_label' => 'label',
-            ])
+            // ->add('mission', EntityType::class, [
+            //     'class' => Mission::class,
+            //     'choice_label' => 'label',
+            // ])
             // ->add('answeredQuestion', EntityType::class, [
             //     'class' => AnsweredQuestion::class,
             //     'choice_label' => 'id',

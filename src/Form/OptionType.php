@@ -27,10 +27,10 @@ class OptionType extends AbstractType
                 'label' => 'Is this the correct answer?',
                 'required' => false
             ])
-            ->add('question', EntityType::class, [
-                'class' => Question::class,
-                'choice_label' => 'instruction',
-            ])
+            // ->add('question', EntityType::class, [
+            //     'class' => Question::class,
+            //     'choice_label' => 'instruction',
+            // ])
         ;
     }
 
