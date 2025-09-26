@@ -109,7 +109,6 @@
             </a>
             {% endif %}
         </div>
-        >>>>>>> 8dc2610fffdba458d8e73947b632d66c832e6730
     </div>
 </section>
 
@@ -124,48 +123,10 @@
         </div>
     </section>
 </div>
-<<<<<<< HEAD <div>
-    <div class="card mb-4 shadow-sm">
-        <div class="card-body">
-            <h3 class="card-title">Interactive Content</h3>
-            <p class="card-text">Engage with interactive lessons, quizzes, and real-life scenarios to enhance your
-                learning.</p>
-        </div>
-    </div>
-    </div>
-    <div>
-        <div class="card mb-4 shadow-sm">
-            <div class="card-body">
-                <h3 class="card-title">Community Support</h3>
-                <p class="card-text">Join a vibrant community of learners and native speakers to practice and grow
-                    together.
-                </p>
-            </div>
-        </div>
-    </div>
-    <div class="text-center">
-        {% if app.user %}
-        <a href="{{ path('language_courses_list') }}" class="btn btn-primary btn-lg">Start Learning</a>
-        {% else %}
-        <a href="{{ path('register') }}" class="btn btn-primary btn-lg">Start Learning</a>
-        {% endif %}
-    </div>
-    </div>
-    </section>
-    <section>
-        <h2 class="mt-5 mb-4 text-center">Get Started Today!</h2>
-        <p class="text-center">Sign up now and take the first step towards mastering a new language with LingoStep.</p>
-        <div class="text-center">
-            <a href="{{ path('register') }}" class="btn btn-primary btn-lg">Sign Up</a>
-            <a href="{{ path('language_courses_list') }}" class="btn btn-secondary btn-lg">Explore Courses</a>
-        </div>
-    </section>
-    =======
-    >>>>>>> 8dc2610fffdba458d8e73947b632d66c832e6730
 
-    {% endblock %}
+{% endblock %}
 
-    {% block javascripts %}
-    {{ parent() }}
-    {{ vite_entry_script_tags('carrousel') }}
-    {% endblock %}
+{% block javascripts %}
+{{ parent() }}
+{{ vite_entry_script_tags('carrousel') }}
+{% endblock %}
