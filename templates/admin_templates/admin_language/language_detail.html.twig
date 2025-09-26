@@ -8,15 +8,16 @@
 <h1>{{ language.label }}</h1>
 
 <div class="text-start">
+  <div class="d-flex justify-content-start">
+    <a class="btn-lingo btn-lingo--green me-3" href="{{ path('admin_languages') }}">Back to list</a>
+    <a class="btn-lingo btn-lingo--green" href="{{ path('admin_language_edit', { 'id': language.id }) }}">Edit</a>
+  </div>
   <div class="d-flex justify-content-center mb-3">
     <img src="{{ asset(language.flagPath) }}" alt="{{ language.label }} flag">
   </div>
   <p>Slug: {{ language.slug }}</p>
   <p>Created at: {{ language.createdAt ? language.createdAt|date('Y-m-d') }}</p>
   <p>Updated at: {{ language.updatedAt ? language.updatedAt|date('Y-m-d') }}</p>
-  <div class="d-flex justify-content-start">
-    <a class="btn btn-outline-info me-3" href="{{ path('admin_languages') }}">Back to list</a>
-    <a class="btn btn-outline-primary" href="{{ path('admin_language_edit', { 'id': language.id }) }}">Edit</a>
-  </div>
 
-  {% endblock %}
+</div>
+{% endblock %}

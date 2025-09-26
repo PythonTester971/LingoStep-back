@@ -21,8 +21,9 @@
 </p>
 </div>
 <div class="d-flex justify-content-center">
-    <a class="btn btn-outline-info me-3" href="{{ path('home') }}">Home</a>
-    <a class="btn btn-outline-primary me-3" href="{{ path('app_user_profile_edit', { 'id': app.user.id }) }}">Edit</a>
+    <a class="btn-lingo btn-lingo--green me-3" href="{{ path('home') }}">Home</a>
+    <a class="btn-lingo btn-lingo--green me-3"
+        href="{{ path('app_user_profile_edit', { 'id': app.user.id }) }}">Edit</a>
     <button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{app.user.id}}"
         class="btn btn-outline-danger">Delete</button>
 </div>
@@ -41,9 +42,8 @@
                 Are you sure you want to delete your account {{ app.user.username }} ?
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <a href="{{ path('app_user_profile_delete', {'id': app.user.id}) }}"
-                    class="btn btn-outline-danger">Delete</a>
+                <button type="button" class="btn-lingo" data-bs-dismiss="modal">Close</button>
+                <a href="{{ path('app_user_profile_delete', {'id': app.user.id}) }}" class="btn-lingo">Delete</a>
             </div>
         </div>
     </div>

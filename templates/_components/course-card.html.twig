@@ -1,11 +1,34 @@
-<div class="col-sm-12 col-md-8 col-lg-6 mb-4">
+{# <div class="col-sm-12 col-md-8 col-lg-6 mb-4">
   <div id="course-card-{{ languageCourse.id }}" class="card h-100">
     <img src="{{ asset(languageCourse.language.flagPath) }}" class="card-img-top"
       alt="drapeau {{ languageCourse.language.label }}" />
     <div class="card-body">
       <h5 class="card-title">{{ languageCourse.label }}</h5>
       <p class="card-text">{{ languageCourse.description }}</p>
-      <a href="{{ path('language_course_missions', {'id': languageCourse.id})}}" class="btn btn-primary">Join</a>
+      <a href="{{ path('language_course_missions', {'id': languageCourse.id})}}"
+        class="btn-lingo btn-lingo--green">Join</a>
     </div>
+  </div>
+</div> #}
+
+<div class="col-sm-6 mb-4">
+  <div class="mission-card h-100 shadow-sm">
+
+    <div class="mission-card__header">
+      <h5 class="m-0 text-white">{{ languageCourse.label }}</h5>
+    </div>
+
+    <div class="mission-card__flag">
+      <img src="{{ asset(languageCourse.language.flagPath) }}" alt="{{ languageCourse.language.label }} flag">
+    </div>
+
+    <div class="mission-card__body">
+      <p class="mission-card__text">{{ languageCourse.description }}</p>
+
+      <a href="{{ path('language_course_missions', {'id': languageCourse.id})}}" class="btn-lingo btn-lingo--green">
+        Join Course
+      </a>
+    </div>
+
   </div>
 </div>

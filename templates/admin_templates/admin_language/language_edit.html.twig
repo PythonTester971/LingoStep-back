@@ -4,12 +4,12 @@
 
 {% block main %}
 <h1>Edit {{ language.label }}</h1>
-<a href="{{ path('admin_languages') }}" class="btn btn-outline-secondary">Back to list</a>
+<a href="{{ path('admin_languages') }}" class="btn-lingo btn-lingo--green">Back to list</a>
 
 {{ form_start(form, {'attr': {'id': 'language_form'}}) }}
 {{ form_widget(form) }}
 <button type="button" data-bs-toggle="modal" data-bs-target="#editBackdrop{{language.id}}"
-  class="btn btn-outline-primary">Save changes</button>
+  class="btn-lingo btn-lingo--green">Save changes</button>
 
 <div class="modal fade" id="editBackdrop{{language.id}}" data-bs-backdrop="static" data-bs-keyboard="false"
   tabindex="-1" aria-labelledby="editBackdropLabel" aria-hidden="true">
@@ -24,7 +24,7 @@
         Souhaitez-vous vraiment modifier les informations de {{ language.label }} ?
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn-lingo btn-lingo--green" data-bs-dismiss="modal">Close</button>
         <button type="submit" form="language_form" class="btn btn-outline-danger">Save</button>
       </div>
     </div>

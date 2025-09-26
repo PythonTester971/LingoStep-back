@@ -1,0 +1,18 @@
+<div class="col-sm-6 mb-4">
+  <div class="mission-card h-100 shadow-sm">
+
+    <div class="mission-card__header">
+      <h5 class="m-0 text-white">{{ userMission.mission.label }}</h5>
+    </div>
+
+    <div class="mission-card__body">
+      <p class="mission-card__text">{{ userMission.mission.description }} <span>{{ userMission.mission.illustration
+          }}</span></p>
+
+      <div class="d-flex justify-content-between align-items-center mt-3">
+        <span class="badge bg-success">Completed</span>
+        <span class="text-muted">XP Earned: {{ userMission.xpObtained }}</span>
+      </div>
+
+    </div>
+  </div>

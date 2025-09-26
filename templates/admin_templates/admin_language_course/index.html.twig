@@ -7,8 +7,9 @@
     <h1 class="mb-4">Language Course list</h1>
 
     <div class="d-flex justify-content-evenly mb-4">
-        <a class="btn btn-outline-info me-3" href="{{ path('app_admin') }}">Retour à l'admin</a>
-        <a class="btn btn-outline-info" href="{{path('app_admin_language_course_create')}}">Create a language course</a>
+        <a class="btn-lingo btn-lingo--green me-3" href="{{ path('app_admin') }}">Retour à l'admin</a>
+        <a class="btn-lingo btn-lingo--green" href="{{path('app_admin_language_course_create')}}">Create a language
+            course</a>
     </div>
 
     <table class="table table-hover mt-3">
@@ -52,7 +53,7 @@
                                     Souhaitez-vous vraiment supprimer {{ languageCourse.label }} ?
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary"
+                                    <button type="button" class="btn-lingo btn-lingo--green"
                                         data-bs-dismiss="modal">Close</button>
                                     <a href="{{ path('app_admin_language_course_delete',{'id': languageCourse.id}) }}"
                                         class="btn btn-outline-danger">Delete</a>

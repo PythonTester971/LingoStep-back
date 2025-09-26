@@ -5,29 +5,10 @@
 {% block main %}
 
 <h1>Welcome to your completed missions page!</h1>
-<div>
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">Mission label</th>
-                <th scope="col">Mission description</th>
-                <th scope="col">Mission completed</th>
-                <th scope="col">XP obtained</th>
-                <th scope="col">Date of game</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for userMission in userMissions %}
-            <tr>
-                <td>{{ userMission.mission.label }}</td>
-                <td>{{ userMission.mission.description }}</td>
-                <td>{{ userMission.completed ? 'Yes' : 'No' }}</td>
-                <td>{{ userMission.xpObtained }}</td>
-                <td>{{ userMission.completedAt ? userMission.completedAt|date('Y-m-d H:i') : 'N/A' }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+<div class="row ps-5 pe-5">
+    {% for userMission in userMissions %}
+    {% include "_components/user_mission-card.html.twig" %}
+    {% endfor %}
 </div>
 
 {% endblock %}
