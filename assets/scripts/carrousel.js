@@ -2,14 +2,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const track = document.querySelector(".carousel-track");
   const slides = document.querySelectorAll(".carousel-track .card");
   let currentSlide = 0;
-  const slidesToShow = 3; // Nombre de cartes visibles à la fois
+  const slidesToShow = 3;
 
   if (!track || slides.length === 0) {
     console.error('Carousel elements not found');
     return;
   }
 
-  // Calculer le nombre maximum de décalages possibles
   let maxSlides = Math.max(0, slides.length - slidesToShow);
 
   function updateSlide() {

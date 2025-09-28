@@ -42,6 +42,16 @@ class MissionRepository extends ServiceEntityRepository
     //        ;
     //    }
 
+    public function findById(int $id): ?Mission
+    {
+        return $this->createQueryBuilder('m')
+            ->where('m.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+
     public function findAllMissionByUser(User $user)
     {
         return $this->createQueryBuilder('m')

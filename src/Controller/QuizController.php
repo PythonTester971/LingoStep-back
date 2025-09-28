@@ -11,22 +11,20 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-use App\Repository\UserLanguageCourseRepository;
 use App\Repository\UserMissionRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 final class QuizController extends AbstractController
 {
     #[Route('/quiz/mission/{mission_id}/question/{question_id}', name: 'app_quiz')]
-    public function index(
+    public function createQuiz(
         $mission_id,
         $question_id,
         MissionRepository $missionRepository,
         QuestionRepository $questionRepository,
         Request $request,
         EntityManagerInterface $em
-    ): Response
-    {
+    ): Response {
         $mission = $missionRepository->find($mission_id);
         $question = $questionRepository->find($question_id);
 
@@ -80,7 +78,6 @@ final class QuizController extends AbstractController
             $this->addFlash('error', 'Veuillez sélectionner une réponse.');
 
             return $this->render('quiz/index.html.twig', [
-                'controller_name' => 'QuizController',
                 'form' => $form->createView(),
                 'question' => $question,
                 'mission' => $mission,
@@ -88,7 +85,6 @@ final class QuizController extends AbstractController
         }
 
         return $this->render('quiz/index.html.twig', [
-            'controller_name' => 'QuizController',
             'form' => $form->createView(),
             'question' => $question,
             'mission' => $mission,
@@ -98,14 +94,12 @@ final class QuizController extends AbstractController
 
 
     #[Route('/quiz/mission/{mission_id}/result', name: 'app_quiz_result')]
-    public function result(
+    public function showResult(
         int                          $mission_id,
         MissionRepository            $missionRepository,
-        UserLanguageCourseRepository $userLanguageCourseRepository,
         UserMissionRepository        $userMissionRepository,
         EntityManagerInterface       $em
-    ): Response
-    {
+    ): Response {
         $mission = $missionRepository->find($mission_id);
 
         /** @var \App\Entity\User $user */
@@ -132,23 +126,21 @@ final class QuizController extends AbstractController
             $userMission->setMission($mission);
         }
 
-        $userLanguageCourse = $userLanguageCourseRepository->findOneBy([
-            'user' => $user,
-            'languageCourse' => $mission->getLanguageCourse(),
-        ]);
+        // $userLanguageCourse = $userLanguageCourseRepository->findOneBy([
+        //     'user' => $user,
+        //     'languageCourse' => $mission->getLanguageCourse(),
+        // ]);
 
-        if ($userLanguageCourse) {
-            $userMission->setUserLanguageCourse($userLanguageCourse);
-        }
+        // if ($userLanguageCourse) {
+        //     $userMission->setUserLanguageCourse($userLanguageCourse);
+        // }
 
-        if ($successRate >= 70) {
-            if (!$userMission->isCompleted()) {
+        if ($successRate >= 70 && !$userMission->isCompleted()) {
 
-                $userMission->setXpObtained($mission->getXpReward());
-                $userMission->setIsCompleted(true);
-                $userMission->setCompletedAt(new \DateTimeImmutable());
-                $user->setXp($user->getXp() + $userMission->getXpObtained());
-            }
+            $userMission->setXpObtained($mission->getXpReward());
+            $userMission->setIsCompleted(true);
+            $userMission->setCompletedAt(new \DateTimeImmutable());
+            $user->setXp($user->getXp() + $userMission->getXpObtained());
         } else {
 
             $userMission->setXpObtained(0);

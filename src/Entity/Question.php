@@ -23,6 +23,12 @@ class Question
     #[ORM\JoinColumn(nullable: false)]
     private ?Mission $mission = null;
 
+    #[ORM\Column]
+    private ?\DateTimeImmutable $createdAt = null;
+
+    #[ORM\Column]
+    private ?\DateTimeImmutable $updatedAt = null;
+
     /**
      * @var Collection<int, Option>
      */
@@ -34,12 +40,6 @@ class Question
      */
     #[ORM\OneToMany(targetEntity: AnsweredQuestion::class, mappedBy: 'question', orphanRemoval: false)]
     private Collection $answeredQuestions;
-
-    #[ORM\Column]
-    private ?\DateTimeImmutable $createdAt = null;
-
-    #[ORM\Column]
-    private ?\DateTimeImmutable $updatedAt = null;
 
     public function __construct()
     {

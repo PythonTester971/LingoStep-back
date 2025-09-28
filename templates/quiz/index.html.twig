@@ -4,53 +4,58 @@
 
 {% block main %}
 
-    <div class="container quiz-main-container  mt-5">
-        <h1 class="text-center">Quiz</h1>
-        <div class="dual-section {% if (index % 2 == 0) %} section-reverse{% endif %}">
-            <section class="quiz-main">
-                {{ form_start(form) }}
-                <div class="quiz-question-label">
-                    {{ form_label(form.question) }}
-                </div>
-                <div class="quiz-response">
-                    {{ form_widget(form.question) }}
-                </div>
-                <div class="quiz-btn-submit">
-                    <button class="btn-lingo btn-lingo--white"><i class="fa-solid fa-check"></i> Submit</button>
-                </div>
+<div class="container quiz-main-container  mt-5">
+    <h1 class="text-center">Quiz</h1>
+    <div class="dual-section {% if (index % 2 == 0) %} section-reverse{% endif %}">
+        <section class="quiz-main">
+            {{ form_start(form) }}
+            <div class="quiz-question-label">
+                {{ form_label(form.question) }}
+            </div>
+            <div class="quiz-response">
+                {{ form_widget(form.question) }}
+            </div>
+            <div class="quiz-btn-submit">
+                <button class="btn-lingo btn-lingo--white">
+                    <i class="fa-solid fa-check"></i>
+                    Submit
+                </button>
+            </div>
 
-                {{ form_end(form) }}
-            </section>
-            <section class="quiz-secondary">
+            {{ form_end(form) }}
+        </section>
+        <section class="quiz-secondary">
 
-                <div class="main-img">
-                    {% set imgs = [
-                        'images/img_standard/1.png',
-                        'images/img_standard/2.png',
-                        'images/img_standard/3.png',
-                        'images/img_standard/4.png',
-                        'images/img_standard/5.png',
-                        'images/img_standard/6.png',
-                        'images/img_standard/7.png',
-                        'images/img_standard/8.png',
-                        'images/img_standard/9.png',
-                        'images/img_standard/10.png',
-                        'images/img_standard/11.png',
-                        'images/img_standard/12.png'
-                    ] %}
-                    {% set randomImage = random(imgs) %}
-                    <img src="{{ asset(randomImage) }}" alt="sleep">
-                </div>
-                <div class="main-mission-info">
-                    <h3 class="text-center">{{ mission.label }}</h3>
-                    <p class="step">{{ index }}/{{ mission.questions|length }}</p>
-                    <p class="text-center">Time to focus, language superstar!  Every minute you spend here brings you closer to speaking like a pro. Keep your eyes on the goal, your brain in gear, and let's make learning an adventure!</p>
-                </div>
-            </section>
-        </div>
-
-
+            <div class="main-img">
+                {% set imgs = [
+                'images/img_standard/1.png',
+                'images/img_standard/2.png',
+                'images/img_standard/3.png',
+                'images/img_standard/4.png',
+                'images/img_standard/5.png',
+                'images/img_standard/6.png',
+                'images/img_standard/7.png',
+                'images/img_standard/8.png',
+                'images/img_standard/9.png',
+                'images/img_standard/10.png',
+                'images/img_standard/11.png',
+                'images/img_standard/12.png'
+                ] %}
+                {% set randomImage = random(imgs) %}
+                <img src="{{ asset(randomImage) }}" alt="sleep">
+            </div>
+            <div class="main-mission-info">
+                <h3 class="text-center">{{ mission.label }}</h3>
+                <p class="step">{{ index }}/{{ mission.questions|length }}</p>
+                <p class="text-center">Time to focus, language superstar! Every minute you spend here brings you closer
+                    to speaking like a pro. Keep your eyes on the goal, your brain in gear, and let's make learning an
+                    adventure!</p>
+            </div>
+        </section>
     </div>
+
+
+</div>
 
 
 

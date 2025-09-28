@@ -23,6 +23,12 @@ class Mission
     private ?string $description = null;
 
     #[ORM\Column]
+    private ?int $xpReward = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $illustration = null;
+
+    #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
     #[ORM\Column]
@@ -32,10 +38,21 @@ class Mission
     #[ORM\JoinColumn(nullable: false)]
     private ?LanguageCourse $languageCourse = null;
 
+    #[ORM\OneToOne(
+        mappedBy: 'mission',
+        cascade: ['persist', 'remove']
+    )]
+    private ?Lesson $lesson = null;
+
     /**
      * @var Collection<int, Question>
      */
-    #[ORM\OneToMany(targetEntity: Question::class, mappedBy: 'mission', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToMany(
+        targetEntity: Question::class,
+        mappedBy: 'mission',
+        cascade: ['persist', 'remove'],
+        orphanRemoval: true
+    )]
     private Collection $questions;
 
     /**
@@ -44,21 +61,15 @@ class Mission
     #[ORM\OneToMany(targetEntity: AnsweredQuestion::class, mappedBy: 'mission', orphanRemoval: false)]
     private Collection $answeredQuestions;
 
-    #[ORM\Column]
-    private ?int $xpReward = null;
-
     /**
      * @var Collection<int, UserMission>
      */
-    #[ORM\OneToMany(targetEntity: UserMission::class, mappedBy: 'mission', orphanRemoval: false)]
+    #[ORM\OneToMany(
+        targetEntity: UserMission::class,
+        mappedBy: 'mission',
+        orphanRemoval: false
+    )]
     private Collection $userMissions;
-
-    #[ORM\Column(length: 255)]
-    private ?string $illustration = null;
-
-    #[ORM\OneToOne(mappedBy: 'mission', cascade: ['persist', 'remove'])]
-    private ?Lesson $lesson = null;
-
 
     public function __construct()
     {
