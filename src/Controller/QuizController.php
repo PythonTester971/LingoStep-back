@@ -126,28 +126,20 @@ final class QuizController extends AbstractController
             $userMission->setMission($mission);
         }
 
-        // $userLanguageCourse = $userLanguageCourseRepository->findOneBy([
-        //     'user' => $user,
-        //     'languageCourse' => $mission->getLanguageCourse(),
-        // ]);
+        if ($successRate >= 70)
+            if (!$userMission->isCompleted()) {
 
-        // if ($userLanguageCourse) {
-        //     $userMission->setUserLanguageCourse($userLanguageCourse);
-        // }
+                $userMission->setXpObtained($mission->getXpReward());
+                $userMission->setIsCompleted(true);
+                $userMission->setCompletedAt(new \DateTimeImmutable());
+                $user->setXp($user->getXp() + $userMission->getXpObtained());
+            } else {
 
-        if ($successRate >= 70 && !$userMission->isCompleted()) {
-
-            $userMission->setXpObtained($mission->getXpReward());
-            $userMission->setIsCompleted(true);
-            $userMission->setCompletedAt(new \DateTimeImmutable());
-            $user->setXp($user->getXp() + $userMission->getXpObtained());
-        } else {
-
-            $userMission->setXpObtained(0);
-            $userMission->setIsCompleted(false);
-            $userMission->setCompletedAt(null);
-            $this->addFlash('warning', 'Mission échouée, vous n’avez gagné aucun XP.');
-        }
+                $userMission->setXpObtained(0);
+                $userMission->setIsCompleted(false);
+                $userMission->setCompletedAt(null);
+                $this->addFlash('warning', 'Mission échouée, vous n’avez gagné aucun XP.');
+            }
 
         $em->persist($userMission);
         $em->flush();
