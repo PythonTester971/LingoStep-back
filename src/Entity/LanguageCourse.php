@@ -32,7 +32,7 @@ class LanguageCourse
     #[ORM\Column]
     private ?\DateTimeImmutable $updatedAt = null;
 
-    #[ORM\ManyToOne(inversedBy: 'languageCourses')]
+    #[ORM\ManyToOne]
     private ?Language $language = null;
 
     /**

@@ -22,6 +22,7 @@ final class AdminLanguageCourseController extends AbstractController
     {
         $languageCourses = $languageRepository->findAll();
 
+
         return $this->render('admin_templates/admin_language_course/index.html.twig', [
             'languageCourses' => $languageCourses,
         ]);
@@ -35,6 +36,7 @@ final class AdminLanguageCourseController extends AbstractController
         if (!$languageCourse) {
             throw $this->createNotFoundException('The language course does not exist');
         }
+
         $missions = $languageCourse->getMissions();
 
         return $this->render('admin_templates/admin_language_course/detail-language_course.html.twig', [

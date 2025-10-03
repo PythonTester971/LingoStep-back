@@ -21,11 +21,7 @@ class QuizType extends AbstractType
                 'choice_label' => 'label',
                 'expanded' => true,
                 'multiple' => false,
-                'query_builder' => function (OptionRepository $er) use ($options) {
-                    return $er->createQueryBuilder('o')
-                        ->where('o.question = :question')
-                        ->setParameter('question', $options['question']);
-                }
+                'required' => true,
             ]);
     }
 

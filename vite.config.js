@@ -12,10 +12,7 @@ export default defineConfig({
             input: {
                 app: "./assets/app.js",
                 carrousel: "./assets/scripts/carrousel.js"
-            },
-            external: [
-                '@symfony/stimulus-bridge/controllers.json'
-            ]
+            }
         }
     },
     resolve: {

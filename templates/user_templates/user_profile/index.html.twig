@@ -11,13 +11,13 @@
 <p>XP : {{ app.user.xp }}</p>
 <p>Language : {{ app.user.language.label }}</p>
 <p>Language Courses :
-    {# {% for userLanguageCourse in app.user.userLanguageCourses %}
+    {% for userLanguageCourse in app.user.userLanguageCourses %}
     {{ userLanguageCourse.languageCourse.label }} (Progress: {{ userLanguageCourse.progress }}%) {% if not loop.last
     %},
     {% endif %}
     {% else %}
     No language courses enrolled yet.
-    {% endfor %} #}
+    {% endfor %}
 </p>
 </div>
 <div class="d-flex justify-content-center">

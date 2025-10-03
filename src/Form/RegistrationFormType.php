@@ -41,35 +41,21 @@ class RegistrationFormType extends AbstractType
                 'mapped' => false,
                 'attr' => ['autocomplete' => 'new-password'],
                 'constraints' => [
-                    new NotBlank([
-                        'message' => 'Please enter a password',
-                    ]),
-                    new Length([
-                        'min' => 12,
-                        'minMessage' => 'Your password should be at least {{ limit }} characters',
-                        // max length allowed by Symfony for security reasons
-                        'max' => 4096,
-                    ]),
-                    new Regex([
-                        'pattern' => '/[A-Z]/',
-                        'message' => 'Your password must contain at least one uppercase letter.',
-                    ]),
-                    new Regex([
-                        'pattern' => '/[a-z]/',
-                        'message' => 'Your password must contain at least one lowercase letter.',
-                    ]),
-                    new Regex([
-                        'pattern' => '/\d/',
-                        'message' => 'Your password must contain at least one number.',
-                    ]),
-                    new Regex([
-                        'pattern' => '/[\W_]/',
-                        'message' => 'Your password must contain at least one special character.',
-                    ]),
+                    new Length(
+                        min: 12,
+                        max: 4096,
+                        minMessage: "Password must be at least {{ limit }} characters long"
+                    ),
+                    new Regex(
+                        pattern: "/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[\W]).{12,4096}$/",
+                        message: "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character"
+                    ),
+                    new NotBlank(message: "Password should not be blank")
                 ],
             ])
         ;
     }
+
 
     public function configureOptions(OptionsResolver $resolver): void
     {
