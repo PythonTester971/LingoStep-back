@@ -4,69 +4,69 @@
 
 {% block main %}
 
-    {% set percent = (score / total * 100)|round(0, 'floor') %}
+{% set percent = successRate|round(0, 'floor') %}
 
-    {% if percent >= 70 %}
-        {% set resultClass = 'result--green' %}
-        {% set message = 'Excellent work! You really master this topic.' %}
-        {% set subMessage = 'Keep it up and continue your progress!' %}
-    {% elseif percent >= 40 %}
-        {% set resultClass = 'result--yellow' %}
-        {% set message = 'Not bad! You\'re on the right track.' %}
-        {% set subMessage = 'A little more practice and you\'ll ace it next time.' %}
-    {% else %}
-        {% set resultClass = 'result--red' %}
-        {% set message = 'It\'s a bit low this time.' %}
-        {% set subMessage = 'Don\'t give up! Review the lessons and try again.' %}
-    {% endif %}
+{% if percent >= 70 %}
+{% set resultClass = 'result--green' %}
+{% set message = 'Excellent work! You really master this topic.' %}
+{% set subMessage = 'Keep it up and continue your progress!' %}
+{% elseif percent >= 40 %}
+{% set resultClass = 'result--yellow' %}
+{% set message = 'Not bad! You\'re on the right track.' %}
+{% set subMessage = 'A little more practice and you\'ll ace it next time.' %}
+{% else %}
+{% set resultClass = 'result--red' %}
+{% set message = 'It\'s a bit low this time.' %}
+{% set subMessage = 'Don\'t give up! Review the lessons and try again.' %}
+{% endif %}
 
-    {# Image aléatoire #}
-    {% set imgs = [
-        'images/img_standard/1.png',
-        'images/img_standard/2.png',
-        'images/img_standard/3.png',
-        'images/img_standard/4.png',
-        'images/img_standard/5.png',
-        'images/img_standard/6.png',
-        'images/img_standard/7.png',
-        'images/img_standard/8.png',
-        'images/img_standard/9.png',
-        'images/img_standard/10.png',
-        'images/img_standard/11.png',
-        'images/img_standard/12.png'
-    ] %}
-    {% set randomImage = random(imgs) %}
+{# Image aléatoire #}
+{% set imgs = [
+'images/img_standard/1.png',
+'images/img_standard/2.png',
+'images/img_standard/3.png',
+'images/img_standard/4.png',
+'images/img_standard/5.png',
+'images/img_standard/6.png',
+'images/img_standard/7.png',
+'images/img_standard/8.png',
+'images/img_standard/9.png',
+'images/img_standard/10.png',
+'images/img_standard/11.png',
+'images/img_standard/12.png'
+] %}
+{% set randomImage = random(imgs) %}
 
-    <div class="container mt-5 quiz-result">
-        <div class="row justify-content-center">
-            <div class="col-lg-8 text-center">
+<div class="container mt-5 quiz-result">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 text-center">
 
-                <h1 class="quiz-result__title">Quiz Result</h1>
+            <h1 class="quiz-result__title">Quiz Result</h1>
 
-                <div class="quiz-result__image mb-4">
-                    <img src="{{ asset(randomImage) }}" alt="Illustration" class="img-fluid rounded shadow-sm">
-                </div>
-
-                <div class="result {{ resultClass }}">
-                    <div class="quiz-result__score mb-4">
-                        <span>{{ percent }}%</span>
-                    </div>
-
-                    <p class="quiz-result__message">{{ message }}</p>
-                    <p class="quiz-result__sub">{{ subMessage }}</p>
-
-                    <p class="quiz-result__xp">
-                        You received <strong>{{ xpObtained }} XP</strong> for this quiz!
-                    </p>
-                </div>
-
-                <a class="btn-lingo btn-lingo--green mt-4 mb-5"
-                   href="{{ path('language_course_missions', {'id': languageCourse.id }) }}">
-                    Back to Missions
-                </a>
-
+            <div class="quiz-result__image mb-4">
+                <img src="{{ asset(randomImage) }}" alt="Illustration" class="img-fluid rounded shadow-sm">
             </div>
+
+            <div class="result {{ resultClass }}">
+                <div class="quiz-result__score mb-4">
+                    <span>{{ percent }}%</span>
+                </div>
+
+                <p class="quiz-result__message">{{ message }}</p>
+                <p class="quiz-result__sub">{{ subMessage }}</p>
+
+                <p class="quiz-result__xp">
+                    You received <strong>{{ xpObtained }} XP</strong> for this quiz!
+                </p>
+            </div>
+
+            <a class="btn-lingo btn-lingo--green mt-4 mb-5"
+                href="{{ path('language_course_missions', {'id': languageCourse.id }) }}">
+                Back to Missions
+            </a>
+
         </div>
     </div>
+</div>
 
 {% endblock %}

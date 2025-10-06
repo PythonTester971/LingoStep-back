@@ -108,7 +108,8 @@ final class QuizController extends AbstractController
         $answered = $mission->getAnsweredQuestions($user);
         $score = 0;
         foreach ($answered as $ans) {
-            if ($ans->getOptione()->isCorrect()) {
+            $option = $ans->getOptione();
+            if ($option && $option->isCorrect()) {
                 $score++;
             }
         }
@@ -126,20 +127,26 @@ final class QuizController extends AbstractController
             $userMission->setMission($mission);
         }
 
-        if ($successRate >= 70)
+        if ($successRate >= 70) {
             if (!$userMission->isCompleted()) {
-
                 $userMission->setXpObtained($mission->getXpReward());
                 $userMission->setIsCompleted(true);
                 $userMission->setCompletedAt(new \DateTimeImmutable());
+
                 $user->setXp($user->getXp() + $userMission->getXpObtained());
+                $em->persist($user);
             } else {
 
                 $userMission->setXpObtained(0);
+            }
+        } else {
+
+            $userMission->setXpObtained(0);
+            if (!$userMission->isCompleted()) {
                 $userMission->setIsCompleted(false);
                 $userMission->setCompletedAt(null);
-                $this->addFlash('warning', 'Mission échouée, vous n’avez gagné aucun XP.');
             }
+        }
 
         $em->persist($userMission);
         $em->flush();
