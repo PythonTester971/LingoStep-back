@@ -102,10 +102,21 @@ final class QuizController extends AbstractController
     ): Response {
         $mission = $missionRepository->find($mission_id);
 
-        /** @var \App\Entity\User $user */
-        $user = $this->getUser();
+        /** @var \App\Entity\User $tokenUser */
+        $tokenUser = $this->getUser();
 
-        $answered = $mission->getAnsweredQuestions($user);
+        $user = $em->getRepository(\App\Entity\User::class)->find($tokenUser->getId());
+        if (!$user) {
+            throw new \RuntimeException('User not found');
+        }
+
+        $allAnswered = $em->getRepository(AnsweredQuestion::class)->findBy([
+            'mission' => $mission,
+        ]);
+
+        $answered = array_filter($allAnswered, function ($ans) use ($user) {
+            return $ans->getUser() && $ans->getUser()->getId() === $user->getId();
+        });
         $score = 0;
         foreach ($answered as $ans) {
             $option = $ans->getOptione();
@@ -116,10 +127,14 @@ final class QuizController extends AbstractController
         $total = count($answered);
         $successRate = $total > 0 ? ($score / $total) * 100 : 0;
 
-        $userMission = $userMissionRepository->findOneBy([
-            'user' => $user,
-            'mission' => $mission,
-        ]);
+        $userMission = null;
+        $userMissions = $userMissionRepository->findBy(['mission' => $mission]);
+        foreach ($userMissions as $uM) {
+            if ($uM->getUser() && $uM->getUser()->getId() === $user->getId()) {
+                $userMission = $uM;
+                break;
+            }
+        }
 
         if (!$userMission) {
             $userMission = new UserMission();
@@ -128,21 +143,21 @@ final class QuizController extends AbstractController
         }
 
         if ($successRate >= 70) {
-            if (!$userMission->isCompleted()) {
+            // Award XP if the mission wasn't completed yet OR xp wasn't recorded (xpObtained == 0)
+            $xpNotRecorded = ((int) $userMission->getXpObtained() === 0);
+            if (!$userMission->isCompleted() || $xpNotRecorded) {
                 $userMission->setXpObtained($mission->getXpReward());
                 $userMission->setIsCompleted(true);
                 $userMission->setCompletedAt(new \DateTimeImmutable());
 
-                $user->setXp($user->getXp() + $userMission->getXpObtained());
+                $currentXp = (int) $user->getXp();
+                $user->setXp($currentXp + (int) $userMission->getXpObtained());
                 $em->persist($user);
-            } else {
-
-                $userMission->setXpObtained(0);
             }
         } else {
 
-            $userMission->setXpObtained(0);
             if (!$userMission->isCompleted()) {
+                $userMission->setXpObtained(0);
                 $userMission->setIsCompleted(false);
                 $userMission->setCompletedAt(null);
             }

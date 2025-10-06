@@ -25,9 +25,7 @@ class RegistrationFormType extends AbstractType
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
                 'constraints' => [
-                    new IsTrue([
-                        'message' => 'You should agree to our terms.',
-                    ]),
+                    new IsTrue(message: 'You should agree to our terms.'),
                 ],
             ])
             ->add('username')
@@ -40,6 +38,11 @@ class RegistrationFormType extends AbstractType
             ->add('plainPassword', PasswordType::class, [
                 'mapped' => false,
                 'attr' => ['autocomplete' => 'new-password'],
+                'constraints' => [
+                    new NotBlank(message: 'Password should not be blank'),
+                    new Length(min: 12, minMessage: 'Password must be at least {{ limit }} characters long'),
+                    new Regex(pattern: '/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[\W]).{12,4096}$/', message: 'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character'),
+                ],
             ])
         ;
     }

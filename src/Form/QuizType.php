@@ -3,7 +3,6 @@
 namespace App\Form;
 
 use App\Entity\Option;
-use App\Repository\OptionRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;

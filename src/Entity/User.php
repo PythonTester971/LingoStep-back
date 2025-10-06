@@ -37,16 +37,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var string The hashed password
      */
     #[ORM\Column]
-    #[Length(
-        min: 12,
-        max: 4096,
-        minMessage: "Password must be at least {{ limit }} characters long"
-    )]
-    #[Regex(
-        pattern: "/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[\W]).{12,4096}$/",
-        message: "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character"
-    )]
-    #[NotBlank(message: "Password should not be blank")]
     private ?string $password = null;
 
     #[ORM\Column(length: 255)]

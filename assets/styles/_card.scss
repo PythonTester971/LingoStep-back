@@ -4,9 +4,9 @@
     }
 }
 
-.row-card-home{
-    img{
-        @include media-breakpoint-down(lg){
+.row-card-home {
+    img {
+        @include media-breakpoint-down(lg) {
             margin-bottom: 0.5rem;
         }
     }
@@ -25,6 +25,8 @@
     overflow: hidden;
     display: flex;
     flex-direction: column;
+    height: 100%;
+    width: 100%;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 
     &:hover {
@@ -41,6 +43,7 @@
     &__flag {
         text-align: center;
         background: #f8f9fa;
+
         img {
             max-width: 100%;
             height: 180px;
