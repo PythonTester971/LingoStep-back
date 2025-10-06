@@ -9,8 +9,10 @@
 
 <div class="text-start">
   <div class="d-flex justify-content-start mb-3">
-    <a class="btn btn-outline-info me-3" href="{{ path('admin_language_course') }}">Back to list</a>
-    <a class="btn btn-outline-primary" href="{{ path('edit_admin_option', { 'id': option.id }) }}">Edit</a>
+    <a class="btn-lingo btn-lingo--green me-3"
+      href="{{ path('detail_admin_question', { 'id': option.question.id }) }}">Back
+      to question</a>
+    <a class="btn-lingo btn-lingo--green" href="{{ path('edit_admin_option', { 'id': option.id }) }}">Edit</a>
   </div>
   <p>Related question: {{ option.question ? option.question.instruction : 'N/A' }}</p>
   <p>Code: {{ option.code }}</p>

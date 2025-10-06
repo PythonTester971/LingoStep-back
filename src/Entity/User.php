@@ -87,6 +87,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: UserLanguageCourse::class, mappedBy: 'user', cascade: ['persist', 'remove'])]
     private Collection $userLanguageCourses;
 
+    #[ORM\Column]
+    private ?bool $isArchived = null;
+
     public function __construct()
     {
         $this->answeredQuestions = new ArrayCollection();
@@ -332,6 +335,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $userLanguageCourse->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function isArchived(): ?bool
+    {
+        return $this->isArchived;
+    }
+
+    public function setIsArchived(bool $isArchived): static
+    {
+        $this->isArchived = $isArchived;
 
         return $this;
     }

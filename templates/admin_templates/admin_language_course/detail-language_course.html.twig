@@ -9,8 +9,8 @@
 
 <div class="text-start">
   <div class="d-flex justify-content-start mb-3">
-    <a class="btn btn-outline-info me-3" href="{{ path('admin_language_course') }}">Back to list</a>
-    <a class="btn btn-outline-primary"
+    <a class="btn-lingo btn-lingo--green me-3" href="{{ path('admin_language_course') }}">Back to courses</a>
+    <a class="btn-lingo btn-lingo--green"
       href="{{ path('app_admin_language_course_edit', { 'id': languageCourse.id }) }}">Edit</a>
   </div>
   <p>Description: {{ languageCourse.description }}</p>
@@ -21,8 +21,9 @@
     <p>Missions:</p>
 
     <div class="d-flex justify-content-evenly mb-4">
-      <a class="btn btn-outline-info me-3" href="{{ path('app_admin') }}">Retour à l'admin</a>
-      <a class="btn btn-outline-info" href="{{path('create_admin_mission', { 'id': languageCourse.id })}}">Create a
+      <a class="btn-lingo btn-lingo--green me-3" href="{{ path('app_admin') }}">Retour à l'admin</a>
+      <a class="btn-lingo btn-lingo--green" href="{{path('create_admin_mission', { 'id': languageCourse.id })}}">Create
+        a
         mission</a>
     </div>
     <table class="table table-hover mt-3">

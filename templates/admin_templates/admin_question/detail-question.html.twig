@@ -9,8 +9,9 @@
 
 <div class="text-start">
   <div class="d-flex justify-content-start mb-3">
-    <a class="btn btn-outline-info me-3" href="{{ path('admin_language_course') }}">Back to list</a>
-    <a class="btn btn-outline-primary" href="{{ path('edit_admin_question', { 'id': question.id }) }}">Edit</a>
+    <a class="btn-lingo btn-lingo--green me-3"
+      href="{{ path('detail_admin_mission', { 'id': question.mission.id }) }}">Back to mission</a>
+    <a class="btn-lingo btn-lingo--green" href="{{ path('edit_admin_question', { 'id': question.id }) }}">Edit</a>
   </div>
   <p>Description: {{ question.instruction }}</p>
   <p>Created at: {{ question.createdAt ? question.createdAt|date('Y-m-d') }}</p>
@@ -19,8 +20,8 @@
   <div>
     <p>Options:</p>
     <div class="d-flex justify-content-evenly mb-4">
-      <a class="btn btn-outline-info me-3" href="{{ path('app_admin') }}">Retour à l'admin</a>
-      <a class="btn btn-outline-info" href="{{path('create_admin_option', { 'id': question.id })}}">Create an
+      <a class="btn-lingo btn-lingo--green me-3" href="{{ path('app_admin') }}">Retour à l'admin</a>
+      <a class="btn-lingo btn-lingo--green" href="{{path('create_admin_option', { 'id': question.id })}}">Create an
         option</a>
     </div>
     <table class="table table-hover mt-3">

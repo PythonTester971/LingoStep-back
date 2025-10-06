@@ -18,8 +18,7 @@
   <p>Created at: {{ user.createdAt ? user.createdAt|date('Y-m-d') }}</p>
   <p>Updated at: {{ user.updatedAt ? user.updatedAt|date('Y-m-d') }}</p>
   <div class="d-flex justify-content-start">
-    <a class="btn btn-outline-info me-3" href="{{ path('app_admin_users') }}">Back to list</a>
-    <a class="btn btn-outline-primary" href="{{ path('app_admin_user_edit', { 'id': user.id }) }}">Edit</a>
+    <a class="btn-lingo btn-lingo--green me-3" href="{{ path('app_admin_users') }}">Back to list</a>
   </div>
 
   {% endblock %}
