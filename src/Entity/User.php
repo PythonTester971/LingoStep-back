@@ -37,7 +37,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var string The hashed password
      */
     #[ORM\Column]
-
     #[Length(
         min: 12,
         max: 4096,
@@ -54,7 +53,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $username = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $picturePath = null;
+    private ?string $picturePath = "images/thin-smoke-blue_23-2147785935.jpg";
 
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
@@ -88,7 +87,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private Collection $userLanguageCourses;
 
     #[ORM\Column]
-    private ?bool $isArchived = null;
+    private ?bool $isArchived = false;
 
     public function __construct()
     {
@@ -340,6 +339,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     public function isArchived(): ?bool
+    {
+        return $this->isArchived;
+    }
+
+    public function getIsArchived(): bool
     {
         return $this->isArchived;
     }

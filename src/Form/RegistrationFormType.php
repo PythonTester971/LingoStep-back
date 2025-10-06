@@ -40,18 +40,6 @@ class RegistrationFormType extends AbstractType
             ->add('plainPassword', PasswordType::class, [
                 'mapped' => false,
                 'attr' => ['autocomplete' => 'new-password'],
-                'constraints' => [
-                    new Length(
-                        min: 12,
-                        max: 4096,
-                        minMessage: "Password must be at least {{ limit }} characters long"
-                    ),
-                    new Regex(
-                        pattern: "/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[\W]).{12,4096}$/",
-                        message: "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character"
-                    ),
-                    new NotBlank(message: "Password should not be blank")
-                ],
             ])
         ;
     }
